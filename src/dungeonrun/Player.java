@@ -15,6 +15,9 @@ import java.util.Scanner;
  * @author Liam
  */
 
+//Contains all attributes associated to the player
+//Includes: Stats, Inventory, Level, Name
+//Also provides static method that allows player to level up their stats and a static method to check whether an item is in their inventory
 public class Player {
     
     public static String name;
@@ -59,12 +62,12 @@ public class Player {
                 switch(Integer.valueOf(scan.nextLine()))
                 {
                     case 1:
-                        Player.maxHp += 10;
-                        Player.currentHp += 10;
+                        Player.maxHp += 20;
+                        Player.currentHp += 20;
                         break;
                     case 2:
-                        Player.maxMp += 5;
-                        Player.currentMp += 5;
+                        Player.maxMp += 15;
+                        Player.currentMp += 15;
                         break;
                     case 3:
                         Player.atk ++;

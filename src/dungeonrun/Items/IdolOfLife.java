@@ -22,7 +22,8 @@ public class IdolOfLife extends Item{
         this.itemCode = 20;
     }
     
-    public void UseItem(Enemy enemy)
+    @Override
+    public void UseItem()
     {
         Player.currentHp = Player.maxHp;
     }

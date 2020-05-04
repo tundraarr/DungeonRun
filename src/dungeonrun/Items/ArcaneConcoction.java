@@ -5,25 +5,24 @@
  */
 package dungeonrun.Items;
 
-import dungeonrun.Enemies.Enemy;
 import dungeonrun.Player;
 
 /**
  *
  * @author Liam
  */
-public class ScrollOfWrath extends Item{
+public class ArcaneConcoction extends Item{
     
-    public ScrollOfWrath()
+    public ArcaneConcoction()
     {
-        this.name = "Scroll of Wrath";
-        this.description = "Increase your attack power by 5";
-        this.itemCode = 10;
+        this.name = "Arcane Concoction";
+        this.description = "Recover all of your Mp";
+        this.itemCode = 40;
     }
     
     @Override
     public void UseItem()
     {
-        Player.atk += 5;
+        Player.currentMp = Player.maxMp;
     }
 }

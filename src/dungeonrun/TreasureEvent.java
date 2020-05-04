@@ -5,9 +5,7 @@
  */
 package dungeonrun;
 
-import dungeonrun.Items.IdolOfLife;
-import dungeonrun.Items.Item;
-import dungeonrun.Items.ScrollOfWrath;
+import dungeonrun.Items.*;
 import java.util.Random;
 
 /**
@@ -25,7 +23,7 @@ public class TreasureEvent extends Event{
         this.eventName = "Treasure";
         this.maxChance = 20;
         this.minChance = 0;
-        treasures = new Item[]{new ScrollOfWrath(), new IdolOfLife()};
+        treasures = new Item[]{new ScrollOfWrath(), new IdolOfLife(), new AstralDust(), new ArcaneConcoction()};
     }
     
     @Override
