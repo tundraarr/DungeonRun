@@ -23,7 +23,7 @@ public class TreasureEvent extends Event{
         this.eventName = "Treasure";
         this.maxChance = 20;
         this.minChance = 0;
-        treasures = new Item[]{new ScrollOfWrath(), new IdolOfLife(), new AstralDust(), new ArcaneConcoction()};
+        treasures = new Item[]{new ScrollOfWrath(), new IdolOfLife(), new AstralDust(), new ArcaneConcoction(), new DevilsHeart()};
     }
     
     @Override

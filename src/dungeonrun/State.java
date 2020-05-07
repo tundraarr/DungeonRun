@@ -38,8 +38,6 @@ public abstract class State {
             case INTERMISSION:
                 nextState = new IntermissionState();
                 break;
-            case INVENTORY:
-                break;
             case SHOP:
                 nextState = new ShopState();
                 break;

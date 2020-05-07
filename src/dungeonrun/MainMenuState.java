@@ -33,7 +33,7 @@ public class MainMenuState extends State{
                 userInput = scan.nextLine();
                 nextState = HandleChoice();
             }
-            catch(Exception e)
+            catch(InvalidInputException | NumberFormatException e)
             {
                 System.out.println("Input Invalid. Enter a value 1 - 4");
             }
@@ -73,9 +73,10 @@ public class MainMenuState extends State{
                         System.out.println("No Data Found");
                     }
                 }
-                catch(Exception e)
+                catch(IOException e)
                 {
                     System.err.println(e);
+                    System.err.println("Load error");
                 }
                 break;
             //Print out a list of the player's deceased characters
@@ -86,9 +87,9 @@ public class MainMenuState extends State{
                     System.out.println("Type anything to continue...");
                     scan.nextLine();
                 }
-                catch(Exception e)
+                catch(IOException e)
                 {
-                    System.err.println("Error - " + e);
+                    System.err.println("Error in getting graveyard data - " + e);
                 }               
                 return null;
             //Close the application

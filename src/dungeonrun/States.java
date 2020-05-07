@@ -15,7 +15,6 @@ public enum States {
     MAINMENU,
     NEWGAME,
     INTERMISSION,
-    INVENTORY,
     SHOP,
     BATTLE,
     END

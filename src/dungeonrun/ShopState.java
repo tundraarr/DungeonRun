@@ -61,7 +61,7 @@ public class ShopState extends State{
                     throw new InvalidInputException();
                 }
             }
-            catch(Exception e)
+            catch(InvalidInputException | NumberFormatException e)
             {
                 System.out.println("Invalid input! Input a value between " + 0 + " - " + shopItems.length);
             }

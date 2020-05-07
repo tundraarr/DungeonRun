@@ -6,6 +6,7 @@
 package dungeonrun;
 import dungeonrun.Items.*;
 import dungeonrun.Spells.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -64,9 +65,9 @@ public class NewGameState extends State{
                         {
                             SaveSystem.SaveGame();
                         }
-                        catch(Exception e)
+                        catch(IOException e)
                         {
-                            System.err.println("Error - " + e);
+                            System.err.println("Save Error - " + e);
                         }
                     }
                     else if(userInput.compareTo("n") == 0)
