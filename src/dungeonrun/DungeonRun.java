@@ -10,11 +10,6 @@ package dungeonrun;
  * @author Liam
  */
 public class DungeonRun {
-
-    /**
-     * @param args the command line arguments
-     */
-    //static boolean isPlaying = true;
     
     public static void main(String[] args) {
         //Intialize the default state of the game to be the Main Menu State

@@ -15,13 +15,13 @@ import java.io.*;
 //Also contains method that enables the addition of a character's data when they are defeated
 public class GraveSystem {
     
-    private static String graveFile = "graveyard.bin";
+    private static String graveFile = "graveyard.txt";
     
     //Add the player's name, level and gold amount to the graveyard file
     public static void AddToGraveyard() throws IOException
     {    
         PrintWriter pw = new PrintWriter(new FileOutputStream(graveFile, true));
-        pw.append("\n" + Player.name + " Level: " + Player.level + " Gold: " + Player.gold + " | " + LocalDate.now());
+        pw.append(Player.name + " Level: " + Player.level + " Gold: " + Player.gold + " | " + LocalDate.now() + "\n");
         pw.close();
     }
     

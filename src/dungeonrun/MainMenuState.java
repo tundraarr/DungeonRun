@@ -22,13 +22,14 @@ public class MainMenuState extends State{
         {
             try
             {
-                System.out.println("======DUNGEON RUN======");
-                System.out.println("=======================");
+                System.out.println("================DUNGEON RUN=============");
+                System.out.println("===A game of luck and.... mostly luck===");
+                System.out.println("========================================");
                 System.out.println("1) New Game");
                 System.out.println("2) Continue Game");
                 System.out.println("3) View Graveyard");
                 System.out.println("4) Quit");
-                System.out.println("=======================");
+                System.out.println("========================================");
 
                 userInput = scan.nextLine();
                 nextState = HandleChoice();
