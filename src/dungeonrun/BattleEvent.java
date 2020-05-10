@@ -9,6 +9,9 @@ import java.util.Random;
  *
  * @author Liam
  */
+
+//Event for engaging into battle with an enemy
+//Changes to Battle State
 public class BattleEvent extends Event{
     
     public BattleEvent()

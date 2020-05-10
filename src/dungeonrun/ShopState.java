@@ -18,7 +18,9 @@ public class ShopState extends State{
     //Array of all items available to purchase from the shop
     private Item[] shopItems = new Item[]
     {
-        new SmallHpPotion(), new SmallMpPotion(), new LargeHpPotion(), new LargeMpPotion()
+        new SmallHpPotion(), new SmallMpPotion(), new LargeHpPotion(), new LargeMpPotion(),
+        new PotionOfVigor(), new ScrollOfWisdom(), new LuckyClover(), new RitualOfWisdom(), 
+        new ContractOfStrength(), new Dragonsoul()
     };
     
     @Override

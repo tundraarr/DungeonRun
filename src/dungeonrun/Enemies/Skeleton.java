@@ -19,8 +19,8 @@ public class Skeleton extends Enemy{
         this.level = 3;
         this.hp = 25;
         this.dmg = 8;
-        this.gold = 125;
-        this.minChance = 21;
+        this.gold = 150;
+        this.minChance = 25;
         this.maxChance = 40;
         
         if(Player.level > this.level)

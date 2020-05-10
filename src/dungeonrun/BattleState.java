@@ -60,8 +60,6 @@ public class BattleState extends State{
             else if(turn == Turn.DEFEAT)
             {
                 loopState = false;
-                //TODO: Terminate save
-                //TODO: Add player profile to graveyard
                 System.out.println("Your journey ends.....but you may begin anew");
                 return State.ChangeState(States.MAINMENU);
             }

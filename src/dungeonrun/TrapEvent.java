@@ -5,13 +5,14 @@
  */
 package dungeonrun;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  *
  * @author Liam
  */
 
-//When this event occurs the player takes a random amount of damage between a range
+//When this event occurs the player takes non-lethal damage (will never reduce their hp below 1)
 //Does not change the current state
 public class TrapEvent extends Event{
     
@@ -25,7 +26,22 @@ public class TrapEvent extends Event{
     @Override
     public State RunEvent() {
         
-        System.out.println("Ran into a trap");
+        Random ran = new Random();
+        
+        //Damage is a randomized value between 1 and the 20% of the player's max hp
+        int trapDmg = ran.nextInt((int)(Player.maxHp * 0.20)) + 1; 
+        
+        //Check to see if damage is lethal
+        //If so, change damage to leave player on 1 hp
+        if(trapDmg >= Player.currentHp)
+        {
+            trapDmg = Player.currentHp - 1;
+        }   
+                
+        Player.currentHp -= trapDmg;
+        
+        System.out.println("Ran into a trap!");
+        System.out.println(Player.name + " took " + trapDmg + " damage.");
         System.out.println("Type anything to continue.....");
         scan.nextLine();
         

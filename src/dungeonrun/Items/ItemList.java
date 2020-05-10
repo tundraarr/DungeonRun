@@ -15,6 +15,8 @@ public class ItemList {
     public static Item[] allItems = new Item[]
     {
       new LargeHpPotion(), new LargeMpPotion(), new SmallHpPotion(), new SmallMpPotion(),
-      new IdolOfLife(), new ScrollOfWrath()
+      new IdolOfLife(), new ScrollOfWrath(), new AstralDust(), new ArcaneConcoction(), new DevilsHeart(),
+      new LuckyClover(), new RitualOfWisdom(), new ContractOfStrength(), new PotionOfVigor(), new ScrollOfWisdom(),
+      new Dragonsoul()
     };
 }

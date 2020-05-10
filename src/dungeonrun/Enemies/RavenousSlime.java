@@ -19,7 +19,7 @@ public class RavenousSlime extends Enemy{
         this.level = 5;
         this.hp = 25;
         this.dmg = 8;
-        this.gold = 125;
+        this.gold = 175;
         this.minChance = 41;
         this.maxChance = 55;
         

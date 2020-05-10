@@ -19,7 +19,7 @@ public class VampireLord extends Enemy{
         this.level = 8;
         this.hp = 55;
         this.dmg = 23;
-        this.gold = 250;
+        this.gold = 350;
         this.minChance = 86;
         this.maxChance = 90;
         

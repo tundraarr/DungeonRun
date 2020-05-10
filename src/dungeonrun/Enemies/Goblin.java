@@ -21,7 +21,7 @@ public class Goblin extends Enemy{
         this.dmg = 5;
         this.gold = 75;
         this.minChance = 0;
-        this.maxChance = 20;
+        this.maxChance = 24;
         
         if(Player.level > this.level)
         {

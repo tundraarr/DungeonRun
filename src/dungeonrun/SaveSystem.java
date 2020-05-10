@@ -16,9 +16,9 @@ import java.time.LocalDate;
 //Provides static methods to save the player's data, load their data or delete their save
 public class SaveSystem {
 
-    private static String fileName = "drun-save-data.bin";
+    private static String fileName = "drun-save-data.txt";
     
-    //Saves the player's data as a binary file
+    //Saves the player's data as a txt file
     public static void SaveGame() throws IOException
     {
         PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));

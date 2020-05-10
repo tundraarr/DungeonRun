@@ -19,7 +19,7 @@ public class LostSoul extends Enemy{
         this.level = 8;
         this.hp = 40;
         this.dmg = 15;
-        this.gold = 200;
+        this.gold = 250;
         this.minChance = 56;
         this.maxChance = 70;
         

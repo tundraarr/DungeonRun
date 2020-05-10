@@ -19,7 +19,7 @@ public class UndeadKnight extends Enemy{
         this.level = 6;
         this.hp = 27;
         this.dmg = 20;
-        this.gold = 200;
+        this.gold = 300;
         this.minChance = 71;
         this.maxChance = 85;
         
