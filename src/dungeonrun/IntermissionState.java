@@ -28,7 +28,6 @@ public class IntermissionState extends State{
     //Allows them to proceed to events, buy from shop, look at stats and inventory
     public State ChooseAction()
     {
-        boolean validAns = false;
         State nextState = null;
         LoadSpells();
         while(loopState)
@@ -57,7 +56,6 @@ public class IntermissionState extends State{
             }
             catch(Exception e)
             {
-                System.err.println(e);
                 System.out.println("Invalid Input! Please choose a valid input (1 - 5)\n");
             }
         }

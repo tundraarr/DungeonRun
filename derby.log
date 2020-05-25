@@ -1,0 +1,14 @@
+Mon May 25 23:32:53 NZST 2020 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
+----------------------------------------------------------------
+Mon May 25 23:32:54 NZST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-4b9b-6217-ffffbec77a0f 
+on database directory C:\Users\Liam\Documents\NetBeansProjects\DungeonRun\DungeonRunDB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
+Loaded from file:/C:/Users/Liam/Desktop/db-derby-10.14.2.0-lib/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_241-b07
+user.dir=C:\Users\Liam\Desktop\db-derby-10.14.2.0-lib
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=C:\Users\Liam\Documents\NetBeansProjects\DungeonRun
+Database Class Loader started - derby.database.classpath=''
