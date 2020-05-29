@@ -6,7 +6,6 @@
 package dungeonrun;
 import dungeonrun.Items.Item;
 import dungeonrun.Spells.*;
-import java.io.IOException;
 //import dungeonrun.Spells.SpellList;
 import java.util.Map;
 import java.util.Random;
@@ -29,7 +28,6 @@ public class IntermissionState extends State{
     //Allows them to proceed to events, buy from shop, look at stats and inventory
     public State ChooseAction()
     {
-        boolean validAns = false;
         State nextState = null;
         LoadSpells();
         while(loopState)
@@ -56,7 +54,7 @@ public class IntermissionState extends State{
                     loopState = false;
                 }
             }
-            catch(InvalidInputException | NumberFormatException e)
+            catch(Exception e)
             {
                 System.out.println("Invalid Input! Please choose a valid input (1 - 5)\n");
             }
@@ -96,10 +94,9 @@ public class IntermissionState extends State{
                 {
                     SaveSystem.SaveGame();
                 }
-                catch(IOException e)
+                catch(Exception e)
                 {
-                    System.err.println(e);
-                    System.err.println("Failed to save game");
+                    System.err.println("Save game error");
                 }
                 newState = ChangeState(States.END);
                 loopState = false;

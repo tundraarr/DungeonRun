@@ -60,24 +60,16 @@ public class MainMenuState extends State{
                 break;
             //Continue a game if there is save data available - go to intermission state
             case 2:
-                try
+                //Load data and see if method returns true (if there is data) or false
+                if(SaveSystem.LoadGame())
                 {
-                    //Load data and see if method returns true (if there is data) or false
-                    if(SaveSystem.LoadGame())
-                    {
-                        newState =  ChangeState(States.INTERMISSION);
-                        loopState = false;
-                    }
-                    else
-                    {
-                        newState = null;
-                        System.out.println("No Data Found");
-                    }
+                    newState =  ChangeState(States.INTERMISSION);
+                    loopState = false;
                 }
-                catch(IOException e)
+                else
                 {
-                    System.err.println(e);
-                    System.err.println("Load error");
+                    newState = null;
+                    System.out.println("No Data Found");
                 }
                 break;
             //Print out a list of the player's deceased characters

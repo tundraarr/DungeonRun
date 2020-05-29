@@ -61,14 +61,7 @@ public class NewGameState extends State{
                         validAns = true;
                         InitializeNewPlayerStats();
                         YoN = true;
-                        try
-                        {
-                            SaveSystem.SaveGame();
-                        }
-                        catch(IOException e)
-                        {
-                            System.err.println("Save Error - " + e);
-                        }
+                        SaveSystem.SaveGame();
                     }
                     else if(userInput.compareTo("n") == 0)
                     {
