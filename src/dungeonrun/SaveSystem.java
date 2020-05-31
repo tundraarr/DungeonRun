@@ -16,7 +16,7 @@ import java.time.LocalDate;
 //Provides static methods to save the player's data, load their data or delete their save
 public class SaveSystem {
 
-    private static String fileName = "drun-save-data.bin";
+//    private static String fileName = "drun-save-data.bin";
     private static DBController dbc = new DBController();
     
     //Saves the player's data as a binary file
@@ -82,6 +82,6 @@ public class SaveSystem {
     //Used for when the player is defeated in the dungeon
     public static void DeleteSave()
     {
-        dbc.DropAllTables();
+        dbc.DropPlayerTables();
     }
 }

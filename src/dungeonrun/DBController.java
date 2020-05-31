@@ -12,6 +12,8 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 /**
@@ -88,7 +90,9 @@ public class DBController {
         return loadSuccess;
     }
     
-    public void DropAllTables()
+    //TODO: might need to remove this method
+    //Drop all the tables
+    public void DropPlayerTables()
     {
         try
         {
@@ -102,49 +106,56 @@ public class DBController {
             System.err.println(ex);
         }
     }
-//    private void UpdatePlayerItemData()
-//    {
-//        try
-//        {                                     
-//            for(Map.Entry<Item, Integer> entry : Player.inventory.entrySet())
-//            {
-//                statement.executeUpdate("insert into ITEMS values('" +entry.getKey().name+ "', " +entry.getValue()+ ")");
-//            }
-//        }
-//        catch(SQLException ex)
-//        {
-//            System.err.println(ex);
-//        }
-//    }
     
-//    public void updatePlayerData()
-//    {
-//        try
-//        {
-//            CreateProfileTable();
-            //Just use insert again?
+    //Update the GRAVE table with a new player character
+    public void UpdateGraveTable()
+    {
+        String tableName = "GRAVE";
+        try
+        {
+            //If there is not GRAVE table, create it  
+            ResultSet rs = dbmd.getTables(null, null, tableName, null);
+            if(!rs.next())
+            {
+                String sqlCreate = "create table " + tableName
+                + "(Name varchar(128),"
+                + "Level int,"
+                + "Date date)";
+                statement.executeUpdate(sqlCreate);
+            }
             
-            //Update PROFILE table
-//            String sqlUpdate = "update " + "PROFILE" + " set Level=" + Player.level
-//                    + "where Name='" +Player.name+ "'";
-//            statement.addBatch(sqlUpdate);
-//            sqlUpdate = "update " + "PROFILE" + " set Gold=" + Player.gold
-//                    + "where Name='" +Player.name+ "'";
-//            statement.addBatch(sqlUpdate);
-            
-            //Update STATS table
-//            sqlUpdate = "update " + "STATS" + " set currentHp=" + Player.gold
-//                    + "where Name='" +Player.name+ "'";
-//            statement.addBatch(sqlUpdate);
-            
-            
-//            statement.executeBatch();
-//        }
-//        catch(SQLException ex)
-//        {
-//            System.err.println(ex);
-//        }    
-//    }
+            //Add the player's name, level and the current date
+            String sqlInsert = "insert into "+tableName+" values"
+                    + "('"+Player.name+"', " +Player.level+ ", '" +LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)+ "')";
+            statement.executeUpdate(sqlInsert);
+        }
+        catch(SQLException ex)
+        {
+            System.err.println(ex);
+        }
+    }
+    
+    //Returns a ResultSet of the rows in the GRAVE table if the table exists
+    public ResultSet QueryGraveTable()
+    {
+        ResultSet rs = null;
+        String tableName = "GRAVE";
+        //If there is a GRAVE table, query for all rows
+        try
+        {
+            rs = dbmd.getTables(null, null, tableName, null);
+            if(rs.next())
+            {
+                rs = qryStatement.executeQuery("select * from GRAVE"); 
+            }    
+        }
+        catch(SQLException ex)
+        {
+            System.err.println(ex);
+        }
+        
+        return rs;
+    }
     
     //Create a table called PROFILE that stores Player name, level and gold.
     private void CreateProfileTable()
@@ -153,8 +164,7 @@ public class DBController {
         try
         {
             //If it DOES EXIST drop it, in any case create a new table       
-            ResultSet rs = dbmd.getTables(null, null, tableName, null);
-            if(rs.next())
+            if(TableExists(tableName))
             {
                 statement.executeUpdate("DROP TABLE PROFILE");
             }
@@ -172,15 +182,14 @@ public class DBController {
         }
     }
     
-    //Create a table that stores the player's stats
+    //Create a table called STATS that stores the player's stats
     private void CreateStatsTable()
     {            
         String tableName = "STATS";
         try
         {
             //If it DOES EXIST drop it, in any case create a new table       
-            ResultSet rs = dbmd.getTables(null, null, tableName, null);
-            if(rs.next())
+            if(TableExists(tableName))
             {
                 statement.executeUpdate("DROP TABLE STATS");
             }
@@ -199,15 +208,14 @@ public class DBController {
         }
     }
     
-    //Create a table that stores the player's items
+    //Create a table called ITEMS that stores the player's items
     private void CreateItemsTable()
     {            
         String tableName = "ITEMS";
         try
         {
             //If it DOES EXIST drop it, in any case create a new table       
-            ResultSet rs = dbmd.getTables(null, null, tableName, null);
-            if(rs.next())
+            if(TableExists(tableName))
             {
                 statement.executeUpdate("DROP TABLE ITEMS");
             }
@@ -223,87 +231,129 @@ public class DBController {
         }
     }
     
+    //Query the PROFILE table for all the data and load it into Player if the table exists
     private boolean QueryProfileTable()
     {
-        ResultSet rs = null;
-        String sqlQuery = "select * from PROFILE";
-        try
+        String tableName = "PROFILE";
+        if(TableExists(tableName))
         {
-            rs = qryStatement.executeQuery(sqlQuery);
-            rs.beforeFirst();
-            rs.next();
-            
-            Player.name = rs.getString("Name");
-            Player.level = rs.getInt("Level");
-            Player.gold = rs.getInt("Gold");
-            
-            rs.close();
-            return true;
+            ResultSet rs = null;
+            String sqlQuery = "select * from " + tableName;
+            try
+            {
+                rs = qryStatement.executeQuery(sqlQuery);
+                rs.beforeFirst();
+                rs.next();
+
+                Player.name = rs.getString("Name");
+                Player.level = rs.getInt("Level");
+                Player.gold = rs.getInt("Gold");
+
+                rs.close();
+                return true;
+            }
+            catch(SQLException ex)
+            {
+                System.err.println(ex);
+                return false;
+            }    
         }
-        catch(SQLException ex)
-        {
-            System.err.println(ex);
-            return false;
-        }         
+        
+        return false;
     }
     
+    //Query the STATS table for all the data and load it into Player if the table exists
     private boolean QueryStatsTable()
     {
-        ResultSet rs = null;
-        String sqlQuery = "select * from STATS";
-        try
+        String tableName = "STATS";
+        if(TableExists(tableName))
         {
-            rs = qryStatement.executeQuery(sqlQuery);
-            rs.beforeFirst();
-            rs.next();
-            
-            Player.currentHp = rs.getInt("CurrentHp");
-            Player.maxHp = rs.getInt("MaxHp");
-            Player.currentMp = rs.getInt("CurrentMp");
-            Player.maxMp = rs.getInt("MaxMp");
-            Player.atk = rs.getInt("ATK");
-            Player.magicAtk = rs.getInt("MGATK");
-            Player.def = rs.getInt("DEF");
-            Player.luck = rs.getInt("LUCK");
-            
-            rs.close();
-            return true;
+            ResultSet rs = null;
+            String sqlQuery = "select * from " + tableName;
+            try
+            {
+                rs = qryStatement.executeQuery(sqlQuery);
+                rs.beforeFirst();
+                rs.next();
+
+                Player.currentHp = rs.getInt("CurrentHp");
+                Player.maxHp = rs.getInt("MaxHp");
+                Player.currentMp = rs.getInt("CurrentMp");
+                Player.maxMp = rs.getInt("MaxMp");
+                Player.atk = rs.getInt("ATK");
+                Player.magicAtk = rs.getInt("MGATK");
+                Player.def = rs.getInt("DEF");
+                Player.luck = rs.getInt("LUCK");
+
+                rs.close();
+                return true;
+            }
+            catch(SQLException ex)
+            {
+                System.err.println(ex);
+                return false;
+            }
         }
-        catch(SQLException ex)
-        {
-            System.err.println(ex);
-            return false;
-        }
+        
+        return false;
     }
     
+    //Query the ITEMS table for all the data and load it into Player if the table exists
     private boolean QueryItemsTable()
     {
-        ResultSet rs = null;
-        String sqlQuery = "select * from ITEMS";
-        try
+        String tableName = "ITEMS";
+        if(TableExists(tableName))
         {
-            rs = qryStatement.executeQuery(sqlQuery);
-            rs.beforeFirst();
-            while(rs.next())
+            ResultSet rs = null;
+            String sqlQuery = "select * from " + tableName;
+            try
             {
-                String itemName = rs.getString("ItemName");
-                int quantity = rs.getInt("Quantity");
-                for(Item i : ItemList.allItems)
+                rs = qryStatement.executeQuery(sqlQuery);
+                rs.beforeFirst();
+                while(rs.next())
                 {
-                    if(itemName.compareTo(i.name) == 0)
+                    String itemName = rs.getString("ItemName");
+                    int quantity = rs.getInt("Quantity");
+                    for(Item i : ItemList.allItems)
                     {
-                        Player.inventory.put(i, quantity);
+                        if(itemName.compareTo(i.name) == 0)
+                        {
+                            Player.inventory.put(i, quantity);
+                        }
                     }
                 }
+
+                rs.close();
+                return true;
             }
-            
-            rs.close();
-            return true;
+            catch(SQLException ex)
+            {
+                System.err.println(ex);
+                return false;
+            }
+        }
+        
+        return false;
+    }
+    
+    //Return true if the table exists
+    private boolean TableExists(String tblName)
+    {
+        boolean exists = false;
+        try
+        {
+            ResultSet rs = dbmd.getTables(null, null, tblName, null);
+            if(rs.next())
+            {
+                exists = true;
+            }    
         }
         catch(SQLException ex)
         {
             System.err.println(ex);
-            return false;
         }
+        
+        return exists;
     }
+    
 }
