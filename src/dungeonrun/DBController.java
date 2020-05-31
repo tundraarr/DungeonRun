@@ -90,7 +90,6 @@ public class DBController {
         return loadSuccess;
     }
     
-    //TODO: might need to remove this method
     //Drop all the tables
     public void DropPlayerTables()
     {

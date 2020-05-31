@@ -46,21 +46,6 @@ public class GraveSystem {
         {
             System.err.println(ex);
         }
-
-//        File file = new File(graveFile);
-//        if(file.exists())
-//        {
-//            BufferedReader br = new BufferedReader(new FileReader(graveFile));
-//            String data;
-//            while((data = br.readLine()) != null)
-//            {
-//                System.out.println(data);
-//            }
-//        }
-//        else
-//        {
-//            System.out.println("No graveyard exists right now");
-//        }
         System.out.println("====================================================");
     }
     
