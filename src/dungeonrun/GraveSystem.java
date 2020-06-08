@@ -18,18 +18,14 @@ import java.sql.SQLException;
 public class GraveSystem {
     
     private static DBController dbc = new DBController();
-    //private static String graveFile = "graveyard.txt";
     
-    //Add the player's name, level and gold amount to the graveyard file
+    //Add the player's name, level and gold amount to the graveyard database table
     public static void AddToGraveyard() throws IOException
     {    
-//        PrintWriter pw = new PrintWriter(new FileOutputStream(graveFile, true));
-//        pw.append(Player.name + " Level: " + Player.level + " Gold: " + Player.gold + " | " + LocalDate.now() + "\n");
-//        pw.close();
         dbc.UpdateGraveTable();
     }
     
-    //Read the graveyard file and display all the player's deceased characters
+    //Read the graveyard table and display all the player's deceased characters
     public static void ViewGraveyard() throws IOException
     {
         System.out.println("====================GRAVEYARD=======================");
