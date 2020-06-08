@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package dungeonrun;
+import java.util.Observable;
 import java.util.Scanner;
 /**
  *
@@ -13,7 +14,7 @@ import java.util.Scanner;
 //An abstract class for the different states the game can be in
 //All states can take inputs from the user, and have a method to run the stuff that happens in that state
 //Also contains a static method that changes the current state by returning a new state
-public abstract class State {
+public abstract class State extends Observable{
     
     public States theState;
     public boolean loopState = true;

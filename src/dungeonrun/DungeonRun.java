@@ -5,16 +5,34 @@
  */
 package dungeonrun;
 
+import dungeonrun.Views.*;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import javax.swing.*;
+
 /**
  *
  * @author Liam
  */
 public class DungeonRun {
     
+    public static JFrame frame;
+    public static JPanel container;
+    
     public static void main(String[] args) {
         //Intialize the default state of the game to be the Main Menu State
         State currentState = new MainMenuState();
         boolean isPlaying = true;
+        
+        container = new JPanel(new CardLayout());
+        container.add(new MainMenuView());
+        
+        frame = new JFrame("Frame");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(750, 300));
+        frame.add(container);
+        frame.pack();
+        frame.setVisible(true);
         
         //Change the state of the game while the game loop is runnning
         while(isPlaying)
