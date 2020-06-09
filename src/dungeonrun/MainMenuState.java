@@ -96,4 +96,19 @@ public class MainMenuState extends State{
         }
         return newState;
     }
+    
+    public void NewGame()
+    {
+        //Delete data from database 
+        
+        //Go to new game state and view
+        MainContainer.ChangeView("NewGame");
+        System.out.println("Starting a new game");
+    }
+    
+    public void LoadGame()
+    {
+         setChanged();
+         notifyObservers(false);
+    }
 }

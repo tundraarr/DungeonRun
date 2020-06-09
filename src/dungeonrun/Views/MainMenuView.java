@@ -16,18 +16,16 @@ import java.util.Observer;
  */
 public class MainMenuView extends JPanel implements Observer{
 
-     private JPanel bgPanel = new JPanel();
      private JLabel title = new JLabel("DUNGEON RUN");
      private JButton newGameBtn = new JButton("New Game");
      private JButton loadGameBtn = new JButton("Load Game");
      private JButton graveyardBtn = new JButton("Graveyard");
      private JButton exitBtn = new JButton("Exit");
+     private JLabel noData = new JLabel();
      
      public MainMenuView()
      {
          this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-         //bgPanel.setLocation(500, 100);
-         //bgPanel.setSize(350, 150);
          
          title.setAlignmentX(CENTER_ALIGNMENT);
          title.setFont(new Font(title.getName(), Font.PLAIN, 28));
@@ -38,17 +36,54 @@ public class MainMenuView extends JPanel implements Observer{
          newGameBtn.setPreferredSize(new Dimension(75, 50));
          newGameBtn.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     
+         noData.setAlignmentX(CENTER_ALIGNMENT);
+         noData.setPreferredSize(new Dimension(50, 30));
+         
+         
          //add(bgPanel);
          add(title);
          add(newGameBtn);
          add(loadGameBtn);
          add(graveyardBtn);
          add(exitBtn);
+         add(noData);
      }
      
+    public void SetController(ActionListener cntrl) 
+    {
+        newGameBtn.addActionListener(cntrl);
+        loadGameBtn.addActionListener(cntrl);
+        graveyardBtn.addActionListener(cntrl);
+        exitBtn.addActionListener(cntrl);
+    }
+ 
+    public void SetNoDataTxt()
+    {
+        noData.setText("No Data Found!");
+    }
+    
+    private void ClearNoDataTxt()
+    {
+        
+    }
+    
     @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Observable o, Object obj) 
+    {
+        //TODO: Remove this particular instance of reset/update, not needed in main menu
+        //Reseting/Updating the panel when user revists it
+        if(obj == null)
+        {
+            ClearNoDataTxt();
+        }
+        else
+        {
+            boolean dataExists = (boolean)obj;
+            if(!dataExists)
+            {
+                SetNoDataTxt();
+            }
+        }
     }
     
 }

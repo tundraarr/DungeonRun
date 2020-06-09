@@ -97,4 +97,24 @@ public class NewGameState extends State{
         Player.spells = new ArrayList<Spell>();
         Player.inventory = new HashMap<Item, Integer>();
     }
+    
+    public void CreateNewCharacter(String name)
+    {
+        try
+        {
+            if(name.startsWith(" ") || name.isEmpty())
+            {
+                throw new NullInputException();
+            }
+            else
+            {
+                Player.name = name;
+            }
+        }
+        catch(NullInputException e)
+        {
+            setChanged();
+            notifyObservers(false);
+        }
+    }
 }

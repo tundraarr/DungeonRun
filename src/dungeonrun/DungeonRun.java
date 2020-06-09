@@ -5,6 +5,7 @@
  */
 package dungeonrun;
 
+import dungeonrun.Controllers.*;
 import dungeonrun.Views.*;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -24,13 +25,14 @@ public class DungeonRun {
         State currentState = new MainMenuState();
         boolean isPlaying = true;
         
-        container = new JPanel(new CardLayout());
-        container.add(new MainMenuView());
+        ViewManager vm = new ViewManager();
+        vm.IntializeViews();
+        
         
         frame = new JFrame("Frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(750, 300));
-        frame.add(container);
+        frame.setPreferredSize(new Dimension(650, 450));
+        frame.add(MainContainer.container);
         frame.pack();
         frame.setVisible(true);
         
