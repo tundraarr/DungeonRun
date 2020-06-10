@@ -27,13 +27,13 @@ public class LargeMpPotion extends Item{
     @Override
     public void UseItem()
     {
-        if(Player.currentMp + healAmount > Player.maxMp)
+        if(Player.GetCurrentMp() + healAmount > Player.GetMaxMp())
         {
-            Player.currentMp = Player.maxMp;
+            Player.SetCurrentMp(Player.GetMaxMp());
         }
         else
         {
-            Player.currentMp += healAmount;
+            Player.SetCurrentMp(Player.GetCurrentMp() + healAmount);
         }
     }
 }

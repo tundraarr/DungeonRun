@@ -26,13 +26,13 @@ public class LargeHpPotion extends Item{
     @Override
     public void UseItem()
     {
-        if(Player.currentHp + healAmount > Player.maxHp)
+        if(Player.GetCurrentHp() + healAmount > Player.GetMaxHp())
         {
-            Player.currentHp = Player.maxHp;
+            Player.SetCurrentHp(Player.GetMaxHp());
         }
         else
         {
-            Player.currentHp += healAmount;
+            Player.SetCurrentHp(Player.GetCurrentHp() + healAmount);
         }
     }
 }

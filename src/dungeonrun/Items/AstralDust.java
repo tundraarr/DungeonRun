@@ -25,14 +25,14 @@ public class AstralDust extends Item{
     
     public void UseItem(Enemy enemy)
     {
-        Player.maxMp += mpIncrease;
-        if(Player.currentMp + mpIncrease > Player.maxMp)
+        Player.SetMaxMp(Player.GetMaxMp() + mpIncrease);
+        if(Player.GetCurrentMp() + mpIncrease > Player.GetMaxMp())
         {
-            Player.currentMp = Player.maxMp;
+            Player.SetCurrentMp(Player.GetMaxMp());
         }
         else
         {
-            Player.currentMp += mpIncrease;
+            Player.SetCurrentMp(Player.GetCurrentMp() + mpIncrease);
         }
     }
 }

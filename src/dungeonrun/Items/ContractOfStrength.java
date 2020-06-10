@@ -24,12 +24,12 @@ public class ContractOfStrength extends Item{
     @Override
     public void UseItem()
     {
-        Player.atk += 10;
-        Player.maxHp = (int)(Player.maxHp / 2);
+        Player.SetAtk(Player.GetAtk() + 10);
+        Player.SetMaxHp((int)(Player.GetMaxHp() / 2));
         //Set player current hp to the same as max hp if it is greater than the new max hp
-        if(Player.currentHp > Player.maxHp)
+        if(Player.GetCurrentHp() > Player.GetMaxHp())
         {
-            Player.currentHp = Player.maxHp;
+            Player.SetCurrentHp(Player.GetMaxHp());
         }
     }
 }

@@ -24,6 +24,6 @@ public class PotionOfVigor extends Item{
     @Override
     public void UseItem()
     {
-        Player.maxHp += 15;
+        Player.SetMaxHp(Player.GetMaxHp() + 15);
     }
 }

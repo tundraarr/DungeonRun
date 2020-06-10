@@ -23,6 +23,6 @@ public class ArcaneConcoction extends Item{
     @Override
     public void UseItem()
     {
-        Player.currentMp = Player.maxMp;
+        Player.SetCurrentMp(Player.GetMaxMp());
     }
 }

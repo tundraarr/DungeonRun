@@ -24,10 +24,10 @@ public class Dragonsoul extends Item{
     @Override
     public void UseItem()
     {
-        if(Player.currentHp <= 15)
+        if(Player.GetCurrentHp() <= 15)
         {
-            Player.currentHp = Player.maxHp;
-            Player.def += 10;
+            Player.SetCurrentHp(Player.GetMaxHp());
+            Player.SetDef(Player.GetDef() + 10);
         }
     }
 }

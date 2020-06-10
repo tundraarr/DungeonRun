@@ -24,6 +24,6 @@ public class ScrollOfWrath extends Item{
     @Override
     public void UseItem()
     {
-        Player.atk += 5;
+        Player.SetAtk(Player.GetAtk() + 5);
     }
 }

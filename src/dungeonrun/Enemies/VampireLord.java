@@ -23,10 +23,10 @@ public class VampireLord extends Enemy{
         this.minChance = 86;
         this.maxChance = 90;
         
-        if(Player.level > this.level)
+        if(Player.GetLevel() > this.level)
         {
-            this.hp += Math.pow(Player.level - this.level, 1.5) * 1.3;
-            this.dmg += Math.pow(Player.level - this.level, 0.75) * 2.5; 
+            this.hp += Math.pow(Player.GetLevel() - this.level, 1.5) * 1.3;
+            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.75) * 2.5; 
         }
     }
 }

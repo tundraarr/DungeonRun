@@ -23,6 +23,6 @@ public class DevilsHeart extends Item{
     @Override
     public void UseItem()
     {
-        Player.maxHp += 40;
+        Player.SetMaxHp(Player.GetMaxHp() + 40);
     }
 }

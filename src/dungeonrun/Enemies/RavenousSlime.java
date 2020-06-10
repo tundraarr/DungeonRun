@@ -23,10 +23,10 @@ public class RavenousSlime extends Enemy{
         this.minChance = 41;
         this.maxChance = 55;
         
-        if(Player.level > this.level)
+        if(Player.GetLevel() > this.level)
         {
-            this.hp += Math.pow(Player.level - this.level, 1.6) * 1.4;
-            this.dmg += Math.pow(Player.level - this.level, 0.75) * 1; 
+            this.hp += Math.pow(Player.GetLevel() - this.level, 1.6) * 1.4;
+            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.75) * 1; 
         }
     }
 }

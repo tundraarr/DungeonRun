@@ -25,6 +25,6 @@ public class IdolOfLife extends Item{
     @Override
     public void UseItem()
     {
-        Player.currentHp = Player.maxHp;
+        Player.SetCurrentHp(Player.GetMaxHp());
     }
 }

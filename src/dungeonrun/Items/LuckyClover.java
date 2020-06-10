@@ -24,6 +24,6 @@ public class LuckyClover extends Item{
     @Override
     public void UseItem()
     {
-        Player.luck += 5;
+        Player.SetLuck(Player.GetLuck() + 5);
     }
 }

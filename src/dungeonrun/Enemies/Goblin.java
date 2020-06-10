@@ -23,10 +23,10 @@ public class Goblin extends Enemy{
         this.minChance = 0;
         this.maxChance = 24;
         
-        if(Player.level > this.level)
+        if(Player.GetLevel() > this.level)
         {
-            this.hp += Math.pow(Player.level - this.level, 1.15) * 2;  
-            this.dmg += Math.pow(Player.level - this.level, 0.75) * 2; 
+            this.hp += Math.pow(Player.GetLevel() - this.level, 1.15) * 2;  
+            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.75) * 2; 
         }
     }
 }

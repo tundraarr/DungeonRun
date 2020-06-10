@@ -23,10 +23,10 @@ public class UndeadKnight extends Enemy{
         this.minChance = 71;
         this.maxChance = 85;
         
-        if(Player.level > this.level)
+        if(Player.GetLevel() > this.level)
         {
-            this.hp += Math.pow(Player.level - this.level, 0.75) * 1.6;
-            this.dmg += Math.pow(Player.level - this.level, 0.75) * 2; 
+            this.hp += Math.pow(Player.GetLevel() - this.level, 0.75) * 1.6;
+            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.75) * 2; 
         }
     }
 }
