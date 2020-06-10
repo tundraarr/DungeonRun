@@ -74,45 +74,45 @@ public class BattleState extends State{
     //Provides several options for combat such as attacking, using magic and using items
     private void PlayerTurn()
     {
-        boolean validAns = false;
-        //Display text interface to user
-        while(!validAns)
-        {
-            System.out.println("======FIGHT=======");
-            System.out.println("HP: " + Player.currentHp + "/" + Player.maxHp + " MP: " + Player.currentMp + "/" + Player.maxMp);
-            System.out.println(enemy.name + " HP: " + enemy.hp);
-            System.out.println("1) Attack");
-            System.out.println("2) Magic");
-            System.out.println("3) Items");
-            System.out.println("==================");
-            //Take in the player's choice and handle it accordingly
-            try
-            {
-                userInput = scan.nextLine();
-                switch(Integer.valueOf(userInput))
-                {
-                    case 1:
-                        Attack();
-                        break;
-                    case 2:
-                        ShowSpells();
-                        break;
-                    case 3:
-                        OpenInventory();
-                        break;
-                    //If the input does not  meet any of the cases, throw an InvalidInputException and tell them that their input is invalid
-                    default:
-                        throw new InvalidInputException();
-                }
-                validAns = true;
-            }
-            catch(Exception e)
-            {
-                System.out.println("Invalid Input! Input mut be 1 - 3");
-            }
-            
-            Wait(1000);
-        }
+//        boolean validAns = false;
+//        //Display text interface to user
+//        while(!validAns)
+//        {
+//            System.out.println("======FIGHT=======");
+//            System.out.println("HP: " + Player.currentHp + "/" + Player.maxHp + " MP: " + Player.currentMp + "/" + Player.maxMp);
+//            System.out.println(enemy.name + " HP: " + enemy.hp);
+//            System.out.println("1) Attack");
+//            System.out.println("2) Magic");
+//            System.out.println("3) Items");
+//            System.out.println("==================");
+//            //Take in the player's choice and handle it accordingly
+//            try
+//            {
+//                userInput = scan.nextLine();
+//                switch(Integer.valueOf(userInput))
+//                {
+//                    case 1:
+//                        Attack();
+//                        break;
+//                    case 2:
+//                        ShowSpells();
+//                        break;
+//                    case 3:
+//                        OpenInventory();
+//                        break;
+//                    //If the input does not  meet any of the cases, throw an InvalidInputException and tell them that their input is invalid
+//                    default:
+//                        throw new InvalidInputException();
+//                }
+//                validAns = true;
+//            }
+//            catch(Exception e)
+//            {
+//                System.out.println("Invalid Input! Input mut be 1 - 3");
+//            }
+//            
+//            Wait(1000);
+//        }
     }
     
     //Spawn the enemy based on the enemy's probability of appearing
@@ -132,31 +132,31 @@ public class BattleState extends State{
     //Player attacks can also crit (deal double damage), with chance of occurring based on their luck stat
     private void Attack()
     {
-        int pDamage = 3 + (int)Math.ceil(Math.pow(Player.atk, 1.35) * 0.65);
-        if(ran.nextInt(100) <= (Player.luck * 2))
+        int pDamage = 3 + (int)Math.ceil(Math.pow(Player.GetAtk(), 1.35) * 0.65);
+        if(ran.nextInt(100) <= (Player.GetLuck() * 2))
         {
             pDamage *= 2;
             System.out.println("CRITICAL HIT!");
         }
         enemy.hp -= pDamage;
-        System.out.println(Player.name + " attacks!");
+        System.out.println(Player.GetName() + " attacks!");
         Wait(1000);
-        System.out.println(Player.name + " did: " + pDamage+ " damage");
+        System.out.println(Player.GetName() + " did: " + pDamage+ " damage");
         CheckEnemyHp();
     }
     
-    //Access the player's inventory and show them what items they have
+    //Access the player's GetInventory() and show them what items they have
     //Items can be used by having the player input the name of the item
     private void OpenInventory()
     {
         boolean validAns = false;
         while(!validAns)
         {         
-            //Display all available items in the player's inventory
+            //Display all available items in the player's GetInventory()
             System.out.println("==============INVENTORY================");
             System.out.println("Input name of item to use or '0' to go back.");
             System.out.println("0) Back");
-            for(Map.Entry<Item, Integer> entry : Player.inventory.entrySet())
+            for(Map.Entry<Item, Integer> entry : Player.GetInventory().entrySet())
             {
                 System.out.println(entry.getKey().name + " x" + entry.getValue() + " | " + entry.getKey().description);
             }
@@ -171,11 +171,11 @@ public class BattleState extends State{
                 theItem.UseItem();
                 System.out.println("You used: " + theItem.name);
                 //Deduct 1 from the item count
-                //If the item has a count of 0, remove it from the the inventory
-                Player.inventory.replace(theItem, Player.inventory.get(theItem) - 1);
-                if(Player.inventory.get(theItem) == 0)
+                //If the item has a count of 0, remove it from the the GetInventory()
+                Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) - 1);
+                if(Player.GetInventory().get(theItem) == 0)
                 {
-                    Player.inventory.remove(theItem);
+                    Player.GetInventory().remove(theItem);
                 }
             }
             //Return to the combat menu
@@ -191,7 +191,7 @@ public class BattleState extends State{
         }
     }
     
-    //Show the player all available spells they can use
+    //Show the player all available GetSpells() they can use
     //Player inputs the corresponding number from the displayed list to use the spell 
     private void ShowSpells()
     {
@@ -199,18 +199,18 @@ public class BattleState extends State{
 
         while(!validAns)
         {
-            //Display all of the spells available to the user and the option to go back
+            //Display all of the GetSpells() available to the user and the option to go back
             System.out.println("0) Back");
-            for(int i = 0; i < Player.spells.size(); i++)
+            for(int i = 0; i < Player.GetSpells().size(); i++)
             {
-                System.out.println((i + 1) + ") " + Player.spells.get(i).name + "| MP: " + Player.spells.get(i).manaCost + " | " + Player.spells.get(i).description);
+                System.out.println((i + 1) + ") " + Player.GetSpells().get(i).name + "| MP: " + Player.GetSpells().get(i).manaCost + " | " + Player.GetSpells().get(i).description);
             }
             
             try
             {
                 userInput = scan.nextLine();
                 //If the user input a value that does not correspond to an existing spell displayed throw an invalid input error.
-                if(Integer.valueOf(userInput) > Player.spells.size() || Integer.valueOf(userInput) < 0)
+                if(Integer.valueOf(userInput) > Player.GetSpells().size() || Integer.valueOf(userInput) < 0)
                 {
                     throw new InvalidInputException();
                 }
@@ -224,11 +224,11 @@ public class BattleState extends State{
                 else
                 {
                     //If the player has sufficient mp they can cast the spell, otherwise they will be told they don't have enough mp
-                    if(Player.currentMp >= Player.spells.get(Integer.valueOf(userInput) - 1).manaCost)
+                    if(Player.GetCurrentMp() >= Player.GetSpells().get(Integer.valueOf(userInput) - 1).manaCost)
                     {
                         validAns = true;
-                        Player.spells.get(Integer.valueOf(userInput) - 1).CastSpell(enemy);
-                        Player.currentMp -= Player.spells.get(Integer.valueOf(userInput) - 1).manaCost;
+                        Player.GetSpells().get(Integer.valueOf(userInput) - 1).CastSpell(enemy);
+                        Player.SetCurrentMp(Player.GetCurrentMp() - Player.GetSpells().get(Integer.valueOf(userInput) - 1).manaCost);
                         CheckEnemyHp();
                     }
                     else
@@ -239,7 +239,7 @@ public class BattleState extends State{
             }
             catch(Exception e)
             {
-                System.out.println("Invalid Input! Try inputting a value between 1 - " + Player.spells.size());
+                System.out.println("Invalid Input! Try inputting a value between 1 - " + Player.GetSpells().size());
             }
         }
     }
@@ -249,21 +249,21 @@ public class BattleState extends State{
     {
         //Enemy attacks the player based on their attack value (minus the player's defense) and display this information to the users
         //The damage taken is randomized between a low and high bound
-        int enemyDmg = (int)Math.floor(enemy.dmg * (1.0f - (Player.def * 0.02)));
+        int enemyDmg = (int)Math.floor(enemy.dmg * (1.0f - (Player.GetDef() * 0.02)));
         int high = (int)Math.ceil(enemyDmg * 1.2);
         int low = (int)Math.ceil(enemyDmg * 0.80);
         enemyDmg = ran.nextInt(high-low) + low;
         
-        Player.currentHp -= enemyDmg;
+        Player.SetCurrentHp(Player.GetCurrentHp() - enemyDmg);
         System.out.println(enemy.name + " attacks!");
         Wait(1000);
         System.out.println(enemy.name + " does " + enemyDmg + " damage");
         
         //If the player's hp is reduced to 0 or less they are defeated otherwise, return to player's turn
         //Their player name and level is saved in the graveyard (their save is then deleted) and they are sent back to the main menu
-        if(Player.currentHp <= 0)
+        if(Player.GetCurrentHp() <= 0)
         {
-            System.out.println(Player.name + " has been defeated...");
+            System.out.println(Player.GetName() + " has been defeated...");
             System.out.println("Type anything to continue...");
             try
             {
@@ -307,7 +307,7 @@ public class BattleState extends State{
     private void CollectRewards()
     {
         System.out.println("Collecting rewards from enemy");
-        Player.gold += enemy.gold;
+        Player.SetGold(Player.GetGold() + enemy.gold);
     }
     
     //Creates a delay between events (particularly text) in the battle

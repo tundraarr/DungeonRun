@@ -20,22 +20,22 @@ import java.util.Scanner;
 //Also provides static method that allows player to level up their stats and a static method to check whether an item is in their inventory
 public class Player {
     
-    public static String name;
-    public static int level;
-    public static int gold;
+    private static String name;
+    private static int level;
+    private static int gold;
 
-    public static int currentHp;
-    public static int maxHp;
-    public static int currentMp;
-    public static int maxMp;
+    private static int currentHp;
+    private static int maxHp;
+    private static int currentMp;
+    private static int maxMp;
     
-    public static int atk;
-    public static int magicAtk;
-    public static int def;
-    public static int luck;
+    private static int atk;
+    private static int magicAtk;
+    private static int def;
+    private static int luck;
     
-    public static HashMap<Item, Integer> inventory = new HashMap<Item, Integer>();
-    public static ArrayList<Spell> spells = new ArrayList<Spell>();
+    private static HashMap<Item, Integer> inventory = new HashMap<Item, Integer>();
+    private static ArrayList<Spell> spells = new ArrayList<Spell>();
     
     //Enable the player to select a stat to increase by 1 when they defeat a monster
     public static void LevelUp()
@@ -108,5 +108,137 @@ public class Player {
         }
         
         return item;
+    }
+    
+    //Getters 
+    public static String GetName()
+    {
+        return Player.name;
+    }
+    
+    public static int GetLevel()
+    {
+        return Player.level;
+    }
+    
+    public static int GetGold()
+    {
+        return Player.gold;
+    }
+    
+    public static int GetCurrentHp()
+    {
+        return Player.currentHp;
+    }
+    
+    public static int GetMaxHp()
+    {
+        return Player.maxHp;
+    }
+    
+    public static int GetCurrentMp()
+    {
+        return Player.currentMp;
+    }
+    
+    public static int GetMaxMp()
+    {
+        return Player.maxMp;
+    }
+    
+    public static int GetAtk()
+    {
+        return Player.atk;
+    }
+    
+    public static int GetMagicAtk()
+    {
+        return Player.magicAtk;
+    }
+    
+    public static int GetDef()
+    {
+        return Player.def;
+    }
+    
+    public static int GetLuck()
+    {
+        return Player.luck;
+    }
+    
+    public static HashMap<Item, Integer> GetInventory()
+    {
+        return Player.inventory;
+    }
+    
+    public static ArrayList<Spell> GetSpells()
+    {
+        return Player.GetSpells();
+    }
+    
+    //Setters
+    public static void SetName(String name)
+    {
+        Player.name = name;
+    }
+    
+    public static void SetLevel(int level)
+    {
+        Player.level = level;
+    }
+    
+    public static void SetGold(int gold)
+    {
+        Player.gold = gold;
+    }
+    
+    public static void SetCurrentHp(int cHp)
+    {
+        Player.currentHp = cHp;
+    }
+    
+    public static void SetMaxHp(int mHp)
+    {
+        Player.maxHp = mHp;
+    }
+    
+    public static void SetCurrentMp(int cMp)
+    {
+        Player.currentMp = cMp;
+    }
+    
+    public static void SetMaxMp(int mMp)
+    {
+        Player.maxMp = mMp;
+    }
+    
+    public static void SetAtk(int atk)
+    {
+        Player.atk = atk;
+    }
+    
+    public static void SetMagicAtk(int mAtk)
+    {
+        Player.magicAtk = mAtk;
+    }
+    
+    public static void SetDef(int def)
+    {
+        Player.def = def;
+    }
+    
+    public static void SetLuck(int luck)
+    {
+        Player.luck = luck;
+    }  
+    
+    public static void SetNewSpells()
+    {
+        spells = new ArrayList<Spell>();
+    }
+    
+    public static void SetNewInventory()
+    {
+        Player.inventory = new HashMap<Item, Integer>();
     }
 }

@@ -26,7 +26,7 @@ public class EnhanceDefense extends Spell{
     @Override
     public void CastSpell(Enemy enemy)
     {
-        Player.def += 1;
+        Player.SetDef(Player.GetDef() + 1);
         System.out.println("Increased defense by 1");
     }
 }

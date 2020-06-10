@@ -36,7 +36,7 @@ public class ShopState extends State{
         {
             //Display all the shop items to the player
             System.out.println("=========================SHOP============================");
-            System.out.println("GOLD: " + Player.gold);
+            System.out.println("GOLD: " + Player.GetGold());
             System.out.println("0) Back");
             for(int i = 0; i < shopItems.length; i++)
             {
@@ -78,27 +78,27 @@ public class ShopState extends State{
     {
         Item theItem = shopItems[Integer.valueOf(userInput) - 1];
         
-        //Check if the player has sufficient gold to purchase the item
-        if(Player.gold >= theItem.cost)
+        //Check if the player has sufficient GetGold() to purchase the item
+        if(Player.GetGold() >= theItem.cost)
         {
-            //Check if the player already has this item in their inventory
+            //Check if the player already has this item in their GetInventory()
             //If they do, increase the count for the item
             //Otherwise, add a new instance of the item 
-            if(Player.inventory.containsKey(theItem))
+            if(Player.GetInventory().containsKey(theItem))
             {
-                Player.inventory.replace(theItem, Player.inventory.get(theItem) + 1);
+                Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) + 1);
             }
             else
             {
-                Player.inventory.put(theItem, 1);
+                Player.GetInventory().put(theItem, 1);
             }
             
-            Player.gold -= theItem.cost;
+            Player.SetGold(Player.GetGold() - theItem.cost);
             System.out.println("You have purchased " + theItem.name);
         }
         else
         {
-            System.out.println("You do not have enough gold!");
+            System.out.println("You do not have enough GetGold()!");
         }
     }
 }

@@ -19,7 +19,7 @@ public class ManaDischarge extends Spell{
         this.name = "Mana Discharge";
         this.description = "Spend all of your current mp to deal significant damage based on mana spent";
         this.levelReq = 33;
-        this.manaCost = Player.currentMp;
+        this.manaCost = Player.GetCurrentMp();
         this.code = 70;
     }
     

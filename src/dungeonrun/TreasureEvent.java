@@ -33,14 +33,14 @@ public class TreasureEvent extends Event{
         Random ran = new Random();
         theTreasure = treasures[ran.nextInt(treasures.length)];
 
-        if(Player.inventory.containsKey(theTreasure))
+        if(Player.GetInventory().containsKey(theTreasure))
         {
             //Player.inventory.items.get(theTreasure).intValue() = Player.inventory.items.get(theTreasure).intValue() + 1;
-            Player.inventory.replace(theTreasure, Player.inventory.get(theTreasure).intValue() + 1);
+            Player.GetInventory().replace(theTreasure, Player.GetInventory().get(theTreasure).intValue() + 1);
         }
         else
         {
-            Player.inventory.put(theTreasure, 1);
+            Player.GetInventory().put(theTreasure, 1);
         }
         
         System.out.println("TREASURE! You found " + theTreasure.name);

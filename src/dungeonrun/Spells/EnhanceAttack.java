@@ -26,7 +26,7 @@ public class EnhanceAttack extends Spell{
     @Override
     public void CastSpell(Enemy enemy)
     {
-        Player.atk += 1;
+        Player.SetAtk(Player.GetAtk() + 1);
         System.out.println("Increased attack by 1");
     }
     

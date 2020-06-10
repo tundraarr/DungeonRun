@@ -56,17 +56,17 @@ public class DBController {
         try
         {
             //Adding player data to PROFILE table
-            String sqlInsert = "insert into PROFILE values('"+Player.name+"', "+Player.level+", "+Player.gold+")";
+            String sqlInsert = "insert into PROFILE values('"+Player.GetName()+"', "+Player.GetLevel()+", "+Player.GetGold()+")";
             statement.addBatch(sqlInsert);
 
             //Adding player data to STATS table
             sqlInsert = "insert into STATS values("
-                    +Player.currentHp+", "+Player.maxHp+", "+Player.currentMp+", "+Player.maxMp+", "
-                    +Player.atk+", "+Player.magicAtk+", "+Player.def+", "+Player.luck+")";
+                    +Player.GetCurrentHp()+", "+Player.GetMaxHp()+", "+Player.GetCurrentMp()+", "+Player.GetMaxMp()+", "
+                    +Player.GetAtk()+", "+Player.GetMagicAtk()+", "+Player.GetDef()+", "+Player.GetLuck()+")";
             statement.addBatch(sqlInsert);           
             
             //Adding player items to ITEMS table
-            for(Map.Entry<Item, Integer> entry : Player.inventory.entrySet())
+            for(Map.Entry<Item, Integer> entry : Player.GetInventory().entrySet())
             {
                 statement.addBatch("insert into ITEMS values('" +entry.getKey().name+ "', " +entry.getValue()+ ")");
             }
@@ -123,9 +123,9 @@ public class DBController {
                 statement.executeUpdate(sqlCreate);
             }
             
-            //Add the player's name, level and the current date
+            //Add the player's GetName(), level and the current date
             String sqlInsert = "insert into "+tableName+" values"
-                    + "('"+Player.name+"', " +Player.level+ ", '" +LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)+ "')";
+                    + "('"+Player.GetName()+"', " +Player.GetLevel()+ ", '" +LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)+ "')";
             statement.executeUpdate(sqlInsert);
         }
         catch(SQLException ex)
@@ -156,7 +156,7 @@ public class DBController {
         return rs;
     }
     
-    //Create a table called PROFILE that stores Player name, level and gold.
+    //Create a table called PROFILE that stores Player GetName(), level and gold.
     private void CreateProfileTable()
     {            
         String tableName = "PROFILE";
@@ -244,9 +244,9 @@ public class DBController {
                 rs.beforeFirst();
                 rs.next();
 
-                Player.name = rs.getString("Name");
-                Player.level = rs.getInt("Level");
-                Player.gold = rs.getInt("Gold");
+                Player.SetName(rs.getString("Name"));
+                Player.SetLevel(rs.getInt("Level"));
+                Player.SetGold(rs.getInt("Gold"));
 
                 rs.close();
                 return true;
@@ -275,14 +275,14 @@ public class DBController {
                 rs.beforeFirst();
                 rs.next();
 
-                Player.currentHp = rs.getInt("CurrentHp");
-                Player.maxHp = rs.getInt("MaxHp");
-                Player.currentMp = rs.getInt("CurrentMp");
-                Player.maxMp = rs.getInt("MaxMp");
-                Player.atk = rs.getInt("ATK");
-                Player.magicAtk = rs.getInt("MGATK");
-                Player.def = rs.getInt("DEF");
-                Player.luck = rs.getInt("LUCK");
+                Player.SetCurrentHp(rs.getInt("CurrentHp"));
+                Player.SetMaxHp(rs.getInt("MaxHp"));
+                Player.SetCurrentMp(rs.getInt("CurrentMp"));
+                Player.SetMaxMp(rs.getInt("MaxMp"));
+                Player.SetAtk(rs.getInt("ATK"));
+                Player.SetMagicAtk(rs.getInt("MGATK"));
+                Player.SetDef(rs.getInt("DEF"));
+                Player.SetLuck(rs.getInt("LUCK"));
 
                 rs.close();
                 return true;
@@ -317,7 +317,7 @@ public class DBController {
                     {
                         if(itemName.compareTo(i.name) == 0)
                         {
-                            Player.inventory.put(i, quantity);
+                            Player.GetInventory().put(i, quantity);
                         }
                     }
                 }

@@ -26,7 +26,7 @@ public class EnhanceMagic extends Spell{
     @Override
     public void CastSpell(Enemy enemy)
     {
-        Player.magicAtk += 1;
+        Player.SetMagicAtk(Player.GetMagicAtk() + 1);
         System.out.println("Increased magic attack by 1");
     }
 }

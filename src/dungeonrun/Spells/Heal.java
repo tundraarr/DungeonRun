@@ -29,15 +29,15 @@ public class Heal extends Spell{
     @Override
     public void CastSpell(Enemy enemy) 
     {
-        if((Player.currentHp + this.healAmount) > Player.maxHp)
+        if((Player.GetCurrentHp() + this.healAmount) > Player.GetMaxHp())
         {
-            Player.currentHp = Player.maxHp;
+            Player.SetCurrentHp(Player.GetMaxHp());
         }
         else
         {
-            Player.currentHp += this.healAmount;
+            Player.SetCurrentHp(Player.GetCurrentHp() + this.healAmount);
         }
         
-        System.out.println(Player.name + " used " + this.name + " and heals " + this.healAmount + " hp.");
+        System.out.println(Player.GetName() + " used " + this.name + " and heals " + this.healAmount + " hp.");
     }
 }

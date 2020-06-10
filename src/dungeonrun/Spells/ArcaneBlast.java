@@ -29,8 +29,8 @@ public class ArcaneBlast extends Spell{
     @Override
     public void CastSpell(Enemy enemy) 
     {
-        int damage = this.power + (int)((Math.pow(Player.magicAtk, 2)) * 0.75);
-        System.out.println(Player.name + " used " + this.name + " and does " + damage + " damage.");
+        int damage = this.power + (int)((Math.pow(Player.GetMagicAtk(), 2)) * 0.75);
+        System.out.println(Player.GetName() + " used " + this.name + " and does " + damage + " damage.");
         enemy.hp -= damage;
     }
 }

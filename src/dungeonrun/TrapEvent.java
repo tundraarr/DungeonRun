@@ -29,19 +29,19 @@ public class TrapEvent extends Event{
         Random ran = new Random();
         
         //Damage is a randomized value between 1 and the 20% of the player's max hp
-        int trapDmg = ran.nextInt((int)(Player.maxHp * 0.20)) + 1; 
+        int trapDmg = ran.nextInt((int)(Player.GetMaxHp() * 0.20)) + 1; 
         
         //Check to see if damage is lethal
         //If so, change damage to leave player on 1 hp
-        if(trapDmg >= Player.currentHp)
+        if(trapDmg >= Player.GetCurrentHp())
         {
-            trapDmg = Player.currentHp - 1;
+            trapDmg = Player.GetCurrentHp() - 1;
         }   
                 
-        Player.currentHp -= trapDmg;
+        Player.SetCurrentHp(Player.GetCurrentHp() - trapDmg);
         
         System.out.println("Ran into a trap!");
-        System.out.println(Player.name + " took " + trapDmg + " damage.");
+        System.out.println(Player.GetName() + " took " + trapDmg + " damage.");
         System.out.println("Type anything to continue.....");
         scan.nextLine();
         
