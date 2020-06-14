@@ -22,6 +22,10 @@ public abstract class State extends Observable{
     public String userInput;
     
     public abstract State RunState();
+    public void UpdateSelf()
+    {
+        notifyObservers(null);
+    }
     
     //Take in a states enum and use it to discern which state to change to
     public static State ChangeState(States state)

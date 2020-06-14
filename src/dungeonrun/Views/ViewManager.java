@@ -29,7 +29,10 @@ public class ViewManager {
         NewGameController ngCon = new NewGameController(ngModel, ngView);
         ngModel.addObserver(ngView);
         
+        IntermissionView imView = new IntermissionView();
+        
         MainContainer.container.add(mmView, "MainMenu");
         MainContainer.container.add(ngView, "NewGame");
+        MainContainer.container.add(imView, "Intermission");
     }
 }

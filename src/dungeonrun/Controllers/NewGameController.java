@@ -33,6 +33,7 @@ public class NewGameController implements ActionListener{
         if(eStr.compareTo("Confirm") == 0)
         {
             model.CreateNewCharacter(view.GetUserInput());
+            
         }
     }
 }

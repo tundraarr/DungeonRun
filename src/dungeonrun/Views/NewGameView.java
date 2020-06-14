@@ -94,10 +94,18 @@ public class NewGameView extends JPanel implements Observer{
     @Override
     public void update(Observable o, Object obj) 
     {
-        boolean validName = (boolean)obj;
-        if(!validName)
+        if(obj != null)
         {
-            SetInvalidNameTxt();
+            boolean validName = (boolean)obj;
+            if(!validName)
+            {
+                SetInvalidNameTxt();
+            }
+        }
+        else
+        {
+            //Update Self
+            System.out.println("Updating self");
         }
     }
     
