@@ -34,7 +34,7 @@ public class DungeonRun {
         frame.setPreferredSize(new Dimension(650, 450));
         frame.add(MainContainer.container);
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(true);      
         
         //Change the state of the game while the game loop is runnning
         while(isPlaying)

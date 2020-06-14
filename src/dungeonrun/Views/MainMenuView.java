@@ -70,19 +70,17 @@ public class MainMenuView extends JPanel implements Observer{
     @Override
     public void update(Observable o, Object obj) 
     {
-        //TODO: Remove this particular instance of reset/update, not needed in main menu
-        //Reseting/Updating the panel when user revists it
-        if(obj == null)
-        {
-            ClearNoDataTxt();
-        }
-        else
+        if(obj != null)
         {
             boolean dataExists = (boolean)obj;
             if(!dataExists)
             {
                 SetNoDataTxt();
             }
+        }
+        else
+        {
+            ClearNoDataTxt();
         }
     }
     

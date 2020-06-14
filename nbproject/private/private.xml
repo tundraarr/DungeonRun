@@ -7,7 +7,8 @@
             <file>file:/C:/Users/Liam/Documents/NetBeansProjects/DungeonRun/src/dungeonrun/NewGameState.java</file>
             <file>file:/C:/Users/Liam/Documents/NetBeansProjects/DungeonRun/src/dungeonrun/Views/NewGameView.java</file>
             <file>file:/C:/Users/Liam/Documents/NetBeansProjects/DungeonRun/src/dungeonrun/Controllers/NewGameController.java</file>
-            <file>file:/C:/Users/Liam/Documents/NetBeansProjects/DungeonRun/src/dungeonrun/Enemies/Goblin.java</file>
+            <file>file:/C:/Users/Liam/Documents/NetBeansProjects/DungeonRun/src/dungeonrun/Views/IntermissionView.java</file>
+            <file>file:/C:/Users/Liam/Documents/NetBeansProjects/DungeonRun/src/dungeonrun/Views/ViewManager.java</file>
         </group>
     </open-files>
 </project-private>

@@ -102,7 +102,7 @@ public class MainMenuState extends State{
         //Delete data from database 
         
         //Go to new game state and view
-        MainContainer.ChangeView("NewGame");
+        MainContainer.ChangeView("NewGameView");
         System.out.println("Starting a new game");
     }
     

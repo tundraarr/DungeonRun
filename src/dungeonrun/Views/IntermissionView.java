@@ -9,8 +9,10 @@ import dungeonrun.Items.*;
 import dungeonrun.Player;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
@@ -46,6 +48,9 @@ public class IntermissionView extends JPanel implements Observer{
     
     //Panels to go inside interPanel
     private JPanel actionsPanel = new JPanel(); //Where the buttons to do stuff are
+    private JButton shopButton = new JButton("Shop");
+    private JButton proceedButton = new JButton("Proceed");
+    private JButton quitButton = new JButton("Save and Quit");
     //Make a new class for shop but put it in here
     private JPanel shopPanel = new JPanel(); //Show shop in interPanel and interact with it - add extra observer for this to interm view
  
@@ -69,15 +74,18 @@ public class IntermissionView extends JPanel implements Observer{
     
     private void SetupTopBanner()
     {
-        topBanner.setPreferredSize(new Dimension(650, 25));
+        topBanner.setPreferredSize(new Dimension(650, 35));
         topBanner.setForeground(Color.MAGENTA);
-        topBanner.setFont(new Font(topBanner.getName(), Font.PLAIN, 16));
-//        topBanner.setHorizontalTextPosition(CENTER);
+        topBanner.setFont(new Font(topBanner.getName(), Font.PLAIN, 20));
     }
     
     private void SetupStatsPanel()
     {
-        UpdateStatsPanel();
+        UpdateStatsPanel();       
+        
+        statsPanel.setPreferredSize(new Dimension(190, 450));
+        statsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        
         statsPanel.add(name);
         statsPanel.add(level);
         statsPanel.add(gold);
@@ -87,18 +95,45 @@ public class IntermissionView extends JPanel implements Observer{
         statsPanel.add(magicAtk);
         statsPanel.add(def);
         statsPanel.add(luck);
+        
+        Font font = new Font("Courier",Font.BOLD, 16);
+        for ( Component child : statsPanel.getComponents() )
+        {
+            JLabel label = (JLabel)child;
+            label.setFont(font);
+            label.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 0));
+        }
     }
     
     private void SetupInventoryPanel()
     {
         UpdateInventoryPanel();
+        useButton.setAlignmentX(CENTER_ALIGNMENT);
+        useButton.setPreferredSize(new Dimension(190,25));
+        useButton.setBorder(BorderFactory.createEmptyBorder(25, 83, 25, 83));
+        
+        inventoryPanel.setPreferredSize(new Dimension(190, 450));
         inventoryPanel.add(inventoryContainer);
         inventoryPanel.add(useButton);
     }
     
     private void SetupInterPanel()
     {
-        interPanel.add(actionsPanel);
+        interPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
+        actionsPanel.setLayout(new BoxLayout(actionsPanel, BoxLayout.PAGE_AXIS));
+        
+        shopButton.setAlignmentX(CENTER_ALIGNMENT);
+        proceedButton.setAlignmentX(CENTER_ALIGNMENT);
+        quitButton.setAlignmentX(CENTER_ALIGNMENT);
+        
+        shopButton.setMargin(new Insets(20, 0, 20, 0));
+        proceedButton.setMargin(new Insets(20, 0, 20, 0));
+        quitButton.setMargin(new Insets(20, 0, 20, 0));
+        
+        actionsPanel.add(shopButton);
+        actionsPanel.add(proceedButton);
+        actionsPanel.add(quitButton);
+        interPanel.add(actionsPanel);  
     }
     
     private void UpdateStatsPanel()
@@ -128,6 +163,7 @@ public class IntermissionView extends JPanel implements Observer{
     @Override
     public void update(Observable o, Object obj) 
     {
+        System.out.println("It is updating");
         if(obj != null)
         {
             

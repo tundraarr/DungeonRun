@@ -110,7 +110,7 @@ public class NewGameState extends State{
             {
                 Player.SetName(name);
                 InitializeNewPlayerStats();
-                MainContainer.ChangeView("Intermission");
+                MainContainer.ChangeView("IntermissionView");
             }
         }
         catch(NullInputException e)

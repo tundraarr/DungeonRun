@@ -31,8 +31,9 @@ public class ViewManager {
         
         IntermissionView imView = new IntermissionView();
         
-        MainContainer.container.add(mmView, "MainMenu");
-        MainContainer.container.add(ngView, "NewGame");
-        MainContainer.container.add(imView, "Intermission");
+        MainContainer.container.add(mmView, "MainMenuView");
+        MainContainer.container.add(ngView, "NewGameView");
+        MainContainer.container.add(imView, "IntermissionView");
+
     }
 }
