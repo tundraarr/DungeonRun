@@ -203,13 +203,7 @@ public class IntermissionView extends JPanel implements Observer{
         CardLayout cl = (CardLayout)(interPanel.getLayout());
         cl.show(interPanel, "ShopView");  
         shopView.update(null, null);
-    }       
-    
-//    public void CloseShop()
-//    {
-//        CardLayout cl = (CardLayout)(interPanel.getLayout());
-//        cl.show(interPanel, "ActionsPanel");
-//    }
+    }          
     
     public JPanel GetInterPanel()
     {

@@ -64,13 +64,6 @@ public class ShopView extends JPanel implements Observer{
     @Override
     public void update(Observable o, Object obj) 
     {
-        if(obj != null)
-        {
-
-        }
-        else
-        {
-            SetupShopDisplay(ShopInventory.GetItems());
-        }
+        SetupShopDisplay(ShopInventory.GetItems());
     }
 }
