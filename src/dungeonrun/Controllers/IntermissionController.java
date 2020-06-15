@@ -6,6 +6,7 @@
 package dungeonrun.Controllers;
 
 import dungeonrun.IntermissionState;
+import dungeonrun.SaveSystem;
 import dungeonrun.Views.IntermissionView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,6 +37,7 @@ public class IntermissionController implements ActionListener, ListSelectionList
         if(eStr.compareTo("Shop") == 0)
         {
             //Change interPanel to view of Shop
+            model.OpenShop();
         }
         else if(eStr.compareTo("Proceed") == 0)
         {
@@ -44,7 +46,7 @@ public class IntermissionController implements ActionListener, ListSelectionList
         else if(eStr.compareTo("Save and Quit") == 0)
         {
             //Save and quit the game
-            System.exit(0);
+            model.SaveAndExit();
         }
         else if(eStr.compareTo("Use") == 0)
         {

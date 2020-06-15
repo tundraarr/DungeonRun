@@ -113,6 +113,7 @@ public class NewGameState extends State{
                 Player.SetName(name);
                 InitializeNewPlayerStats();
                 MainContainer.ChangeView("IntermissionView");
+                SaveSystem.SaveGame();
             }
         }
         catch(NullInputException e)

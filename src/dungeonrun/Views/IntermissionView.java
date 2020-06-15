@@ -8,6 +8,7 @@ package dungeonrun.Views;
 import dungeonrun.Items.*;
 import dungeonrun.Player;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -51,21 +52,20 @@ public class IntermissionView extends JPanel implements Observer{
     private JButton useButton = new JButton("Use");
     
     //Panels to go inside interPanel
+    private ShopView shopView = new ShopView(); //Show shop in interPanel and interact with it - add extra observer for this to interm view
     private JPanel actionsPanel = new JPanel(); //Where the buttons to do stuff are
     private JPanel infoPanel = new JPanel();
     private JLabel infoText = new JLabel("The dungeon awaits");
     private JButton shopButton = new JButton("Shop");
     private JButton proceedButton = new JButton("Proceed");
     private JButton quitButton = new JButton("Save and Quit");
-    //Make a new class for shop but put it in here
-    private JPanel shopPanel = new JPanel(); //Show shop in interPanel and interact with it - add extra observer for this to interm view
- 
     
     public IntermissionView()
     {
         this.setLayout(new BorderLayout());
         statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.PAGE_AXIS));
         inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.PAGE_AXIS));
+        interPanel.setLayout(new CardLayout());
         
         SetupTopBanner();
         SetupStatsPanel();
@@ -145,16 +145,17 @@ public class IntermissionView extends JPanel implements Observer{
         proceedButton.setAlignmentX(CENTER_ALIGNMENT);
         quitButton.setAlignmentX(CENTER_ALIGNMENT);
         
-        shopButton.setMargin(new Insets(9, 115, 9, 115));
-        proceedButton.setMargin(new Insets(9, 100, 9, 100));
-        quitButton.setMargin(new Insets(9, 85, 9, 85));
+        shopButton.setMargin(new Insets(9, 113, 9, 112));
+        proceedButton.setMargin(new Insets(9, 103, 9, 103));
+        quitButton.setMargin(new Insets(9, 88, 9, 88));
         
         infoPanel.add(infoText);
         actionsPanel.add(infoPanel);
         actionsPanel.add(shopButton);
         actionsPanel.add(proceedButton);
         actionsPanel.add(quitButton);
-        interPanel.add(actionsPanel);  
+        interPanel.add(actionsPanel, "ActionsPanel");
+        interPanel.add(shopView, "ShopView");      
     }
     
     private void UpdateStatsPanel()
@@ -175,11 +176,17 @@ public class IntermissionView extends JPanel implements Observer{
         ArrayList<String> invItems = new ArrayList<String>();
         for(Map.Entry<Item, Integer> entry : Player.GetInventory().entrySet())
         {
-            invItems.add(entry.getKey().name + " | " + entry.getValue());
+            invItems.add(entry.getKey().name + " | " + entry.getValue() + " | " +entry.getKey().GetDescription());
         }
         
         inventory.setListData(invItems.toArray());
     }   
+    
+    private void OpenShop()
+    {
+        CardLayout cl = (CardLayout)(interPanel.getLayout());
+        cl.show(interPanel, "ShopView");  
+    }
     
     public void SetController(ActionListener aCntrl, ListSelectionListener lCntrl)
     {
@@ -188,7 +195,6 @@ public class IntermissionView extends JPanel implements Observer{
         quitButton.addActionListener(aCntrl);
         inventory.addListSelectionListener(lCntrl);
         useButton.addActionListener(aCntrl);
-        
     }
     
     @Override
@@ -197,7 +203,7 @@ public class IntermissionView extends JPanel implements Observer{
         System.out.println("It is updating");
         if(obj != null)
         {
-            
+            OpenShop();
         }
         else
         {

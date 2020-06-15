@@ -47,7 +47,7 @@ public class MainMenuController implements ActionListener{
             }
             else if(eStr.compareTo("Exit") == 0)
             {
-                
+                System.exit(0);
             }
         } 
         catch (NumberFormatException ex) 

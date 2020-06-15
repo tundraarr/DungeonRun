@@ -24,6 +24,42 @@ public class Item {
     
     public void UseItem(){};
     
+    //Getters and Setters
+    public String GetName()
+    {
+        return this.name;
+    }
+    
+    public String GetDescription()
+    {
+        return this.description;
+    }
+    
+    public int GetCost()
+    {
+        return this.cost;
+    }
+    
+    public void SetName(String name)
+    {
+        this.name = name;
+    }
+    
+    public void SetDescription(String description)
+    {
+        this.description = description;
+    }
+    
+    public void SetCost(int cost)
+    {
+        this.cost = cost;
+    }
+    
+    public void SetItemCode(int code)
+    {
+        this.itemCode = code;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (o == null) {

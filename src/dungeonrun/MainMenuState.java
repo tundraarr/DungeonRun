@@ -100,7 +100,7 @@ public class MainMenuState extends State{
     public void NewGame()
     {
         //Delete data from database 
-        
+        SaveSystem.DeleteSave();
         //Go to new game state and view
         MainContainer.ChangeView("NewGameView");
         System.out.println("Starting a new game");
@@ -108,7 +108,8 @@ public class MainMenuState extends State{
     
     public void LoadGame()
     {
+        boolean dataExists = SaveSystem.LoadGame();
          setChanged();
-         notifyObservers(false);
+         notifyObservers(dataExists);
     }
 }

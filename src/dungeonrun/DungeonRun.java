@@ -31,6 +31,7 @@ public class DungeonRun {
         
         frame = new JFrame("Frame");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
         frame.setPreferredSize(new Dimension(650, 450));
         frame.add(MainContainer.container);
         frame.pack();

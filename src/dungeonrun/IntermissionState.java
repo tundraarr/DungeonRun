@@ -144,12 +144,25 @@ public class IntermissionState extends State{
             
             setChanged();
             notifyObservers(null);
+            selectedItem = "";
         }  
     }
     
     public void SetSelectedItem(String itemName)
     {
         selectedItem = itemName;
+    }
+    
+    public void OpenShop()
+    {
+        setChanged();
+        notifyObservers("Shop");
+    }
+    
+    public void SaveAndExit()
+    {
+        SaveSystem.SaveGame();
+        System.exit(0);
     }
     
     //Generate and run the event that the player will encounter when they choose to proceed

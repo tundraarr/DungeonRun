@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package dungeonrun.Views;
+import dungeonrun.MainContainer;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.*;
@@ -64,7 +65,7 @@ public class MainMenuView extends JPanel implements Observer{
     
     private void ClearNoDataTxt()
     {
-        
+        noData.setText("");
     }
     
     @Override
@@ -76,6 +77,10 @@ public class MainMenuView extends JPanel implements Observer{
             if(!dataExists)
             {
                 SetNoDataTxt();
+            }
+            else
+            {
+                MainContainer.ChangeView("IntermissionView");
             }
         }
         else
