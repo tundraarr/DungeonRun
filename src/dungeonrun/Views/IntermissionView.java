@@ -5,8 +5,10 @@
  */
 package dungeonrun.Views;
 
+import dungeonrun.Controllers.ShopController;
 import dungeonrun.Items.*;
 import dungeonrun.Player;
+import dungeonrun.ShopState;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -29,6 +31,7 @@ import javax.swing.event.ListSelectionListener;
  */
 public class IntermissionView extends JPanel implements Observer{
 
+    //All components of the intermission view
     private JLabel topBanner = new JLabel("DUNGEON RUN INTERMISSION", SwingConstants.CENTER);
     private JPanel statsPanel = new JPanel();
     private JPanel inventoryPanel = new JPanel();
@@ -52,13 +55,17 @@ public class IntermissionView extends JPanel implements Observer{
     private JButton useButton = new JButton("Use");
     
     //Panels to go inside interPanel
-    private ShopView shopView = new ShopView(); //Show shop in interPanel and interact with it - add extra observer for this to interm view
     private JPanel actionsPanel = new JPanel(); //Where the buttons to do stuff are
     private JPanel infoPanel = new JPanel();
     private JLabel infoText = new JLabel("The dungeon awaits");
     private JButton shopButton = new JButton("Shop");
     private JButton proceedButton = new JButton("Proceed");
     private JButton quitButton = new JButton("Save and Quit");
+    
+    //Shop view and components inside of inventoryPanel
+    private ShopView shopView;
+    private ShopState shopModel;
+    private ShopController shopCon;
     
     public IntermissionView()
     {
@@ -70,6 +77,7 @@ public class IntermissionView extends JPanel implements Observer{
         SetupTopBanner();
         SetupStatsPanel();
         SetupInventoryPanel();
+        SetupShopPanel();
         SetupInterPanel();
         
         add(topBanner, BorderLayout.NORTH);
@@ -158,6 +166,14 @@ public class IntermissionView extends JPanel implements Observer{
         interPanel.add(shopView, "ShopView");      
     }
     
+    private void SetupShopPanel()
+    {
+        shopView = new ShopView(); 
+        shopModel = new ShopState(this);
+        shopCon = new ShopController(shopModel, shopView);
+        shopModel.addObserver(shopView);
+    }
+    
     private void UpdateStatsPanel()
     {
         name.setText("Name: " + Player.GetName());
@@ -186,6 +202,18 @@ public class IntermissionView extends JPanel implements Observer{
     {
         CardLayout cl = (CardLayout)(interPanel.getLayout());
         cl.show(interPanel, "ShopView");  
+        shopView.update(null, null);
+    }       
+    
+//    public void CloseShop()
+//    {
+//        CardLayout cl = (CardLayout)(interPanel.getLayout());
+//        cl.show(interPanel, "ActionsPanel");
+//    }
+    
+    public JPanel GetInterPanel()
+    {
+        return this.interPanel;
     }
     
     public void SetController(ActionListener aCntrl, ListSelectionListener lCntrl)
@@ -195,7 +223,7 @@ public class IntermissionView extends JPanel implements Observer{
         quitButton.addActionListener(aCntrl);
         inventory.addListSelectionListener(lCntrl);
         useButton.addActionListener(aCntrl);
-    }
+    }   
     
     @Override
     public void update(Observable o, Object obj) 

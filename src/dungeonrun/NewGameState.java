@@ -85,7 +85,7 @@ public class NewGameState extends State{
     private void InitializeNewPlayerStats()
     {
         Player.SetLevel(1);
-        Player.SetGold(0);
+        Player.SetGold(1000);
         Player.SetMaxHp(100);
         Player.SetMaxMp(50);
         Player.SetCurrentHp(Player.GetMaxHp());

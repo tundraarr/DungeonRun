@@ -44,7 +44,7 @@ public abstract class State extends Observable{
                 nextState = new IntermissionState();
                 break;
             case SHOP:
-                nextState = new ShopState();
+                //nextState = new ShopState();
                 break;
             case BATTLE:
                 nextState = new BattleState();

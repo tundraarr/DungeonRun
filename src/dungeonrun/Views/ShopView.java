@@ -6,11 +6,16 @@
 package dungeonrun.Views;
 
 import dungeonrun.Items.*;
+import dungeonrun.ShopInventory;
+import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -18,17 +23,18 @@ import javax.swing.*;
  */
 public class ShopView extends JPanel implements Observer{
     
-    JLabel shopTitle = new JLabel("SHOP");
-    JList shopInventory = new JList();
-    JScrollPane shopContainer = new JScrollPane(shopInventory);
-    JPanel shopActions = new JPanel();
-    JButton backButton = new JButton("Back");
-    JButton buyButton = new JButton("Buy");
+    private JLabel shopTitle = new JLabel("SHOP");
+    private JList shopInventory = new JList();
+    private JScrollPane shopContainer = new JScrollPane(shopInventory);
+    private JPanel shopActions = new JPanel();
+    private JButton backButton = new JButton("Back");
+    private JButton buyButton = new JButton("Buy");
     
     public ShopView()
     {
-        
         shopActions.setLayout(new FlowLayout());
+        
+        shopContainer.setPreferredSize(new Dimension(250, 200));
         
         add(shopTitle);
         add(shopContainer);
@@ -46,10 +52,25 @@ public class ShopView extends JPanel implements Observer{
             shopItems.add(i.GetName() + " Cost: " + i.GetCost() + " | " + i.GetDescription());
         }
         shopInventory.setListData(shopItems.toArray());
-    }
+    }  
+    
+    public void SetController(ActionListener cntrl, ListSelectionListener list)
+    {
+        shopInventory.addListSelectionListener(list);
+        backButton.addActionListener(cntrl);
+        buyButton.addActionListener(cntrl);
+    }  
     
     @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Observable o, Object obj) 
+    {
+        if(obj != null)
+        {
+
+        }
+        else
+        {
+            SetupShopDisplay(ShopInventory.GetItems());
+        }
     }
 }

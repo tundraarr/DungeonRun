@@ -5,6 +5,8 @@
  */
 package dungeonrun;
 import dungeonrun.Items.*;
+import dungeonrun.Views.IntermissionView;
+import java.awt.CardLayout;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -22,6 +24,14 @@ public class ShopState extends State{
         new PotionOfVigor(), new ScrollOfWisdom(), new LuckyClover(), new RitualOfWisdom(), 
         new ContractOfStrength(), new Dragonsoul()
     };
+    
+    private int selectedItem;  
+    private IntermissionView imViewRef;
+    
+    public ShopState(IntermissionView imView)
+    {
+        this.imViewRef = imView;
+    }
     
     @Override
     public State RunState() {
@@ -74,31 +84,47 @@ public class ShopState extends State{
         return State.ChangeState(States.INTERMISSION);
     }
     
-    private void BuyItem()
+    public void CloseShop()
     {
-        Item theItem = shopItems[Integer.valueOf(userInput) - 1];
-        
-        //Check if the player has sufficient GetGold() to purchase the item
-        if(Player.GetGold() >= theItem.cost)
+        CardLayout cl = (CardLayout)(imViewRef.GetInterPanel().getLayout());
+        cl.show(imViewRef.GetInterPanel(), "ActionsPanel");
+    }
+    
+    public void SetSelectedItem(int item)
+    {
+        selectedItem = item;
+        System.out.println(item);
+    }
+    
+    public void BuyItem()
+    {
+        if(selectedItem >= 0)
         {
-            //Check if the player already has this item in their GetInventory()
-            //If they do, increase the count for the item
-            //Otherwise, add a new instance of the item 
-            if(Player.GetInventory().containsKey(theItem))
+            Item theItem = shopItems[selectedItem];
+
+            //Check if the player has sufficient GetGold() to purchase the item
+            if(Player.GetGold() >= theItem.cost)
             {
-                Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) + 1);
+                //Check if the player already has this item in their GetInventory()
+                //If they do, increase the count for the item
+                //Otherwise, add a new instance of the item 
+                if(Player.GetInventory().containsKey(theItem))
+                {
+                    Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) + 1);
+                }
+                else
+                {
+                    Player.GetInventory().put(theItem, 1);
+                }
+
+                Player.SetGold(Player.GetGold() - theItem.cost);
+                System.out.println("You have purchased " + theItem.name);
             }
             else
             {
-                Player.GetInventory().put(theItem, 1);
+                System.out.println("You do not have enough GetGold()!");
             }
-            
-            Player.SetGold(Player.GetGold() - theItem.cost);
-            System.out.println("You have purchased " + theItem.name);
-        }
-        else
-        {
-            System.out.println("You do not have enough GetGold()!");
-        }
+            imViewRef.update(null, null);
+        }     
     }
 }
