@@ -17,6 +17,7 @@ public class IntermissionState extends State{
 
     private Random rand = new Random();
     private SpellList spellList = new SpellList();
+    private String selectedItem;
     
     @Override
     public State RunState() {
@@ -73,7 +74,7 @@ public class IntermissionState extends State{
         {
             //Go to the player's GetInventory() - go to InventoryState
             case 1:
-                AccessInventory();
+                //AccessInventory();
                 break;
             //Shows all of the player's stats
             case 2:
@@ -125,56 +126,30 @@ public class IntermissionState extends State{
     }
     
     //Show the player's GetInventory() to them and allow them to use items from it by inputting the item's name
-    private void AccessInventory()
+    public void UseItem()
     {
-        boolean validAns = false;
-        while(!validAns)
+        Item theItem = Player.CheckItemInInventory(selectedItem);
+        if(theItem != null)
         {
-            //Display all available items in the player's GetInventory()
-            System.out.println("==============INVENTORY================");
-            System.out.println("Input name of item to use or '0' to go back.");
-            System.out.println("0) Back");
-            for(Map.Entry<Item, Integer> entry : Player.GetInventory().entrySet())
-            {
-                System.out.println(entry.getKey().name + " x" + entry.getValue() + " | " + entry.getKey().description);
-            }
-            System.out.println("=======================================");
+            theItem.UseItem();
             
-            //Get the user's input for which item they want to use
-            try
+            //Make the info text from intermission view display text
+            System.out.println("You used: " + theItem.name);
+
+            Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) - 1);
+            if(Player.GetInventory().get(theItem) == 0)
             {
-                userInput = scan.nextLine();
-                Item theItem = Player.CheckItemInInventory(userInput);
-                if(theItem != null)
-                {
-                    validAns = true;
-                    theItem.UseItem();
-                    System.out.println("You used: " + theItem.name);
-                    
-                    //Deduct 1 from the item count
-                    //If the item has a count of 0, remove it from the the GetInventory()
-                    Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) - 1);
-                    if(Player.GetInventory().get(theItem) == 0)
-                    {
-                        Player.GetInventory().remove(theItem);
-                    }
-                }
-                //Return to the combat menu
-                else if(Integer.valueOf(userInput) == 0)
-                {
-                    validAns = true;
-                }
-                //Tell the user that they have entered an invalid name
-                else
-                {
-                    throw new InvalidInputException();
-                }
+                Player.GetInventory().remove(theItem);
             }
-            catch(Exception e)
-            {
-                System.out.println("Item not found! Type in the item name exactly as displayed or type '0' to go back.");
-            }           
-        }
+            
+            setChanged();
+            notifyObservers(null);
+        }  
+    }
+    
+    public void SetSelectedItem(String itemName)
+    {
+        selectedItem = itemName;
     }
     
     //Generate and run the event that the player will encounter when they choose to proceed
@@ -212,6 +187,7 @@ public class IntermissionState extends State{
     }
     
     //Add a new spell to the player's list of usable GetSpells() based on their level
+    //TODO: MOVE THIS METHOD TO IT'S OWN CLASS - STATIC REF
     private void LoadSpells()
     {
         for(Spell s : spellList.allSpells)

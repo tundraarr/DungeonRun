@@ -96,6 +96,8 @@ public class NewGameState extends State{
         Player.SetLuck(1);
         Player.SetNewSpells();
         Player.SetNewInventory();
+        Player.GetInventory().put(new ScrollOfWrath(), 3);
+        Player.GetInventory().put(new RitualOfWisdom(), 1);
     }
     
     public void CreateNewCharacter(String name)

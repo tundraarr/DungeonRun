@@ -5,8 +5,10 @@
  */
 package dungeonrun.Views;
 
+import dungeonrun.Controllers.IntermissionController;
 import dungeonrun.Controllers.MainMenuController;
 import dungeonrun.Controllers.NewGameController;
+import dungeonrun.IntermissionState;
 import dungeonrun.MainContainer;
 import dungeonrun.MainMenuState;
 import dungeonrun.NewGameState;
@@ -30,6 +32,9 @@ public class ViewManager {
         ngModel.addObserver(ngView);
         
         IntermissionView imView = new IntermissionView();
+        IntermissionState imModel = new IntermissionState();
+        IntermissionController imCon = new IntermissionController(imModel, imView);
+        imModel.addObserver(imView);
         
         MainContainer.container.add(mmView, "MainMenuView");
         MainContainer.container.add(ngView, "NewGameView");
