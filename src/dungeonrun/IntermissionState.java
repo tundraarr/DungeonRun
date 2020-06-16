@@ -16,7 +16,6 @@ import java.util.Random;
 public class IntermissionState extends State{
 
     private Random rand = new Random();
-    private SpellList spellList = new SpellList();
     private String selectedItem;
     
     @Override
@@ -142,7 +141,7 @@ public class IntermissionState extends State{
         notifyObservers("Shop");
     }
     
-    public void DBox()
+    public void ShowPopUp()
     {
         setChanged();
         notifyObservers(PlayEvent());
@@ -176,23 +175,5 @@ public class IntermissionState extends State{
         String text = theEvent.RunEvent();
      
         return text;
-    }  
-    
-    //Add a new spell to the player's list of usable GetSpells() based on their level
-    //TODO: MOVE THIS METHOD TO IT'S OWN CLASS - STATIC REF
-    private void LoadSpells()
-    {
-        for(Spell s : spellList.allSpells)
-        {
-            if(Player.GetLevel() >= s.levelReq)
-            {
-                if(!Player.GetSpells().contains(s))
-                {
-                    Player.GetSpells().add(s);
-                }
-            }
-        }
-    }
-    
-    
+    }       
 }

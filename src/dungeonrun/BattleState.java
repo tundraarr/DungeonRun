@@ -36,6 +36,9 @@ public class BattleState extends State{
     private Enemy enemy;
     private Turn turn = Turn.PLAYER;
     
+    private String selectedSpell;
+    private String selectedItem;
+    
     @Override
     public State RunState() {
         
@@ -145,105 +148,89 @@ public class BattleState extends State{
         CheckEnemyHp();
     }
     
-    //Access the player's GetInventory() and show them what items they have
-    //Items can be used by having the player input the name of the item
-    private void OpenInventory()
+    public void LoadSpells()
     {
-        boolean validAns = false;
-        while(!validAns)
-        {         
-            //Display all available items in the player's GetInventory()
-            System.out.println("==============INVENTORY================");
-            System.out.println("Input name of item to use or '0' to go back.");
-            System.out.println("0) Back");
-            for(Map.Entry<Item, Integer> entry : Player.GetInventory().entrySet())
+        for(Spell s : SpellList.GetAllSpells())
+        {
+            if(Player.GetLevel() >= s.levelReq)
             {
-                System.out.println(entry.getKey().name + " x" + entry.getValue() + " | " + entry.getKey().description);
-            }
-            System.out.println("=======================================");
-            
-            //Get the user's input for which item they want to use
-            userInput = scan.nextLine();
-            Item theItem = Player.CheckItemInInventory(userInput);
-            if(theItem != null)
-            {
-                validAns = true;
-                theItem.UseItem();
-                System.out.println("You used: " + theItem.name);
-                //Deduct 1 from the item count
-                //If the item has a count of 0, remove it from the the GetInventory()
-                Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) - 1);
-                if(Player.GetInventory().get(theItem) == 0)
+                if(!Player.GetSpells().contains(s))
                 {
-                    Player.GetInventory().remove(theItem);
+                    Player.GetSpells().add(s);
                 }
-            }
-            //Return to the combat menu
-            else if(Integer.valueOf(userInput) == 0)
-            {
-                validAns = true;
-            }
-            //Tell the user that they have entered an invalid name
-            else
-            {
-                System.out.println("Item not found! Make sure you input the name of the item exactly as it is displayed.");
             }
         }
     }
     
+    public void SetSelectedSpell(String spell)
+    {
+        this.selectedSpell = spell;
+    }
+    
+    public void SetSelectedItem(String item)
+    {
+        this.selectedItem = item;
+    }
+    
+    public void ViewSpells()
+    {
+        setChanged();
+        notifyObservers("SpellsPanel");
+    }
+    
+    public void ViewItems()
+    {
+        setChanged();
+        notifyObservers("InventoryPanel");
+    }
+    
+    public void GoBack()
+    {
+        setChanged();
+        notifyObservers("ButtonsPanel");
+    }
+    
     //Show the player all available GetSpells() they can use
     //Player inputs the corresponding number from the displayed list to use the spell 
-    private void ShowSpells()
+    public void CastSpell()
     {
-        boolean validAns = false;
-
-        while(!validAns)
+        //If the player has sufficient mp they can cast the spell, otherwise they will be told they don't have enough mp
+        if(Player.GetCurrentMp() >= Player.GetSpells().get(Integer.valueOf(userInput) - 1).manaCost)
         {
-            //Display all of the GetSpells() available to the user and the option to go back
-            System.out.println("0) Back");
-            for(int i = 0; i < Player.GetSpells().size(); i++)
-            {
-                System.out.println((i + 1) + ") " + Player.GetSpells().get(i).name + "| MP: " + Player.GetSpells().get(i).manaCost + " | " + Player.GetSpells().get(i).description);
-            }
-            
-            try
-            {
-                userInput = scan.nextLine();
-                //If the user input a value that does not correspond to an existing spell displayed throw an invalid input error.
-                if(Integer.valueOf(userInput) > Player.GetSpells().size() || Integer.valueOf(userInput) < 0)
-                {
-                    throw new InvalidInputException();
-                }
-                //If the user inputs 0 they are sent back to the combat menu
-                else if(Integer.valueOf(userInput) == 0)
-                {
-                    validAns = true;
-                    turn = Turn.PLAYER;
-                }
-                //If the user inputs a valid value they will cast the spell and end their turn
-                else
-                {
-                    //If the player has sufficient mp they can cast the spell, otherwise they will be told they don't have enough mp
-                    if(Player.GetCurrentMp() >= Player.GetSpells().get(Integer.valueOf(userInput) - 1).manaCost)
-                    {
-                        validAns = true;
-                        Player.GetSpells().get(Integer.valueOf(userInput) - 1).CastSpell(enemy);
-                        Player.SetCurrentMp(Player.GetCurrentMp() - Player.GetSpells().get(Integer.valueOf(userInput) - 1).manaCost);
-                        CheckEnemyHp();
-                    }
-                    else
-                    {
-                        System.out.println("Not enough MP to cast spell");
-                    }
-                }
-            }
-            catch(Exception e)
-            {
-                System.out.println("Invalid Input! Try inputting a value between 1 - " + Player.GetSpells().size());
-            }
+            Player.GetSpells().get(Integer.valueOf(userInput) - 1).CastSpell(enemy);
+            Player.SetCurrentMp(Player.GetCurrentMp() - Player.GetSpells().get(Integer.valueOf(userInput) - 1).manaCost);
+            CheckEnemyHp();
+        }
+        else
+        {
+            System.out.println("Not enough MP to cast spell");
         }
     }
 
+    
+    public void UseItem()
+    {
+        System.out.println("Trying to use item");
+        Item theItem = Player.CheckItemInInventory(selectedItem);
+        if(theItem != null)
+        {
+            theItem.UseItem();
+            
+            //Make the info text from intermission view display text
+            System.out.println("You used: " + theItem.name);
+
+            Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) - 1);
+            if(Player.GetInventory().get(theItem) == 0)
+            {
+                Player.GetInventory().remove(theItem);
+            }
+            
+            setChanged();
+            notifyObservers(null);
+            selectedItem = "";
+        }  
+    }
+    
     
     private void EnemyTurn()
     {

@@ -5,9 +5,8 @@
  */
 package dungeonrun.Views;
 
-import dungeonrun.Controllers.IntermissionController;
-import dungeonrun.Controllers.MainMenuController;
-import dungeonrun.Controllers.NewGameController;
+import dungeonrun.BattleState;
+import dungeonrun.Controllers.*;
 import dungeonrun.IntermissionState;
 import dungeonrun.MainContainer;
 import dungeonrun.MainMenuState;
@@ -37,6 +36,9 @@ public class ViewManager {
         imModel.addObserver(imView);
         
         BattleView bView = new BattleView();
+        BattleState bModel = new BattleState();
+        BattleController bCon = new BattleController(bModel, bView);
+        bModel.addObserver(bView);
         
         MainContainer.container.add(mmView, "MainMenuView");
         MainContainer.container.add(ngView, "NewGameView");

@@ -20,10 +20,9 @@ public abstract class Spell {
     public int code;
     
     //Method to cast a spell 
-    public abstract void CastSpell(Enemy enemy);
+    public abstract void CastSpell(Enemy enemy);    
     
-    
-        @Override
+    @Override
     public boolean equals(Object o) {
         if (o == null) {
         return false;

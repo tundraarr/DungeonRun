@@ -5,15 +5,23 @@
  */
 package dungeonrun.Views;
 
+import dungeonrun.Items.Item;
+import dungeonrun.Player;
+import dungeonrun.Spells.*;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -39,6 +47,7 @@ public class BattleView extends JPanel implements Observer{
     private JPanel buttonsPanel = new JPanel();
     private JPanel spellsPanel = new JPanel();
     private JPanel inventoryPanel = new JPanel();
+    private JPanel blankPanel = new JPanel(); //Used to stop player's from interacting during combat
     
     //Components to go inside buttons panel
     private JButton attackButton = new JButton("Attack");
@@ -55,7 +64,7 @@ public class BattleView extends JPanel implements Observer{
     //Components to go inside inventory panel
     private JPanel invButtons = new JPanel();
     private JButton invBackButton = new JButton("Back");
-    private JButton invUseButton = new JButton("Cast");
+    private JButton invUseButton = new JButton("Use");
     private JList itemsList = new JList();
     private JScrollPane itemsContainer = new JScrollPane(itemsList);
     
@@ -64,6 +73,8 @@ public class BattleView extends JPanel implements Observer{
         this.setLayout(new BorderLayout());
         SetupVisualPanel();
         SetupButtonsPanel();
+        SetupSpellsPanel();
+        SetupInventoryPanel();
         SetupActionPanel();
         add(visualPanel, BorderLayout.CENTER);
         add(actionPanel, BorderLayout.SOUTH);
@@ -132,23 +143,138 @@ public class BattleView extends JPanel implements Observer{
     {
         actionPanel.setLayout(new CardLayout());
         actionPanel.setPreferredSize(new Dimension(650, 100));
+        actionPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         actionPanel.add(buttonsPanel, "ButtonsPanel");
         actionPanel.add(spellsPanel, "SpellsPanel");
         actionPanel.add(inventoryPanel, "InventoryPanel");
+        actionPanel.add(blankPanel, "BlankPanel");
     }
     
     private void SetupButtonsPanel()
     {
-        buttonsPanel.setLayout(new FlowLayout());
+        buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 30));
+
+        attackButton.setMargin(new Insets(10, 20, 10, 20));
+        spellsButton.setMargin(new Insets(10, 20, 10, 20));
+        itemsButton.setMargin(new Insets(10, 20, 10, 20));
+        
         buttonsPanel.add(attackButton);
         buttonsPanel.add(spellsButton);
         buttonsPanel.add(itemsButton);
     }
     
-    @Override
-    public void update(Observable o, Object arg) 
+    private void SetupSpellsPanel()
+    {
+        spellsPanel.setLayout(new BoxLayout(spellsPanel, BoxLayout.X_AXIS));
+        
+        spButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 15));
+        spButtons.setPreferredSize(new Dimension(20, 100));
+        spButtons.add(spBackButton);
+        spButtons.add(spCastButton);
+        
+        spellsContainer.setPreferredSize(new Dimension(400, 100));
+        
+        spellsPanel.add(spButtons);
+        spellsPanel.add(spellsContainer);
+    }
+    
+    private void SetupInventoryPanel()
+    {
+        inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.X_AXIS));
+        
+        invButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
+        invButtons.setPreferredSize(new Dimension(20, 100));
+        invButtons.add(invBackButton);
+        invButtons.add(invUseButton);
+        
+        itemsContainer.setPreferredSize(new Dimension(400, 100));
+        
+        inventoryPanel.add(invButtons);
+        inventoryPanel.add(itemsContainer);
+    }
+    
+    private void SetupBlankPanel()
+    {
+        blankPanel.setPreferredSize(new Dimension(650, 100));
+    }
+    
+    private void UpdateEnemy()
     {
         
+    }
+    
+    private void UpdatePlayer()
+    {
+        playerHpText.setText("HP: " + Player.GetCurrentHp() + " / " + Player.GetMaxHp());
+        playerMpText.setText("MP: " + Player.GetCurrentMp() + " / " + Player.GetMaxMp());
+    }
+    
+    private void UpdateSpellsPanel()
+    {
+        ArrayList<String> spells = new ArrayList<String>();
+        for(Spell sp : Player.GetSpells())
+        {
+            spells.add(sp.name + " | " + sp.manaCost + " | " + sp.description);
+        }
+        
+        spellsList.setListData(spells.toArray());
+    }
+    
+    private void UpdateInventoryPanel()
+    {
+        ArrayList<String> invItems = new ArrayList<String>();
+        for(Map.Entry<Item, Integer> entry : Player.GetInventory().entrySet())
+        {
+            invItems.add(entry.getKey().name + " | " + entry.getValue() + " | " +entry.getKey().GetDescription());
+        }
+        
+        itemsList.setListData(invItems.toArray());
+    }
+    
+    private void ChangeActionPanel(String panel)
+    {
+        CardLayout cl = (CardLayout)(actionPanel.getLayout());
+        cl.show(actionPanel, panel);  
+    }
+    
+    public JList GetSpellsJList()
+    {
+        return this.spellsList;
+    }
+    
+    public JList GetItemsJList()
+    {
+        return this.itemsList;
+    }
+    
+    public void SetController(ActionListener actL, ListSelectionListener lsL)
+    {
+        attackButton.addActionListener(actL);
+        spellsButton.addActionListener(actL);
+        itemsButton.addActionListener(actL);
+        spBackButton.addActionListener(actL);
+        invBackButton.addActionListener(actL);
+        spCastButton.addActionListener(actL);
+        invUseButton.addActionListener(actL);
+        spellsList.addListSelectionListener(lsL);
+        itemsList.addListSelectionListener(lsL);
+    }
+    
+    @Override
+    public void update(Observable o, Object obj) 
+    {
+        if(obj != null)
+        {
+            String str = (String)obj;
+            ChangeActionPanel(str);
+        }
+        else
+        {
+            UpdateEnemy();
+            UpdatePlayer();
+            UpdateSpellsPanel();
+            UpdateInventoryPanel();
+        }
     }
     
 }

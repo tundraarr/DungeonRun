@@ -108,7 +108,7 @@ public class Player {
         }
         
         return item;
-    }
+    }    
     
     //Getters 
     public static String GetName()
@@ -173,7 +173,7 @@ public class Player {
     
     public static ArrayList<Spell> GetSpells()
     {
-        return Player.GetSpells();
+        return Player.spells;
     }
     
     //Setters

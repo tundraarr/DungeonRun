@@ -42,7 +42,7 @@ public class IntermissionController implements ActionListener, ListSelectionList
         else if(eStr.compareTo("Proceed") == 0)
         {
             //Run event method
-            model.DBox();
+            model.ShowPopUp();
         }
         else if(eStr.compareTo("Save and Quit") == 0)
         {
