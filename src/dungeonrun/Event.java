@@ -19,5 +19,5 @@ public abstract class Event {
     public int maxChance;
     public Scanner scan = new Scanner(System.in);
     
-    public abstract State RunEvent();
+    public abstract String RunEvent();
 }

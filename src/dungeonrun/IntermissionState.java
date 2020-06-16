@@ -78,11 +78,10 @@ public class IntermissionState extends State{
                 break;
             //Shows all of the player's stats
             case 2:
-                ShowStats();
                 break;
             //Proceed onto an event (treasure, trap, battle)
             case 3:
-                newState = PlayEvent();
+                //newState = PlayEvent();
                 break;
             //Takes player to the shop - go to ShopState
             case 4:
@@ -107,22 +106,6 @@ public class IntermissionState extends State{
                 throw new InvalidInputException();
         }
         return newState;
-    }
-    
-    //Show the player their stats
-    private void ShowStats()
-    {
-//        System.out.println("=========STATS=========");
-//        System.out.println("Name: " + Player.name);
-//        System.out.println("Level: " + Player.level);
-//        System.out.println("HP: " + Player.currentHp + " / " + Player.maxHp);
-//        System.out.println("MP: " + Player.currentMp + " / " + Player.maxMp);
-//        System.out.println("Attack: " + Player.atk);
-//        System.out.println("Magic Attack: " + Player.magicAtk);
-//        System.out.println("Defense: " + Player.def);
-//        System.out.println("Luck: " + Player.luck);
-//        System.out.println("Type anything to continue......");
-//        scan.nextLine();
     }
     
     //Show the player's GetInventory() to them and allow them to use items from it by inputting the item's name
@@ -159,6 +142,12 @@ public class IntermissionState extends State{
         notifyObservers("Shop");
     }
     
+    public void DBox()
+    {
+        setChanged();
+        notifyObservers(PlayEvent());
+    }
+    
     public void SaveAndExit()
     {
         SaveSystem.SaveGame();
@@ -166,10 +155,8 @@ public class IntermissionState extends State{
     }
     
     //Generate and run the event that the player will encounter when they choose to proceed
-    private State PlayEvent()
+    private String PlayEvent()
     {
-        State nextState = null;
-        
         //Array of the possible events that can occur
         //Each event has as certain probability of happening
         Event[] events = new Event[]{new TreasureEvent(), new TrapEvent(), new BattleEvent()};
@@ -186,18 +173,10 @@ public class IntermissionState extends State{
             }
         }
 
-        if(theEvent != null)
-        {
-            nextState = theEvent.RunEvent();
-        }
-        
-        if(nextState != null)
-        {
-            loopState = false;
-        }
-        
-        return  nextState;
-    }
+        String text = theEvent.RunEvent();
+     
+        return text;
+    }  
     
     //Add a new spell to the player's list of usable GetSpells() based on their level
     //TODO: MOVE THIS METHOD TO IT'S OWN CLASS - STATIC REF

@@ -27,7 +27,7 @@ public class TreasureEvent extends Event{
     }
     
     @Override
-    public State RunEvent() {
+    public String RunEvent() {
         
         Item theTreasure;
         Random ran = new Random();
@@ -43,10 +43,7 @@ public class TreasureEvent extends Event{
             Player.GetInventory().put(theTreasure, 1);
         }
         
-        System.out.println("TREASURE! You found " + theTreasure.name);
-        System.out.println("Type anything to continue......");
-        scan.nextLine();
-        return null;
+        return ("TREASURE! You found " + theTreasure.name);
     }
     
 }

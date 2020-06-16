@@ -22,10 +22,9 @@ public class BattleEvent extends Event{
     }
     
     @Override
-    public State RunEvent() {
+    public String RunEvent() {
         
-        System.out.println("Heading to battle");
-        return State.ChangeState(States.BATTLE);
+        return "Battle";
     }
     
 }

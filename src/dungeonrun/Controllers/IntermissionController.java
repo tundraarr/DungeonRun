@@ -41,7 +41,8 @@ public class IntermissionController implements ActionListener, ListSelectionList
         }
         else if(eStr.compareTo("Proceed") == 0)
         {
-            //Change view to battle
+            //Run event method
+            model.DBox();
         }
         else if(eStr.compareTo("Save and Quit") == 0)
         {

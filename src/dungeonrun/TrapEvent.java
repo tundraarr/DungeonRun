@@ -24,7 +24,7 @@ public class TrapEvent extends Event{
     }
     
     @Override
-    public State RunEvent() {
+    public String RunEvent() {
         
         Random ran = new Random();
         
@@ -40,12 +40,8 @@ public class TrapEvent extends Event{
                 
         Player.SetCurrentHp(Player.GetCurrentHp() - trapDmg);
         
-        System.out.println("Ran into a trap!");
-        System.out.println(Player.GetName() + " took " + trapDmg + " damage.");
-        System.out.println("Type anything to continue.....");
-        scan.nextLine();
-        
-        return null;
+        return ("Ran into a trap!\n"
+                + Player.GetName() + " took " + trapDmg + " damage.");       
     }
     
 }

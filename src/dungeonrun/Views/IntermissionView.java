@@ -7,6 +7,7 @@ package dungeonrun.Views;
 
 import dungeonrun.Controllers.ShopController;
 import dungeonrun.Items.*;
+import dungeonrun.MainContainer;
 import dungeonrun.Player;
 import dungeonrun.ShopState;
 import java.awt.BorderLayout;
@@ -210,6 +211,11 @@ public class IntermissionView extends JPanel implements Observer{
         return this.interPanel;
     }
     
+    public void ShowDBox(String msg)
+    {
+        JOptionPane.showMessageDialog(this, msg);
+    }
+    
     public void SetController(ActionListener aCntrl, ListSelectionListener lCntrl)
     {
         shopButton.addActionListener(aCntrl);
@@ -222,10 +228,28 @@ public class IntermissionView extends JPanel implements Observer{
     @Override
     public void update(Observable o, Object obj) 
     {
-        System.out.println("It is updating");
+        String str = (String)obj;
         if(obj != null)
         {
-            OpenShop();
+            //Open the shop panel view if the update string is Shop
+            if(str.compareTo("Shop") == 0)
+            {
+                OpenShop();
+            }
+            //Go to battle view if the update obj is string for Battle
+            else if(str.compareTo("Battle") == 0)
+            {
+                System.out.println("Battle");
+                MainContainer.ChangeView("BattleView");
+            }
+            //For any other update obj strings - the treasure of trap event
+            //Show a pop-up box and then update the intermisison view
+            else
+            {
+                ShowDBox(str);
+                UpdateStatsPanel();
+                UpdateInventoryPanel(); 
+            }
         }
         else
         {

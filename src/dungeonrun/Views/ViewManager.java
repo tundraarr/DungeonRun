@@ -36,9 +36,12 @@ public class ViewManager {
         IntermissionController imCon = new IntermissionController(imModel, imView);
         imModel.addObserver(imView);
         
+        BattleView bView = new BattleView();
+        
         MainContainer.container.add(mmView, "MainMenuView");
         MainContainer.container.add(ngView, "NewGameView");
         MainContainer.container.add(imView, "IntermissionView");
+        MainContainer.container.add(bView, "BattleView");
 
     }
 }
