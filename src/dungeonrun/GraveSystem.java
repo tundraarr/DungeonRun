@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 /**
  *
  * @author Liam
@@ -26,23 +27,25 @@ public class GraveSystem {
     }
     
     //Read the graveyard table and display all the player's deceased characters
-    public static void ViewGraveyard() throws IOException
+    public static ArrayList<String> GetGraveyard()
     {
-        System.out.println("====================GRAVEYARD=======================");
+        ArrayList<String> graveList = new ArrayList<String>();
+        
         try
         {
             ResultSet rs = dbc.QueryGraveTable();
             rs.beforeFirst();
             while(rs.next())
             {
-                System.out.println("Name: " +rs.getString("Name")+ " | Level: " +rs.getInt("Level")+ " | Date: " +rs.getDate("Date"));
-            }
+                graveList.add("Name: " +rs.getString("Name")+ " | Level: " +rs.getInt("Level")+ " | Date: " +rs.getDate("Date"));
+            }           
         }
         catch(SQLException ex)
         {
             System.err.println(ex);
         }
-        System.out.println("====================================================");
+        
+        return graveList;
     }
     
 }

@@ -74,16 +74,9 @@ public class MainMenuState extends State{
                 break;
             //Print out a list of the player's deceased characters
             case 3:
-                try
-                {
-                    GraveSystem.ViewGraveyard();
+                    GraveSystem.GetGraveyard();
                     System.out.println("Type anything to continue...");
                     scan.nextLine();
-                }
-                catch(IOException e)
-                {
-                    System.err.println("Error in getting graveyard data - " + e);
-                }               
                 return null;
             //Close the application
             case 4:
@@ -111,5 +104,11 @@ public class MainMenuState extends State{
         boolean dataExists = SaveSystem.LoadGame();
          setChanged();
          notifyObservers(dataExists);
+    }
+    
+    public void UpdateSelf()
+    {
+        setChanged();
+        notifyObservers(null);
     }
 }

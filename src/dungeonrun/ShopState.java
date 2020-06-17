@@ -122,4 +122,10 @@ public class ShopState extends State{
             imViewRef.update(null, null);
         }     
     }
+    
+    public void UpdateSelf()
+    {
+        setChanged();
+        notifyObservers(null);
+    }
 }

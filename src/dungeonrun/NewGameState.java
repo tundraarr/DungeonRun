@@ -122,4 +122,10 @@ public class NewGameState extends State{
             notifyObservers(false);
         }
     }
+    
+    public void UpdateSelf()
+    {
+        setChanged();
+        notifyObservers(null);
+    }
 }

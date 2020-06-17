@@ -26,6 +26,7 @@ public class BattleEvent extends Event{
         
         //Load in the player's spells they are able to use before entering battle
         SpellList.LoadSpells();
+        BattleState.SpawnEnemy();
         return "Battle";
     }
     

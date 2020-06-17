@@ -175,5 +175,11 @@ public class IntermissionState extends State{
         String text = theEvent.RunEvent();
      
         return text;
-    }       
+    }    
+    
+    public void UpdateSelf()
+    {
+        setChanged();
+        notifyObservers(null);
+    }
 }

@@ -7,6 +7,7 @@ package dungeonrun.Views;
 
 import dungeonrun.BattleState;
 import dungeonrun.Controllers.*;
+import dungeonrun.GraveyardState;
 import dungeonrun.IntermissionState;
 import dungeonrun.MainContainer;
 import dungeonrun.MainMenuState;
@@ -25,6 +26,11 @@ public class ViewManager {
         MainMenuController mmCon = new MainMenuController(mmModel, mmView);
         mmModel.addObserver(mmView);
         
+        GraveyardView gView = new GraveyardView();
+        GraveyardState gModel = new GraveyardState();
+        GraveyardController gCon = new GraveyardController(gModel, gView);
+        gModel.addObserver(gView);
+        
         NewGameView ngView = new NewGameView();
         NewGameState ngModel = new NewGameState();
         NewGameController ngCon = new NewGameController(ngModel, ngView);
@@ -41,6 +47,7 @@ public class ViewManager {
         bModel.addObserver(bView);
         
         MainContainer.container.add(mmView, "MainMenuView");
+        MainContainer.container.add(gView, "GraveyardView");
         MainContainer.container.add(ngView, "NewGameView");
         MainContainer.container.add(imView, "IntermissionView");
         MainContainer.container.add(bView, "BattleView");

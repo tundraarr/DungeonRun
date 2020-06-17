@@ -10,6 +10,8 @@ import dungeonrun.SaveSystem;
 import dungeonrun.Views.IntermissionView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -18,7 +20,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
-public class IntermissionController implements ActionListener, ListSelectionListener{
+public class IntermissionController implements ActionListener, ListSelectionListener, ComponentListener{
     
     private IntermissionState model;
     private IntermissionView view;
@@ -27,7 +29,7 @@ public class IntermissionController implements ActionListener, ListSelectionList
     {
         this.model = model;
         this.view = view;
-        view.SetController(this, this);
+        view.SetController(this, this, this);
     }
     
     @Override
@@ -80,4 +82,19 @@ public class IntermissionController implements ActionListener, ListSelectionList
             System.err.println("Item removed from list");
         }      
     }
+
+    @Override
+    public void componentResized(ComponentEvent e) {}
+
+    @Override
+    public void componentMoved(ComponentEvent e) {}
+
+    @Override
+    public void componentShown(ComponentEvent e) 
+    {
+        model.UpdateSelf();
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {}
 }

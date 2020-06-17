@@ -9,6 +9,8 @@ import dungeonrun.ShopState;
 import dungeonrun.Views.ShopView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -17,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
-public class ShopController implements ActionListener, ListSelectionListener{
+public class ShopController implements ActionListener, ListSelectionListener, ComponentListener{
 
     private ShopState model;
     private ShopView view;
@@ -26,7 +28,7 @@ public class ShopController implements ActionListener, ListSelectionListener{
     {
         this.model = model;
         this.view = view;
-        view.SetController(this, this);
+        view.SetController(this, this, this);
     }
     
     @Override
@@ -61,5 +63,20 @@ public class ShopController implements ActionListener, ListSelectionListener{
             System.err.println(nex);
         }   
     }
+
+    @Override
+    public void componentResized(ComponentEvent e) {}
+
+    @Override
+    public void componentMoved(ComponentEvent e) {}
+
+    @Override
+    public void componentShown(ComponentEvent e) 
+    {
+        model.UpdateSelf();
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {}
     
 }

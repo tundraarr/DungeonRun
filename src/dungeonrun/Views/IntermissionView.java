@@ -18,6 +18,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.Map;
@@ -216,13 +217,14 @@ public class IntermissionView extends JPanel implements Observer{
         JOptionPane.showMessageDialog(this, msg);
     }
     
-    public void SetController(ActionListener aCntrl, ListSelectionListener lCntrl)
+    public void SetController(ActionListener aCntrl, ListSelectionListener lCntrl, ComponentListener cL)
     {
         shopButton.addActionListener(aCntrl);
         proceedButton.addActionListener(aCntrl);
         quitButton.addActionListener(aCntrl);
         inventory.addListSelectionListener(lCntrl);
         useButton.addActionListener(aCntrl);
+        this.addComponentListener(cL);
     }   
     
     @Override

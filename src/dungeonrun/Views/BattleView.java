@@ -8,6 +8,7 @@ package dungeonrun.Views;
 import dungeonrun.Items.Item;
 import dungeonrun.Player;
 import dungeonrun.Spells.*;
+import dungeonrun.Enemies.*;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -16,6 +17,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
@@ -35,13 +37,13 @@ public class BattleView extends JPanel implements Observer{
     
     //Components to go inside visual panel
     //And image component
-    private JLabel enemyName = new JLabel("Goblin");
+    private JLabel enemyName = new JLabel();
     private ImageIcon enemyIcon;
     private JLabel enemyImage;
-    private JLabel enemyHpText = new JLabel("50 / 50");
+    private JLabel enemyHpText = new JLabel();
     private JLabel battleText = new JLabel("Something of text should go here");
-    private JLabel playerHpText = new JLabel("HP: 100 / 100");
-    private JLabel playerMpText = new JLabel("MP: 50 / 50");
+    private JLabel playerHpText = new JLabel();
+    private JLabel playerMpText = new JLabel();
     
     //Components to go inside actions panel
     private JPanel buttonsPanel = new JPanel();
@@ -94,9 +96,11 @@ public class BattleView extends JPanel implements Observer{
         }
     }
     
-    private void SetEnemyImage()
+    private void SetEnemyImage(Enemy enemy)
     {
-        
+        enemyIcon = createImageIcon("../Images/" +enemy.name+ ".png", "Enemy Image");
+        enemyImage.setIcon(enemyIcon);
+        System.out.println(enemyIcon.getImage());
     }
     
     private void SetupVisualPanel()
@@ -104,13 +108,13 @@ public class BattleView extends JPanel implements Observer{
         visualPanel.setLayout(new BoxLayout(visualPanel, BoxLayout.PAGE_AXIS));
         visualPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         
-        enemyName.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
+        enemyName.setBorder(BorderFactory.createEmptyBorder(45, 0, 0, 0));
         enemyName.setFont(new Font(enemyName.getName(), Font.PLAIN, 20));
         enemyName.setForeground(Color.gray);
         enemyName.setAlignmentX(CENTER_ALIGNMENT);
         
-        enemyIcon = createImageIcon("../Images/Goblin.png", "an image");
-        enemyImage = new JLabel(enemyIcon);
+        //enemyIcon = createImageIcon("../Images/Goblin.png", "an image");
+        enemyImage = new JLabel();
         enemyImage.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         enemyImage.setAlignmentX(CENTER_ALIGNMENT);
         
@@ -198,9 +202,11 @@ public class BattleView extends JPanel implements Observer{
         blankPanel.setPreferredSize(new Dimension(650, 100));
     }
     
-    private void UpdateEnemy()
+    private void UpdateEnemy(Enemy enemy)
     {
-        
+        SetEnemyImage(enemy);
+        enemyName.setText(enemy.name);
+        enemyHpText.setText("HP: " + enemy.hp);
     }
     
     private void UpdatePlayer()
@@ -247,7 +253,7 @@ public class BattleView extends JPanel implements Observer{
         return this.itemsList;
     }
     
-    public void SetController(ActionListener actL, ListSelectionListener lsL)
+    public void SetController(ActionListener actL, ListSelectionListener lsL, ComponentListener cL)
     {
         attackButton.addActionListener(actL);
         spellsButton.addActionListener(actL);
@@ -258,23 +264,24 @@ public class BattleView extends JPanel implements Observer{
         invUseButton.addActionListener(actL);
         spellsList.addListSelectionListener(lsL);
         itemsList.addListSelectionListener(lsL);
+        this.addComponentListener(cL);
     }
     
     @Override
     public void update(Observable o, Object obj) 
     {
-        if(obj != null)
+        if(!(obj instanceof Enemy))
         {
             String str = (String)obj;
             ChangeActionPanel(str);
         }
-        else
+        else if(obj instanceof Enemy)
         {
-            UpdateEnemy();
-            UpdatePlayer();
-            UpdateSpellsPanel();
-            UpdateInventoryPanel();
+            UpdateEnemy((Enemy)obj);
         }
+        UpdatePlayer();
+        UpdateSpellsPanel();
+        UpdateInventoryPanel();
     }
     
 }

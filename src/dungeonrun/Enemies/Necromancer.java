@@ -11,11 +11,11 @@ import dungeonrun.Player;
  *
  * @author Liam
  */
-public class VampireLord extends Enemy{
+public class Necromancer extends Enemy{
     
-    public VampireLord()
+    public Necromancer()
     {
-        this.name = "Vampire Lord";
+        this.name = "Necromancer";
         this.level = 8;
         this.hp = 55;
         this.dmg = 23;

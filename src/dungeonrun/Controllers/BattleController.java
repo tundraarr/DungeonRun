@@ -9,6 +9,8 @@ import dungeonrun.BattleState;
 import dungeonrun.Views.BattleView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -17,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
-public class BattleController implements ActionListener, ListSelectionListener{
+public class BattleController implements ActionListener, ListSelectionListener, ComponentListener{
 
     private BattleState model;
     private BattleView view;
@@ -26,7 +28,7 @@ public class BattleController implements ActionListener, ListSelectionListener{
     {
         this.model = model;
         this.view = view;
-        view.SetController(this, this);
+        view.SetController(this, this, this);
     }
     
     @Override
@@ -36,7 +38,7 @@ public class BattleController implements ActionListener, ListSelectionListener{
         System.out.println(eStr);
         if(eStr.compareTo("Attack") == 0)
         {
-            
+            model.Attack();
         }
         else if(eStr.compareTo("Spells") == 0)
         {
@@ -93,5 +95,20 @@ public class BattleController implements ActionListener, ListSelectionListener{
             System.err.println("Item removed from list");
         }   
     }
+
+    @Override
+    public void componentResized(ComponentEvent e) {}
+
+    @Override
+    public void componentMoved(ComponentEvent e) {}
+
+    @Override
+    public void componentShown(ComponentEvent e) 
+    {
+        model.UpdateSelf();
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {}
     
 }

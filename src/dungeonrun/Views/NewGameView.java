@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
@@ -85,10 +86,15 @@ public class NewGameView extends JPanel implements Observer{
         errorLabel.setText("Invalid name! Name cannot start with a space or be null.");
     }
     
+    private void ClearInvalidText()
+    {
+        errorLabel.setText("");
+    }
     
-    public void SetController(ActionListener cntrl)
+    public void SetController(ActionListener cntrl, ComponentListener cL)
     {
         confirmButton.addActionListener(cntrl);
+        this.addComponentListener(cL);
     }
     
     @Override
@@ -105,7 +111,7 @@ public class NewGameView extends JPanel implements Observer{
         else
         {
             //Update Self
-            System.out.println("Updating self");
+            ClearInvalidText();
         }
     }
     

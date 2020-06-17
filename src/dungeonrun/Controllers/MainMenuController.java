@@ -9,12 +9,14 @@ import dungeonrun.*;
 import dungeonrun.Views.MainMenuView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 /**
  *
  * @author Liam
  */
-public class MainMenuController implements ActionListener{
+public class MainMenuController implements ActionListener, ComponentListener{
     
     private MainMenuState model;
     private MainMenuView view;
@@ -23,7 +25,7 @@ public class MainMenuController implements ActionListener{
     {
         this.model = theModel;
         this.view = theView;
-        view.SetController(this);
+        view.SetController(this, this);
     }
     
     @Override
@@ -43,7 +45,7 @@ public class MainMenuController implements ActionListener{
             } 
             else if (eStr.compareTo("Graveyard") == 0) 
             {
-                
+                MainContainer.ChangeView("GraveyardView");
             }
             else if(eStr.compareTo("Exit") == 0)
             {
@@ -56,5 +58,20 @@ public class MainMenuController implements ActionListener{
 
         }
     }
+
+    @Override
+    public void componentResized(ComponentEvent e) {}
+
+    @Override
+    public void componentMoved(ComponentEvent e) {}
+
+    @Override
+    public void componentShown(ComponentEvent e) 
+    {
+        model.UpdateSelf();
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {}
     
 }

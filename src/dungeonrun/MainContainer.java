@@ -23,19 +23,5 @@ public class MainContainer{
     {
         CardLayout cl = (CardLayout)(MainContainer.container.getLayout());
         cl.show(MainContainer.container, viewName);   
-        UpdateView(viewName);
-    }
-    
-    public static void UpdateView(String viewName)
-    {
-        for (Component comp : container.getComponents()) 
-        {
-            JPanel p = (JPanel)comp;
-            if(p.getClass().getSimpleName().compareTo(viewName) == 0)
-            {
-                Observer ob = (Observer)p;
-                ob.update(null, null);
-            }
-        }
-    }
+    }   
 }

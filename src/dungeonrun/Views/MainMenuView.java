@@ -7,8 +7,10 @@ package dungeonrun.Views;
 import dungeonrun.MainContainer;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.util.Observable;
 import java.util.Observer;
 /**
@@ -29,14 +31,22 @@ public class MainMenuView extends JPanel implements Observer{
          this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
          
          title.setAlignmentX(CENTER_ALIGNMENT);
-         title.setFont(new Font(title.getName(), Font.PLAIN, 28));
+         title.setFont(new Font(title.getName(), Font.PLAIN, 36));
          title.setPreferredSize(new Dimension(150, 45));
-         title.setBorder(BorderFactory.createEmptyBorder(25, 10, 10, 10));
+         title.setBorder(BorderFactory.createEmptyBorder(25, 10, 25, 10));
          
          newGameBtn.setAlignmentX(CENTER_ALIGNMENT);
-         newGameBtn.setPreferredSize(new Dimension(75, 50));
-         newGameBtn.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+         newGameBtn.setMargin(new Insets(10, 10, 10, 10));
     
+         loadGameBtn.setAlignmentX(CENTER_ALIGNMENT);
+         loadGameBtn.setMargin(new Insets(10, 10, 10, 10));
+         
+         graveyardBtn.setAlignmentX(CENTER_ALIGNMENT);
+         graveyardBtn.setMargin(new Insets(10, 10, 10, 10));
+         
+         exitBtn.setAlignmentX(CENTER_ALIGNMENT);
+         exitBtn.setMargin(new Insets(10, 10, 10, 10));
+         
          noData.setAlignmentX(CENTER_ALIGNMENT);
          noData.setPreferredSize(new Dimension(50, 30));
          
@@ -50,12 +60,13 @@ public class MainMenuView extends JPanel implements Observer{
          add(noData);
      }
      
-    public void SetController(ActionListener cntrl) 
+    public void SetController(ActionListener cntrl, ComponentListener cL) 
     {
         newGameBtn.addActionListener(cntrl);
         loadGameBtn.addActionListener(cntrl);
         graveyardBtn.addActionListener(cntrl);
         exitBtn.addActionListener(cntrl);
+        this.addComponentListener(cL);
     }
  
     public void SetNoDataTxt()

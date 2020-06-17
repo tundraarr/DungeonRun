@@ -11,6 +11,7 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -54,11 +55,12 @@ public class ShopView extends JPanel implements Observer{
         shopInventory.setListData(shopItems.toArray());
     }  
     
-    public void SetController(ActionListener cntrl, ListSelectionListener list)
+    public void SetController(ActionListener cntrl, ListSelectionListener list, ComponentListener cL)
     {
         shopInventory.addListSelectionListener(list);
         backButton.addActionListener(cntrl);
         buyButton.addActionListener(cntrl);
+        this.addComponentListener(cL);
     }  
     
     @Override

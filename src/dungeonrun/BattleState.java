@@ -7,6 +7,7 @@ package dungeonrun;
 import dungeonrun.Enemies.*;
 import dungeonrun.Items.*;
 import dungeonrun.Spells.*;
+import java.awt.CardLayout;
 import java.util.Map;
 import java.util.Random;
 /**
@@ -30,10 +31,10 @@ public class BattleState extends State{
     
     //An array of all possible enemies that could appear
     //Program generates a random number between 1 - 100 to select which enemy the player will fight
-    private Enemy[] enemies = new Enemy[]{new Goblin(), new Skeleton(), new LostSoul(), new RavenousSlime(), new UndeadKnight(), new VampireLord(), new TheDarkness()};
-    private int enemyChoice = ran.nextInt(100);
+    private static Enemy[] enemies = new Enemy[]{new Goblin(), new Skeleton(), new LostSoul(), new RavenousSlime(), new UndeadKnight(), new Necromancer(), new TheDarkness()};
+    private static int enemyChoice;   
+    private static Enemy enemy;
     
-    private Enemy enemy;
     private Turn turn = Turn.PLAYER;
     
     private String selectedSpell;
@@ -42,34 +43,12 @@ public class BattleState extends State{
     @Override
     public State RunState() {
         
-        SpawnEnemy();
         
-        while(loopState)
-        {
-            if(turn == Turn.PLAYER)
-            {
-                PlayerTurn();
-            }
-            else if(turn == Turn.ENEMY)
-            {
-                EnemyTurn();
-            }
-            else if(turn == Turn.VICTORY)
-            {
-                loopState = false;
-                CollectRewards();
-                Player.LevelUp();
-            }
-            else if(turn == Turn.DEFEAT)
-            {
-                loopState = false;
-                System.out.println("Your journey ends.....but you may begin anew");
-                return State.ChangeState(States.MAINMENU);
-            }
-        }
+        
+       
         
         return State.ChangeState(States.INTERMISSION);
-    }
+    }   
     
     //Provides player with an text interface to perform actions in the battle state
     //They are provided information on the enemy they are facing and the enemy's hp
@@ -120,8 +99,10 @@ public class BattleState extends State{
     
     //Spawn the enemy based on the enemy's probability of appearing
     //If the number generated is between the enemy's min & max chance, instantiate that enemy
-    private void SpawnEnemy()
+    public static void SpawnEnemy()
     {
+        Random ran = new Random();
+        enemyChoice = ran.nextInt(100);
         for(Enemy e : enemies)
         {
             if(enemyChoice >= e.minChance && enemyChoice <= e.maxChance)
@@ -129,11 +110,26 @@ public class BattleState extends State{
                 enemy = e;
             }
         }
+        System.out.println(enemy.name);
     }
     
+    //Specifically used by BattleView to obtain the enemy object so that it can update
+    //the enemy components in the view. Not ideal but enemy can not be parsed to view
+    //when the view is switched and no buttons are pressed.
+    public static Enemy GetEnemy()
+    {
+        return enemy;
+    }
+    
+    public void UpdateSelf()
+    {
+        setChanged();
+        notifyObservers(enemy);
+    }
+
     //Player attacks the enemy and deals damage to them based on their attack stat
     //Player attacks can also crit (deal double damage), with chance of occurring based on their luck stat
-    private void Attack()
+    public void Attack()
     {
         int pDamage = 3 + (int)Math.ceil(Math.pow(Player.GetAtk(), 1.35) * 0.65);
         if(ran.nextInt(100) <= (Player.GetLuck() * 2))
@@ -210,7 +206,6 @@ public class BattleState extends State{
     
     public void UseItem()
     {
-        System.out.println("Trying to use item");
         Item theItem = Player.CheckItemInInventory(selectedItem);
         if(theItem != null)
         {
