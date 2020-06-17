@@ -71,19 +71,18 @@ public class BattleController implements ActionListener, ListSelectionListener, 
             {
                 //Check which JList is being interacted with
                 JList aList = (JList)e.getSource();
-                //Set the selected Item if from ItemsList
+                //Set the selected Item if the JList is ItemsList
                 if(aList == view.GetItemsJList())
                 {
                     String s = aList.getSelectedValue().toString();
                     String[] itemName = s.split(" \\|");
                     model.SetSelectedItem(itemName[0]);
                 }
-                //Set the selected Spell if from SpellsList
+                //Set the selected Spell if the JList is SpellsList
                 else if(aList == view.GetSpellsJList())
                 {
-                    String s = aList.getSelectedValue().toString();
-                    String[] spellName = s.split(" \\|");
-                    model.SetSelectedSpell(spellName[0]);
+                    int index = aList.getSelectedIndex();
+                    model.SetSelectedSpell(index);
                 }               
             }
         }
@@ -105,6 +104,7 @@ public class BattleController implements ActionListener, ListSelectionListener, 
     @Override
     public void componentShown(ComponentEvent e) 
     {
+        model.SpawnEnemy();
         model.UpdateSelf();
     }
 

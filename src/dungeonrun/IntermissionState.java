@@ -17,6 +17,7 @@ public class IntermissionState extends State{
 
     private Random rand = new Random();
     private String selectedItem;
+    private SpellList spellList = new SpellList();
     
     @Override
     public State RunState() {
@@ -105,6 +106,21 @@ public class IntermissionState extends State{
                 throw new InvalidInputException();
         }
         return newState;
+    }
+    
+    //Update the player's spells list (spells they can use) based on their level
+    public  void LoadSpells()
+    {
+        for(Spell s : spellList.GetAllSpells())
+        {
+            if(Player.GetLevel() >= s.levelReq)
+            {
+                if(!Player.GetSpells().contains(s))
+                {
+                    Player.GetSpells().add(s);
+                }
+            }
+        }
     }
     
     //Show the player's GetInventory() to them and allow them to use items from it by inputting the item's name

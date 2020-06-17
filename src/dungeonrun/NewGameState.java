@@ -87,7 +87,7 @@ public class NewGameState extends State{
         Player.SetLevel(1);
         Player.SetGold(1000);
         Player.SetMaxHp(100);
-        Player.SetMaxMp(50);
+        Player.SetMaxMp(1);
         Player.SetCurrentHp(Player.GetMaxHp());
         Player.SetCurrentMp(Player.GetMaxMp());
         Player.SetAtk(1);

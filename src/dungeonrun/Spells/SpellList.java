@@ -13,29 +13,15 @@ import dungeonrun.Player;
  */
 public class SpellList {
     
-    private static Spell[] allSpells = 
+    private Spell[] allSpells = 
     {
         new Fireball(), new LightningSpear(), new Heal(), new FrostMissle(), new GreatHeal(),
         new EnhanceAttack(), new EnhanceMagic(), new ArcaneBlast(), new EnhanceDefense(),
         new MeteorStrike(), new AngelsBlessing(), new ManaDischarge(), new SoulSplitter()
     };
     
-    public static Spell[] GetAllSpells()
+    public Spell[] GetAllSpells()
     {
         return allSpells;
-    }
-    
-    public static void LoadSpells()
-    {
-        for(Spell s : allSpells)
-        {
-            if(Player.GetLevel() >= s.levelReq)
-            {
-                if(!Player.GetSpells().contains(s))
-                {
-                    Player.GetSpells().add(s);
-                }
-            }
-        }
-    }
+    }   
 }

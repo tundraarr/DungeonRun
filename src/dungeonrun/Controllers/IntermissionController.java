@@ -92,6 +92,7 @@ public class IntermissionController implements ActionListener, ListSelectionList
     @Override
     public void componentShown(ComponentEvent e) 
     {
+        model.LoadSpells();
         model.UpdateSelf();
     }
 

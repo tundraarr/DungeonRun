@@ -5,6 +5,7 @@
  */
 package dungeonrun.Views;
 
+import dungeonrun.CombatInfo;
 import dungeonrun.Items.Item;
 import dungeonrun.Player;
 import dungeonrun.Spells.*;
@@ -33,7 +34,7 @@ public class BattleView extends JPanel implements Observer{
 
     //Main panels for Battle View
     private JPanel visualPanel = new JPanel();
-    private JPanel actionPanel = new JPanel();
+    private JPanel actionPanel = new JPanel();   
     
     //Components to go inside visual panel
     //And image component
@@ -113,7 +114,6 @@ public class BattleView extends JPanel implements Observer{
         enemyName.setForeground(Color.gray);
         enemyName.setAlignmentX(CENTER_ALIGNMENT);
         
-        //enemyIcon = createImageIcon("../Images/Goblin.png", "an image");
         enemyImage = new JLabel();
         enemyImage.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         enemyImage.setAlignmentX(CENTER_ALIGNMENT);
@@ -123,7 +123,7 @@ public class BattleView extends JPanel implements Observer{
         enemyHpText.setAlignmentX(CENTER_ALIGNMENT);
         
         battleText.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-        battleText.setFont(new Font(battleText.getName(), Font.ROMAN_BASELINE, 20));
+        battleText.setFont(new Font(battleText.getName(), Font.BOLD, 16));
         battleText.setAlignmentX(CENTER_ALIGNMENT);
         
         playerHpText.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
@@ -215,6 +215,11 @@ public class BattleView extends JPanel implements Observer{
         playerMpText.setText("MP: " + Player.GetCurrentMp() + " / " + Player.GetMaxMp());
     }
     
+    private void UpdateBattleText(String text)
+    {
+        battleText.setText(text);
+    }
+    
     private void UpdateSpellsPanel()
     {
         ArrayList<String> spells = new ArrayList<String>();
@@ -235,6 +240,11 @@ public class BattleView extends JPanel implements Observer{
         }
         
         itemsList.setListData(invItems.toArray());
+    }
+    
+    private void ShowBattleEndPopup(String msg)
+    {
+        JOptionPane.showMessageDialog(this, msg);
     }
     
     private void ChangeActionPanel(String panel)
@@ -270,14 +280,31 @@ public class BattleView extends JPanel implements Observer{
     @Override
     public void update(Observable o, Object obj) 
     {
-        if(!(obj instanceof Enemy))
+        //If the object is not a CombatInfo obj, then it is a String
+        //to change the action panel to a different panel
+        if(!(obj instanceof CombatInfo))
         {
             String str = (String)obj;
             ChangeActionPanel(str);
+
         }
-        else if(obj instanceof Enemy)
+        //If the object is of CombatInfo then it means that the View needs to be updated
+        else if(obj instanceof CombatInfo)
         {
-            UpdateEnemy((Enemy)obj);
+            CombatInfo info = (CombatInfo)obj;
+            if(info.getTextInfo().compareTo("Victory") == 0)
+            {
+                ShowBattleEndPopup("Victory! You have received " + info.GetEnemyInfo().gold + "gold");
+            }
+            else if(info.getTextInfo().compareTo("Defeat") == 0)
+            {
+                ShowBattleEndPopup("Defeat... But you may try again");
+            }
+            else
+            {
+                UpdateEnemy(info.GetEnemyInfo());
+                UpdateBattleText(info.getTextInfo());
+            }
         }
         UpdatePlayer();
         UpdateSpellsPanel();
