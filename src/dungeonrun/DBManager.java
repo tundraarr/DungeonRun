@@ -13,6 +13,8 @@ import java.sql.SQLException;
  *
  * @author Liam
  */
+
+//Manages connection to the database
 public class DBManager {
     
     //Arguments for connecting to the embedded database

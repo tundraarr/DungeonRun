@@ -17,6 +17,7 @@ import dungeonrun.NewGameState;
  *
  * @author Liam
  */
+//Used for intializing all views for this application and adding them to the main container within the frame
 public class ViewManager {
     
     public void IntializeViews()

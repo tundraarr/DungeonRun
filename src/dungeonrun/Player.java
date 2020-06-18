@@ -42,7 +42,6 @@ public class Player {
     public static void LevelUp()
     {
         Random ran = new Random();
-        System.out.println("Leveling Up!");
         level++;
                  
         switch((ran.nextInt(6) + 1))

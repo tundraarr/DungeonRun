@@ -20,6 +20,8 @@ import java.util.Map;
  *
  * @author Liam
  */
+
+//Enables manipulation of the database connected to this application
 public class DBController {
     
     private DBManager dbm;
@@ -44,6 +46,7 @@ public class DBController {
         }
     }
     
+    //Create all necessary tables
     public void CreateTables()
     {
         CreateProfileTable();
@@ -51,6 +54,7 @@ public class DBController {
         CreateItemsTable();
     }
     
+    //Inserts data into the related Player tables with information from the Player object
     public void SetPlayerData()
     {
         try

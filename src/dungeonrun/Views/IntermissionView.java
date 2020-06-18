@@ -31,6 +31,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
+//The view of the intermission state (dungeon entrance)
 public class IntermissionView extends JPanel implements Observer{
 
     //All components of the intermission view
@@ -71,11 +72,13 @@ public class IntermissionView extends JPanel implements Observer{
     
     public IntermissionView()
     {
+        //Core components of the intermission views
         this.setLayout(new BorderLayout());
         statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.PAGE_AXIS));
         inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.PAGE_AXIS));
         interPanel.setLayout(new CardLayout());
         
+        //Setup of all components in the view
         SetupTopBanner();
         SetupStatsPanel();
         SetupInventoryPanel();
@@ -88,6 +91,7 @@ public class IntermissionView extends JPanel implements Observer{
         add(interPanel, BorderLayout.CENTER);
     }
     
+    //For creation of an image icon
     private ImageIcon createImageIcon(String path, String description) 
     {
         java.net.URL imgURL = getClass().getResource(path);
@@ -102,6 +106,7 @@ public class IntermissionView extends JPanel implements Observer{
         }
     }
     
+    //Setting details for the components within the top banner
     private void SetupTopBanner()
     {
         topBanner.setPreferredSize(new Dimension(650, 45));
@@ -109,6 +114,7 @@ public class IntermissionView extends JPanel implements Observer{
         topBanner.setFont(new Font(topBanner.getName(), Font.PLAIN, 24));
     }
     
+    //Setting details for the components within the stats panel
     private void SetupStatsPanel()
     {
         UpdateStatsPanel();       
@@ -136,6 +142,7 @@ public class IntermissionView extends JPanel implements Observer{
         }
     }
     
+    //Setting the detais for components within the inventory panel
     private void SetupInventoryPanel()
     {
         UpdateInventoryPanel();       
@@ -156,6 +163,7 @@ public class IntermissionView extends JPanel implements Observer{
         inventoryPanel.add(useButton);
     }
     
+    //Setting the details for the components within the interaction panel
     private void SetupInterPanel()
     {
         interPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -185,6 +193,7 @@ public class IntermissionView extends JPanel implements Observer{
         interPanel.add(shopView, "ShopView");      
     }
     
+    //Setting up components within the shop panel
     private void SetupShopPanel()
     {
         shopView = new ShopView(); 
@@ -193,6 +202,7 @@ public class IntermissionView extends JPanel implements Observer{
         shopModel.addObserver(shopView);
     }
     
+    //Update visual info of the stats panel
     private void UpdateStatsPanel()
     {
         name.setText("Name: " + Player.GetName());
@@ -206,6 +216,7 @@ public class IntermissionView extends JPanel implements Observer{
         luck.setText("LUCK: " + Player.GetLuck());
     }
     
+    //Update visual info (items) of the inventory panel
     private void UpdateInventoryPanel()
     {
         ArrayList<String> invItems = new ArrayList<String>();
@@ -217,6 +228,7 @@ public class IntermissionView extends JPanel implements Observer{
         inventory.setListData(invItems.toArray());
     }   
     
+    //Access the shop view/panel
     private void OpenShop()
     {
         CardLayout cl = (CardLayout)(interPanel.getLayout());
@@ -224,16 +236,19 @@ public class IntermissionView extends JPanel implements Observer{
         shopView.update(null, null);
     }          
     
+    //Return a reference of the interaction panel (used by the shop to return)
     public JPanel GetInterPanel()
     {
         return this.interPanel;
     }
     
+    //Show a dialogue box for events that occur
     public void ShowDBox(String msg)
     {
         JOptionPane.showMessageDialog(this, msg);
     }
     
+    //Set the controller for all listenable components in this view
     public void SetController(ActionListener aCntrl, ListSelectionListener lCntrl, ComponentListener cL)
     {
         shopButton.addActionListener(aCntrl);

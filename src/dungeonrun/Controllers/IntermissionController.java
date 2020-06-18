@@ -20,6 +20,8 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
+
+//The controller for the intermission (dungoen entrance) 
 public class IntermissionController implements ActionListener, ListSelectionListener, ComponentListener{
     
     private IntermissionState model;
@@ -32,6 +34,7 @@ public class IntermissionController implements ActionListener, ListSelectionList
         view.SetController(this, this, this);
     }
     
+    //Assign actions to the buttons in the intermission
     @Override
     public void actionPerformed(ActionEvent e) {      
         
@@ -58,6 +61,7 @@ public class IntermissionController implements ActionListener, ListSelectionList
         
     }
 
+    //For when the player selects an item from their inventory - sets what currently selected item is in model
     @Override
     public void valueChanged(ListSelectionEvent e) {
         
@@ -78,8 +82,6 @@ public class IntermissionController implements ActionListener, ListSelectionList
         {
             //Causes null pointer exception when an item is used up and removed from the list
             //Does not negatively impact the application so it can be ignored
-            System.err.println(nex);
-            System.err.println("Item removed from list");
         }      
     }
 
@@ -89,6 +91,7 @@ public class IntermissionController implements ActionListener, ListSelectionList
     @Override
     public void componentMoved(ComponentEvent e) {}
 
+    //When the intermission view is shown it updates itself 
     @Override
     public void componentShown(ComponentEvent e) 
     {

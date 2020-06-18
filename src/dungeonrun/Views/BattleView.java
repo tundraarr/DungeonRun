@@ -30,6 +30,8 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
+
+//The view for when the Player is in battle
 public class BattleView extends JPanel implements Observer{
 
     //Main panels for Battle View
@@ -37,7 +39,6 @@ public class BattleView extends JPanel implements Observer{
     private JPanel actionPanel = new JPanel();   
     
     //Components to go inside visual panel
-    //And image component
     private JLabel enemyName = new JLabel();
     private ImageIcon enemyIcon;
     private JLabel enemyImage;
@@ -82,6 +83,7 @@ public class BattleView extends JPanel implements Observer{
         add(actionPanel, BorderLayout.SOUTH);
     }
     
+    //For creation of an image icon
     private ImageIcon createImageIcon(String path, String description) 
     {
         java.net.URL imgURL = getClass().getResource(path);
@@ -96,13 +98,14 @@ public class BattleView extends JPanel implements Observer{
         }
     }
     
+    //Setting the image for an icon
     private void SetEnemyImage(Enemy enemy)
     {
         enemyIcon = createImageIcon("../Images/" +enemy.name+ ".png", "Enemy Image");
         enemyImage.setIcon(enemyIcon);
-        System.out.println(enemyIcon.getImage());
     }
     
+    //Setup of the top half panel, the panel consisting of visual enemy info and player info
     private void SetupVisualPanel()
     {
         //The top half panel for the Battle View
@@ -281,7 +284,7 @@ public class BattleView extends JPanel implements Observer{
         return this.itemsList;
     }
     
-    //Set the controller for this Panel
+    //Set the controllers for this Panel
     public void SetController(ActionListener actL, ListSelectionListener lsL, ComponentListener cL)
     {
         attackButton.addActionListener(actL);

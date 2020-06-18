@@ -23,26 +23,13 @@ public class BattleState extends State{
       
     private Random ran = new Random();
     
-    //An array of all possible enemies that could appear
-    //Program generates a random number between 1 - 100 to select which enemy the player will fight
-    //private Enemy[] enemies = new Enemy[]{new Goblin(), new Skeleton(), new LostSoul(), new RavenousSlime(), new UndeadKnight(), new Necromancer(), new TheDarkness()};
     private int enemyChoice;   
     private Enemy enemy;
     private String combatText = "";
-    
-    
+       
     private int selectedSpell;
     private String selectedItem;
-    
-    @Override
-    public State RunState() {
-        
-        
-        
-       
-        
-        return State.ChangeState(States.INTERMISSION);
-    }   
+      
       
     //Spawn the enemy based on the enemy's probability of appearing
     //If the number generated is between the enemy's min & max chance, instantiate that enemy
@@ -67,6 +54,7 @@ public class BattleState extends State{
         notifyObservers(new CombatInfo(enemy, combatText));
     }    
 
+    //Return to the Intermission View (when player defeats the enemy)
     private void ReturnToIntermission()
     {
         UpdateSelf();
@@ -74,6 +62,7 @@ public class BattleState extends State{
         MainContainer.ChangeView("IntermissionView");
     }
     
+    //Return to the Main Menu view (when player is defeated)
     private void ReturnToMainMenu()
     {
         UpdateSelf();
@@ -94,18 +83,11 @@ public class BattleState extends State{
         
         combatText += ("["+Player.GetName()+"]" + " did: " + pDamage+ " damage   |  ");
         UpdateSelf();
-        //If enemy is defeated
-        if(CheckEnemyHp())
-        {
-            ReturnToIntermission();
-            combatText = "";
-        }
-        else
-        {
-            EnemyTurn();
-        }
+        PlayerCombatResult();
     }
     
+    
+    //Casts a spell the player has selected from their spells list
     public void CastSpell()
     {
         //If the player has sufficient mp they can cast the spell, otherwise they will be told they don't have enough mp
@@ -116,20 +98,10 @@ public class BattleState extends State{
                 combatText += Player.GetSpells().get(selectedSpell).CastSpell(enemy);
                 Player.SetCurrentMp(Player.GetCurrentMp() - Player.GetSpells().get(selectedSpell).manaCost);
                 UpdateSelf();
-                //If enemy is defeated
-                if(CheckEnemyHp())
-                {
-                    ReturnToIntermission();
-                    combatText = "";
-                }
-                else
-                {
-                    EnemyTurn();
-                }
+                PlayerCombatResult();
             }
             else
             {
-                System.out.println("Not enough MP to cast spell");
                 combatText = "Not enough mp to cast!";
                 UpdateSelf();
             }
@@ -142,6 +114,24 @@ public class BattleState extends State{
         combatText = "";
     }
     
+    //Check whether the enemy is defeated from the player's attack
+    //And either finish the battle or have the enemy make their attack
+    public void PlayerCombatResult()
+    {
+        if(CheckEnemyHp())
+        {
+            //If enemy is defeated from the attack
+            ReturnToIntermission();
+            combatText = "";
+        }
+        else
+        {
+            //Enemy's turn to attack if they are not defeated from the attack
+            EnemyTurn();
+        }
+    }
+    
+    //Enemy's attack
     private void EnemyTurn()
     {
         //Enemy attacks the player based on their attack value (minus the player's defense) and display this information to the users
@@ -155,8 +145,8 @@ public class BattleState extends State{
         combatText += (" ["+enemy.name+"]" + " does: " + enemyDmg + " damage");
         UpdateSelf();
         
-        //If the player's hp is reduced to 0 or less they are defeated otherwise, return to player's turn
-        //Their player name and level is saved in the graveyard (their save is then deleted) and they are sent back to the main menu
+        //If the player's hp is reduced to 0 or less they are defeated, otherwise return to player's turn
+        //If defeated, their player name and level is saved in the graveyard (their save is then deleted) and they are sent back to the main menu
         if(Player.GetCurrentHp() <= 0)
         {
             combatText = ("Defeat");
@@ -174,40 +164,40 @@ public class BattleState extends State{
         combatText = "";
     }
     
+    //Set the currently selected spell from the player's spell list (The JList component)
     public void SetSelectedSpell(int spell)
     {
         this.selectedSpell = spell;
     }
     
+    //Set the currently selected item from the player's item list (The JList component)
     public void SetSelectedItem(String item)
     {
         this.selectedItem = item;
     }
     
+    //Change the actions panel to the spells panel
     public void ViewSpells()
     {
         setChanged();
         notifyObservers("SpellsPanel");
     }
     
+    //Change the actions panel to the items panel
     public void ViewItems()
     {
         setChanged();
         notifyObservers("InventoryPanel");
     }
     
+    //Go back to the buttons panel
     public void GoBack()
     {
         setChanged();
         notifyObservers("ButtonsPanel");
-    }
-    
-    public void ShowBlankPanel()
-    {
-        setChanged();
-        notifyObservers("BlankPanel");
-    }
+    }   
   
+    //Use the currently selected item
     public void UseItem()
     {
         Item theItem = Player.CheckItemInInventory(selectedItem);
@@ -215,9 +205,6 @@ public class BattleState extends State{
         {
             theItem.UseItem();
             
-            //Make the info text from intermission view display text
-            System.out.println("You used: " + theItem.name);
-
             Player.GetInventory().replace(theItem, Player.GetInventory().get(theItem) - 1);
             if(Player.GetInventory().get(theItem) == 0)
             {
@@ -239,7 +226,6 @@ public class BattleState extends State{
         boolean enemyDefeated = false;
         if(enemy.hp <= 0)
         {
-            System.out.println("Enemy has been defeated!");
             enemyDefeated = true;
             combatText = "Victory";
             CollectRewards();
@@ -247,19 +233,9 @@ public class BattleState extends State{
         return enemyDefeated;
     }
     
-    //Add the enemy's rewards to the player
+    //Add the enemy's gold reward to the player
     private void CollectRewards()
     {
         Player.SetGold(Player.GetGold() + enemy.gold);
-    }
-    
-    //Creates a delay between events (particularly text) in the battle
-    private void Wait(long time)
-    {
-        try
-        {
-            Thread.sleep(time);
-        }
-        catch(Exception e){}
     }
 }

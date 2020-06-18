@@ -11,6 +11,7 @@ import dungeonrun.Items.*;
  *
  * @author Liam
  */
+//The shop's inventory consisting of all items that are purchasable by the player
 public class ShopInventory {
     
     //Array of all items available to purchase from the shop

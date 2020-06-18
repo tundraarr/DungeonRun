@@ -16,6 +16,8 @@ import java.awt.event.ComponentListener;
  *
  * @author Liam
  */
+
+//Controller for the graveyard 
 public class GraveyardController implements ActionListener, ComponentListener{
     
     private GraveyardState model;
@@ -28,6 +30,7 @@ public class GraveyardController implements ActionListener, ComponentListener{
         view.SetController(this, this);
     }
 
+    //Assign action to return to the main menu when back button is pressed
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -44,6 +47,7 @@ public class GraveyardController implements ActionListener, ComponentListener{
     @Override
     public void componentMoved(ComponentEvent e) {}
 
+    //When the graveyard is shown, update itself with the list of all deceased characters
     @Override
     public void componentShown(ComponentEvent e) 
     {

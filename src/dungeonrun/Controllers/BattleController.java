@@ -19,6 +19,8 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
+
+//Controller for when the player is in battle
 public class BattleController implements ActionListener, ListSelectionListener, ComponentListener{
 
     private BattleState model;
@@ -31,11 +33,11 @@ public class BattleController implements ActionListener, ListSelectionListener, 
         view.SetController(this, this, this);
     }
     
+    //For buttons presses
     @Override
     public void actionPerformed(ActionEvent e) 
     {
         String eStr = e.getActionCommand();
-        System.out.println(eStr);
         if(eStr.compareTo("Attack") == 0)
         {
             model.Attack();
@@ -62,6 +64,7 @@ public class BattleController implements ActionListener, ListSelectionListener, 
         }
     }
 
+    //For when a JList is interacted with (spells list and inventory list)
     @Override
     public void valueChanged(ListSelectionEvent e) 
     {
@@ -90,17 +93,17 @@ public class BattleController implements ActionListener, ListSelectionListener, 
         {
             //Causes null pointer exception when an item is used up and removed from the list
             //Does not negatively impact the application so it can be ignored
-            System.err.println(nex);
-            System.err.println("Item removed from list");
         }   
     }
 
+    //When a component is changed
     @Override
     public void componentResized(ComponentEvent e) {}
 
     @Override
     public void componentMoved(ComponentEvent e) {}
 
+    //When the battle view is shown, spawn a new enemy and update itself
     @Override
     public void componentShown(ComponentEvent e) 
     {

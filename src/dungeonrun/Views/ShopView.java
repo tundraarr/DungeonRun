@@ -24,6 +24,8 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
+
+//The shop view for the player to purchase items
 public class ShopView extends JPanel implements Observer{
     
     private JLabel shopTitle = new JLabel("SHOP");
@@ -35,9 +37,11 @@ public class ShopView extends JPanel implements Observer{
     
     public ShopView()
     {
+        //Setup of the shop panel's layout and color
         this.setBackground(Color.GRAY);
         shopActions.setLayout(new FlowLayout());
         
+        //Setup of container consisting of the shop's items (a JList)
         shopContainer.setPreferredSize(new Dimension(250, 200));
         shopTitle.setFont(new Font(shopTitle.getName(), Font.BOLD, 20));
         shopTitle.setForeground(Color.WHITE);
@@ -50,6 +54,7 @@ public class ShopView extends JPanel implements Observer{
         add(shopActions);
     }
 
+    //Setting the items to be displayed in the shop (JList)
     private void SetupShopDisplay(Item[] items)
     {
         ArrayList<String> shopItems = new ArrayList<String>();
@@ -60,6 +65,7 @@ public class ShopView extends JPanel implements Observer{
         shopInventory.setListData(shopItems.toArray());
     }  
     
+    //Setting controller for all listenables in this iew
     public void SetController(ActionListener cntrl, ListSelectionListener list, ComponentListener cL)
     {
         shopInventory.addListSelectionListener(list);
@@ -69,6 +75,7 @@ public class ShopView extends JPanel implements Observer{
     }  
     
     @Override
+    //Simply set the display for all items of the shop
     public void update(Observable o, Object obj) 
     {
         SetupShopDisplay(ShopInventory.GetItems());

@@ -11,6 +11,9 @@ import dungeonrun.Enemies.Enemy;
  *
  * @author Liam
  */
+
+//A data structure that parses information regarding the current enemy and any extra text
+//To be displayed in the Battle View
 public class CombatInfo {
     
     private Enemy enemy;

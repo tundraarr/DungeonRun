@@ -9,23 +9,14 @@ package dungeonrun;
  *
  * @author Liam
  */
+//The model for the Graveyard View
+//Enables player to return to the main menu
 public class GraveyardState extends State{
 
+    //Go back to the main menu view
     public void BackToMenu()
     {
         setChanged();
         notifyObservers("Back");
-    }
-    
-    public void UpdateSelf()
-    {
-        setChanged();
-        notifyObservers(null);
-    }
-    
-    @Override
-    public State RunState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    } 
 }

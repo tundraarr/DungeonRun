@@ -19,6 +19,8 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author Liam
  */
+
+//Controller for the shop 
 public class ShopController implements ActionListener, ListSelectionListener, ComponentListener{
 
     private ShopState model;
@@ -31,6 +33,7 @@ public class ShopController implements ActionListener, ListSelectionListener, Co
         view.SetController(this, this, this);
     }
     
+    //Assigning actions to when buttons are pressed
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -45,6 +48,7 @@ public class ShopController implements ActionListener, ListSelectionListener, Co
         }
     }
 
+    //Setting the selected item when a value is selected from the shop's inventory list
     @Override
     public void valueChanged(ListSelectionEvent e) {
         try
@@ -59,17 +63,19 @@ public class ShopController implements ActionListener, ListSelectionListener, Co
         }
         catch(NullPointerException nex)
         {
-            
-            System.err.println(nex);
+            //A null pointer exception occurs when the player exits the shop after selecting an item
+            //Does not affect the application, can be ignored
         }   
     }
 
+    //When a component is changed
     @Override
     public void componentResized(ComponentEvent e) {}
 
     @Override
     public void componentMoved(ComponentEvent e) {}
 
+    //When the shop is shown, display all of the items purchasable
     @Override
     public void componentShown(ComponentEvent e) 
     {

@@ -19,14 +19,18 @@ import java.util.Observer;
  *
  * @author Liam
  */
+
+//The view of the main menu 
 public class MainMenuView extends JPanel implements Observer{
 
+    //Core panels of the main menu 
      private JPanel topPanel = new JPanel();
      private JPanel leftPanel = new JPanel();
      private JPanel centerPanel = new JPanel();
      private JPanel rightPanel = new JPanel();
      private JPanel botPanel = new JPanel();
      
+     //The key components of the main menu
      private JLabel title = new JLabel("DUNGEON RUN");
      private JLabel subText = new JLabel("A game of luck and... mostly luck");
      private JButton newGameBtn = new JButton("New Game");
@@ -37,9 +41,11 @@ public class MainMenuView extends JPanel implements Observer{
      
      public MainMenuView()
      {
+         //Setup the view panel
          this.setLayout(new BorderLayout());
          this.setBackground(Color.GREEN);               
          
+         //Setup the main panels within the view along with their components
          SetupTopPanel();
          SetupLeftPanel();
          SetupCenterPanel();
@@ -53,6 +59,7 @@ public class MainMenuView extends JPanel implements Observer{
          add(botPanel, BorderLayout.SOUTH);       
      }
     
+     //For creation of an image icon
     private ImageIcon createImageIcon(String path, String description) 
     {
         java.net.URL imgURL = getClass().getResource(path);
@@ -67,6 +74,7 @@ public class MainMenuView extends JPanel implements Observer{
         }
     }
     
+    //Setting up the title components
     private void SetupTopPanel()
     {
          topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
@@ -87,12 +95,15 @@ public class MainMenuView extends JPanel implements Observer{
          topPanel.add(subText);
     }
     
+    //Left panel for aesthetic design
     private void SetupLeftPanel()
     {
         leftPanel.setPreferredSize(new Dimension(100, 300));
         leftPanel.setBackground(Color.DARK_GRAY);
     }
     
+    //Center panel where the buttons for the player to press are
+    //Setup of their location and sizes
     private void SetupCenterPanel()
     {
          centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
@@ -131,6 +142,7 @@ public class MainMenuView extends JPanel implements Observer{
          centerPanel.add(botPadding);
     }
     
+    //Left panel for aesthetic design
     private void SetupRightPanel()
     {
         rightPanel.setPreferredSize(new Dimension(100, 300));
@@ -142,6 +154,8 @@ public class MainMenuView extends JPanel implements Observer{
         botPanel.setPreferredSize(new Dimension(650, 50));
         botPanel.setBackground(Color.DARK_GRAY);
     }
+    
+    //Setting the controller to all listenables in this view
     public void SetController(ActionListener cntrl, ComponentListener cL) 
     {
         newGameBtn.addActionListener(cntrl);
@@ -151,11 +165,13 @@ public class MainMenuView extends JPanel implements Observer{
         this.addComponentListener(cL);
     }
  
+    //Display text that no data was found
     public void SetNoDataTxt()
     {
         noData.setText("No Data Found!");
     }
     
+    //Clear the no data found text
     private void ClearNoDataTxt()
     {
         noData.setText("");
@@ -166,18 +182,22 @@ public class MainMenuView extends JPanel implements Observer{
     {
         if(obj != null)
         {
+            //Whether the player can load a save and continue where they left off
             boolean dataExists = (boolean)obj;
             if(!dataExists)
             {
+                //Display if no data was found when trying to load a save
                 SetNoDataTxt();
             }
             else
             {
+                //There was save data, go to the intermisison view
                 MainContainer.ChangeView("IntermissionView");
             }
         }
         else
         {
+            //Clear the no data found text when this view is revisted
             ClearNoDataTxt();
         }
     }

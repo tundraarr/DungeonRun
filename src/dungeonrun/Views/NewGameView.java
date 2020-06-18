@@ -17,17 +17,22 @@ import javax.swing.*;
  *
  * @author Liam
  */
+
+//The view for when the player is starting a new game
 public class NewGameView extends JPanel implements Observer{
 
+    //Components for the top panel of this view
     private JPanel topPanel = new JPanel();
     private JLabel newGameLabel = new JLabel("| Starting A New Game |");
     private JLabel nameInputLabel = new JLabel("Input the name of your character: ");
     private JLabel errorLabel = new JLabel();
     
+    //Components for the middle panel of this view
     private JPanel midPanel = new JPanel();
     private JTextField nameInputField = new JTextField();
     private JButton confirmButton = new JButton("Confirm");
     
+    //Bottom panel for error label
     private JPanel botPanel = new JPanel();
     
     public NewGameView()
@@ -76,21 +81,25 @@ public class NewGameView extends JPanel implements Observer{
         add(botPanel);
     }
     
+    //Get the user's input for their character's name from the text field
     public String GetUserInput()
     {
         return nameInputField.getText();
     }
     
+    //If their name input was invalid, display this message
     private void SetInvalidNameTxt()
     {
         errorLabel.setText("Invalid name! Name cannot start with a space or be null.");
     }
     
+    //Clear the invalid name text
     private void ClearInvalidText()
     {
         errorLabel.setText("");
     }
     
+    //Set the controllers for all listenables on this view
     public void SetController(ActionListener cntrl, ComponentListener cL)
     {
         confirmButton.addActionListener(cntrl);
@@ -102,6 +111,7 @@ public class NewGameView extends JPanel implements Observer{
     {
         if(obj != null)
         {
+            //Update the view depending on whether their name input was valid or not
             boolean validName = (boolean)obj;
             if(!validName)
             {
@@ -110,7 +120,7 @@ public class NewGameView extends JPanel implements Observer{
         }
         else
         {
-            //Update Self
+            //Cleare the invalid text when this view is revisited
             ClearInvalidText();
         }
     }

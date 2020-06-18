@@ -16,6 +16,8 @@ import java.awt.event.ComponentListener;
  *
  * @author Liam
  */
+
+//Controller for when the player is starting a new game
 public class NewGameController implements ActionListener, ComponentListener{
     
     private NewGameState model;
@@ -28,6 +30,7 @@ public class NewGameController implements ActionListener, ComponentListener{
         view.SetController(this, this);
     }
     
+    //Attach actions to the button in new game, the name confirmation button
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -45,6 +48,7 @@ public class NewGameController implements ActionListener, ComponentListener{
     @Override
     public void componentMoved(ComponentEvent e) {}
 
+    //Update itself when the new game view is shown
     @Override
     public void componentShown(ComponentEvent e) 
     {

@@ -16,6 +16,8 @@ import java.awt.event.ComponentListener;
  *
  * @author Liam
  */
+
+//Controller for the main menu
 public class MainMenuController implements ActionListener, ComponentListener{
     
     private MainMenuState model;
@@ -28,34 +30,26 @@ public class MainMenuController implements ActionListener, ComponentListener{
         view.SetController(this, this);
     }
     
+    //Assign actions to the buttons in the main menu
     @Override
     public void actionPerformed(ActionEvent e) 
-    {        
-        try 
-        {            
-            String eStr = e.getActionCommand();
-            System.out.println(eStr);
-            if (eStr.compareTo("New Game") == 0) 
-            {
-                model.NewGame();
-            } 
-            else if (eStr.compareTo("Load Game") == 0) 
-            {
-                model.LoadGame();
-            } 
-            else if (eStr.compareTo("Graveyard") == 0) 
-            {
-                MainContainer.ChangeView("GraveyardView");
-            }
-            else if(eStr.compareTo("Exit") == 0)
-            {
-                System.exit(0);
-            }
-        } 
-        catch (NumberFormatException ex) 
+    {                
+        String eStr = e.getActionCommand();
+        if (eStr.compareTo("New Game") == 0) 
         {
-            System.out.println(ex);
-
+            model.NewGame();
+        } 
+        else if (eStr.compareTo("Load Game") == 0) 
+        {
+            model.LoadGame();
+        } 
+        else if (eStr.compareTo("Graveyard") == 0) 
+        {
+            MainContainer.ChangeView("GraveyardView");
+        }
+        else if(eStr.compareTo("Exit") == 0)
+        {
+            System.exit(0);
         }
     }
 
@@ -65,6 +59,7 @@ public class MainMenuController implements ActionListener, ComponentListener{
     @Override
     public void componentMoved(ComponentEvent e) {}
 
+    //Update self when main menu is shown
     @Override
     public void componentShown(ComponentEvent e) 
     {
