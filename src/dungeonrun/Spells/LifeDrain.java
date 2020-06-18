@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools   |   Templates
  * and open the template in the editor.
  */
 package dungeonrun.Spells;
@@ -27,10 +27,9 @@ public class LifeDrain extends Spell{
     }
     
     @Override
-    public void CastSpell(Enemy enemy)
+    public String CastSpell(Enemy enemy)
     {
         int damage = this.drainPower + (int)((Math.pow(Player.GetMagicAtk(), 0.75)) * 0.75);
-        System.out.println(Player.GetName() + " used " + this.name + " and does " + damage + " damage and heals for " + damage);
         enemy.hp -= damage;
         if((Player.GetCurrentHp() + damage) > Player.GetMaxHp())
         {
@@ -40,5 +39,6 @@ public class LifeDrain extends Spell{
         {
             Player.SetCurrentHp(Player.GetCurrentHp() + damage);
         }
+        return ("["+Player.GetName()+"]" + " does: " + damage + " damage and heals for " + damage + "   |   ");
     }
 }

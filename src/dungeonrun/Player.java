@@ -9,6 +9,7 @@ import dungeonrun.Items.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 /**
  *
@@ -37,61 +38,37 @@ public class Player {
     private static HashMap<Item, Integer> inventory = new HashMap<Item, Integer>();
     private static ArrayList<Spell> spells = new ArrayList<Spell>();
     
-    //Enable the player to select a stat to increase by 1 when they defeat a monster
+    //Increases a random staf by 1 increment after defeating any enemy
     public static void LevelUp()
     {
-        boolean validAns = false;
-        Scanner scan = new Scanner(System.in);
+        Random ran = new Random();
         System.out.println("Leveling Up!");
         level++;
-        
-        while(!validAns)
+                 
+        switch((ran.nextInt(6) + 1))
         {
-            try
-            {
-                System.out.println("==========================================");
-                System.out.println("What would you like to level up?");
-                System.out.println("1) HP");
-                System.out.println("2) MP");
-                System.out.println("3) ATK");
-                System.out.println("4) MGK");
-                System.out.println("5) DEF");
-                System.out.println("6) LUCK");
-                System.out.println("==========================================");
-                
-                switch(Integer.valueOf(scan.nextLine()))
-                {
-                    case 1:
-                        Player.maxHp += 20;
-                        Player.currentHp += 20;
-                        break;
-                    case 2:
-                        Player.maxMp += 15;
-                        Player.currentMp += 15;
-                        break;
-                    case 3:
-                        Player.atk ++;
-                        break;
-                    case 4:
-                        Player.magicAtk++;
-                        break;
-                    case 5:
-                        Player.def++;
-                        break;
-                    case 6:
-                        Player.luck++;
-                        break;
-                    default:
-                        throw new InvalidInputException();
-                }
-                
-                validAns = true;
-            }
-            catch(Exception e)
-            {
-                System.out.println("Invalid Input! Must be 1 - 6");
-            }
+            case 1:
+                Player.maxHp += 20;
+                Player.currentHp += 20;
+                break;
+            case 2:
+                Player.maxMp += 15;
+                Player.currentMp += 15;
+                break;
+            case 3:
+                Player.atk ++;
+                break;
+            case 4:
+                Player.magicAtk++;
+                break;
+            case 5:
+                Player.def++;
+                break;
+            case 6:
+                Player.luck++;
+                break;
         }
+                
     }
     
     //Check to see whether the user's input of an item name matches an item in their inventory

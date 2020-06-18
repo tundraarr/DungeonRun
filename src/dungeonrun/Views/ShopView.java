@@ -8,8 +8,10 @@ package dungeonrun.Views;
 import dungeonrun.Items.*;
 import dungeonrun.ShopInventory;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
@@ -33,9 +35,12 @@ public class ShopView extends JPanel implements Observer{
     
     public ShopView()
     {
+        this.setBackground(Color.GRAY);
         shopActions.setLayout(new FlowLayout());
         
         shopContainer.setPreferredSize(new Dimension(250, 200));
+        shopTitle.setFont(new Font(shopTitle.getName(), Font.BOLD, 20));
+        shopTitle.setForeground(Color.WHITE);
         
         add(shopTitle);
         add(shopContainer);

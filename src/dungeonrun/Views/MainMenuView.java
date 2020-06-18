@@ -5,6 +5,7 @@
  */
 package dungeonrun.Views;
 import dungeonrun.MainContainer;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
@@ -29,14 +30,16 @@ public class MainMenuView extends JPanel implements Observer{
      public MainMenuView()
      {
          this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+         this.setBackground(Color.GREEN);
          
          title.setAlignmentX(CENTER_ALIGNMENT);
          title.setFont(new Font(title.getName(), Font.PLAIN, 36));
+         title.setForeground(Color.ORANGE);
          title.setPreferredSize(new Dimension(150, 45));
          title.setBorder(BorderFactory.createEmptyBorder(25, 10, 25, 10));
          
          newGameBtn.setAlignmentX(CENTER_ALIGNMENT);
-         newGameBtn.setMargin(new Insets(10, 10, 10, 10));
+         newGameBtn.setMargin(new Insets(10, 20, 10, 20));
     
          loadGameBtn.setAlignmentX(CENTER_ALIGNMENT);
          loadGameBtn.setMargin(new Insets(10, 10, 10, 10));
@@ -49,9 +52,7 @@ public class MainMenuView extends JPanel implements Observer{
          
          noData.setAlignmentX(CENTER_ALIGNMENT);
          noData.setPreferredSize(new Dimension(50, 30));
-         
-         
-         //add(bgPanel);
+                  
          add(title);
          add(newGameBtn);
          add(loadGameBtn);
@@ -59,6 +60,20 @@ public class MainMenuView extends JPanel implements Observer{
          add(exitBtn);
          add(noData);
      }
+    
+    private ImageIcon createImageIcon(String path, String description) 
+    {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) 
+        {
+            return new ImageIcon(imgURL, description);
+        } 
+        else 
+        {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
      
     public void SetController(ActionListener cntrl, ComponentListener cL) 
     {

@@ -24,6 +24,6 @@ public class ScrollOfWisdom extends Item{
     @Override
     public void UseItem()
     {
-        Player.SetMaxHp(Player.GetMaxMp() + 15);
+        Player.SetMaxMp(Player.GetMaxMp() + 15);
     }
 }

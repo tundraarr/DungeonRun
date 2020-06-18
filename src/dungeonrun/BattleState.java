@@ -70,6 +70,7 @@ public class BattleState extends State{
     private void ReturnToIntermission()
     {
         UpdateSelf();
+        Player.LevelUp();
         MainContainer.ChangeView("IntermissionView");
     }
     
@@ -91,7 +92,7 @@ public class BattleState extends State{
         }
         enemy.hp -= pDamage;
         
-        combatText += ("["+Player.GetName()+"]" + " did: " + pDamage+ " damage   |   ");
+        combatText += ("["+Player.GetName()+"]" + " did: " + pDamage+ " damage   |  ");
         UpdateSelf();
         //If enemy is defeated
         if(CheckEnemyHp())
@@ -112,8 +113,8 @@ public class BattleState extends State{
         {
             if(Player.GetCurrentMp() >= Player.GetSpells().get(selectedSpell).manaCost)
             {
-                Player.GetSpells().get(selectedSpell).CastSpell(enemy);
-                Player.SetCurrentMp(Player.GetCurrentMp() - Player.GetSpells().get(Integer.valueOf(userInput) - 1).manaCost);
+                combatText += Player.GetSpells().get(selectedSpell).CastSpell(enemy);
+                Player.SetCurrentMp(Player.GetCurrentMp() - Player.GetSpells().get(selectedSpell).manaCost);
                 UpdateSelf();
                 //If enemy is defeated
                 if(CheckEnemyHp())
@@ -151,7 +152,7 @@ public class BattleState extends State{
         enemyDmg = ran.nextInt(high-low) + low;
         
         Player.SetCurrentHp(Player.GetCurrentHp() - enemyDmg);
-        combatText += ("["+enemy.name+"]" + " does: " + enemyDmg + " damage");
+        combatText += (" ["+enemy.name+"]" + " does: " + enemyDmg + " damage");
         UpdateSelf();
         
         //If the player's hp is reduced to 0 or less they are defeated otherwise, return to player's turn

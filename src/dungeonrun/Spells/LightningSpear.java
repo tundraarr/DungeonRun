@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools   |   Templates
  * and open the template in the editor.
  */
 package dungeonrun.Spells;
@@ -27,10 +27,10 @@ public class LightningSpear extends Spell{
     }
     
     @Override
-    public void CastSpell(Enemy enemy) 
+    public String CastSpell(Enemy enemy) 
     {
         int damage = this.power + (int)((Math.pow(Player.GetMagicAtk(), 1.65)) * 0.75);
-        System.out.println(Player.GetName() + " used " + this.name + " and does " + damage + " damage.");
         enemy.hp -= damage;
+        return ("["+Player.GetName()+"]" + " does: " + damage + " damage   |  ");
     }
 }

@@ -34,7 +34,7 @@ import javax.swing.event.ListSelectionListener;
 public class IntermissionView extends JPanel implements Observer{
 
     //All components of the intermission view
-    private JLabel topBanner = new JLabel("DUNGEON RUN INTERMISSION", SwingConstants.CENTER);
+    private JLabel topBanner = new JLabel("DUNGEON ENTRANCE", SwingConstants.CENTER);
     private JPanel statsPanel = new JPanel();
     private JPanel inventoryPanel = new JPanel();
     private JPanel interPanel = new JPanel(); //Card layout
@@ -58,8 +58,8 @@ public class IntermissionView extends JPanel implements Observer{
     
     //Panels to go inside interPanel
     private JPanel actionsPanel = new JPanel(); //Where the buttons to do stuff are
-    private JPanel infoPanel = new JPanel();
-    private JLabel infoText = new JLabel("The dungeon awaits");
+    private JPanel imgPanel = new JPanel();
+    private JLabel imgIcon = new JLabel();
     private JButton shopButton = new JButton("Shop");
     private JButton proceedButton = new JButton("Proceed");
     private JButton quitButton = new JButton("Save and Quit");
@@ -88,11 +88,25 @@ public class IntermissionView extends JPanel implements Observer{
         add(interPanel, BorderLayout.CENTER);
     }
     
+    private ImageIcon createImageIcon(String path, String description) 
+    {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) 
+        {
+            return new ImageIcon(imgURL, description);
+        } 
+        else 
+        {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+    
     private void SetupTopBanner()
     {
-        topBanner.setPreferredSize(new Dimension(650, 35));
-        topBanner.setForeground(Color.MAGENTA);
-        topBanner.setFont(new Font(topBanner.getName(), Font.PLAIN, 20));
+        topBanner.setPreferredSize(new Dimension(650, 45));
+        topBanner.setForeground(Color.DARK_GRAY);
+        topBanner.setFont(new Font(topBanner.getName(), Font.PLAIN, 24));
     }
     
     private void SetupStatsPanel()
@@ -101,6 +115,7 @@ public class IntermissionView extends JPanel implements Observer{
         
         statsPanel.setPreferredSize(new Dimension(190, 450));
         statsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        statsPanel.setBackground(Color.ORANGE);
         
         statsPanel.add(name);
         statsPanel.add(level);
@@ -135,6 +150,7 @@ public class IntermissionView extends JPanel implements Observer{
         
         inventoryPanel.setPreferredSize(new Dimension(190, 450));
         inventoryPanel.setBorder(BorderFactory.createLineBorder(Color.gray));
+        inventoryPanel.setBackground(Color.ORANGE);
         inventoryPanel.add(inventTitle);
         inventoryPanel.add(inventoryContainer);
         inventoryPanel.add(useButton);
@@ -146,10 +162,11 @@ public class IntermissionView extends JPanel implements Observer{
         interPanel.setPreferredSize(new Dimension(250, 450));
         actionsPanel.setLayout(new BoxLayout(actionsPanel, BoxLayout.PAGE_AXIS));
         
-        infoText.setAlignmentX(CENTER_ALIGNMENT);
-        infoText.setFont(new Font(infoText.getName(), Font.PLAIN, 20));
-        infoText.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
-        infoPanel.setPreferredSize(new Dimension(250, 250));
+        imgIcon.setAlignmentX(CENTER_ALIGNMENT);
+        imgIcon.setBorder(BorderFactory.createEmptyBorder(35, 0, 0, 0));
+        imgIcon.setIcon(createImageIcon("../Images/DungeonEntrance.png", "Dungeon Image"));
+        imgPanel.setPreferredSize(new Dimension(250, 250));
+        imgPanel.setBackground(Color.DARK_GRAY);
         
         shopButton.setAlignmentX(CENTER_ALIGNMENT);
         proceedButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -159,8 +176,8 @@ public class IntermissionView extends JPanel implements Observer{
         proceedButton.setMargin(new Insets(9, 103, 9, 103));
         quitButton.setMargin(new Insets(9, 88, 9, 88));
         
-        infoPanel.add(infoText);
-        actionsPanel.add(infoPanel);
+        imgPanel.add(imgIcon);
+        actionsPanel.add(imgPanel);
         actionsPanel.add(shopButton);
         actionsPanel.add(proceedButton);
         actionsPanel.add(quitButton);
@@ -241,7 +258,6 @@ public class IntermissionView extends JPanel implements Observer{
             //Go to battle view if the update obj is string for Battle
             else if(str.compareTo("Battle") == 0)
             {
-                System.out.println("Battle");
                 MainContainer.ChangeView("BattleView");
             }
             //For any other update obj strings - the treasure of trap event

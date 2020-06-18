@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools   |   Templates
  * and open the template in the editor.
  */
 package dungeonrun.Spells;
@@ -23,9 +23,9 @@ public class SoulSplitter extends Spell{
     }
     
     @Override
-    public void CastSpell(Enemy enemy)
+    public String CastSpell(Enemy enemy)
     {
-        System.out.println("You cut the enemy's hp in half.");
         enemy.hp = (int)Math.ceil(enemy.hp / 2);
+        return ("You cut the enemy's hp in half   |  ");
     }
 }

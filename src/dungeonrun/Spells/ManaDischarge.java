@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools   |   Templates
  * and open the template in the editor.
  */
 package dungeonrun.Spells;
@@ -24,10 +24,10 @@ public class ManaDischarge extends Spell{
     }
     
     @Override
-    public void CastSpell(Enemy enemy)
+    public String CastSpell(Enemy enemy)
     {
         int damage = (int)(Math.ceil(this.manaCost * 4.5));
-        System.out.println("You spend all your current mana to do " + damage + " damage.");
         enemy.hp -= damage;
+        return ("You spend all your current mana to do " + damage + " damage   |  ");
     }
 }

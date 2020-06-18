@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools   |   Templates
  * and open the template in the editor.
  */
 package dungeonrun.Spells;
@@ -18,16 +18,16 @@ public class AngelsBlessing extends Spell{
     
     public AngelsBlessing()
     {
-        this.name = "Angel's Blessign";
+        this.name = "Angel's Blessing";
+        this.healAmount = 300;
         this.description = "Heal for + " + this.healAmount;
         this.levelReq = 30;
         this.manaCost = 75;
         this.code = 65;
-        this.healAmount = 300;
     }
     
     @Override
-    public void CastSpell(Enemy enemy) 
+    public String CastSpell(Enemy enemy) 
     {
         if((Player.GetCurrentHp() + this.healAmount) > Player.GetMaxHp())
         {
@@ -38,6 +38,6 @@ public class AngelsBlessing extends Spell{
             Player.SetCurrentHp(Player.GetCurrentHp() + this.healAmount);
         }
         
-        System.out.println(Player.GetName() + " used " + this.name + " and heals " + this.healAmount + " hp.");
+        return ("["+Player.GetName()+"]" + " heals: " + this.healAmount + " hp   |  ");
     }
 }

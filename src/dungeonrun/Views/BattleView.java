@@ -50,7 +50,6 @@ public class BattleView extends JPanel implements Observer{
     private JPanel buttonsPanel = new JPanel();
     private JPanel spellsPanel = new JPanel();
     private JPanel inventoryPanel = new JPanel();
-    private JPanel blankPanel = new JPanel(); //Used to stop player's from interacting during combat
     
     //Components to go inside buttons panel
     private JButton attackButton = new JButton("Attack");
@@ -151,7 +150,6 @@ public class BattleView extends JPanel implements Observer{
         actionPanel.add(buttonsPanel, "ButtonsPanel");
         actionPanel.add(spellsPanel, "SpellsPanel");
         actionPanel.add(inventoryPanel, "InventoryPanel");
-        actionPanel.add(blankPanel, "BlankPanel");
     }
     
     private void SetupButtonsPanel()
@@ -195,12 +193,7 @@ public class BattleView extends JPanel implements Observer{
         
         inventoryPanel.add(invButtons);
         inventoryPanel.add(itemsContainer);
-    }
-    
-    private void SetupBlankPanel()
-    {
-        blankPanel.setPreferredSize(new Dimension(650, 100));
-    }
+    }  
     
     private void UpdateEnemy(Enemy enemy)
     {
@@ -292,14 +285,17 @@ public class BattleView extends JPanel implements Observer{
         else if(obj instanceof CombatInfo)
         {
             CombatInfo info = (CombatInfo)obj;
+            //Display victory popup
             if(info.getTextInfo().compareTo("Victory") == 0)
             {
-                ShowBattleEndPopup("Victory! You have received " + info.GetEnemyInfo().gold + "gold");
+                ShowBattleEndPopup("Level Up! You have become stronger. \nYou have received " + info.GetEnemyInfo().gold + " gold");
             }
+            //Display defeat popup
             else if(info.getTextInfo().compareTo("Defeat") == 0)
             {
                 ShowBattleEndPopup("Defeat... But you may try again");
             }
+            //General visual update to the view
             else
             {
                 UpdateEnemy(info.GetEnemyInfo());

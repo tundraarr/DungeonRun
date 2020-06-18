@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools   |   Templates
  * and open the template in the editor.
  */
 package dungeonrun.Spells;
@@ -20,7 +20,7 @@ public abstract class Spell {
     public int code;
     
     //Method to cast a spell 
-    public abstract void CastSpell(Enemy enemy);    
+    public abstract String CastSpell(Enemy enemy);    
     
     @Override
     public boolean equals(Object o) {

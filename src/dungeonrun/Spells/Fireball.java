@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template file, choose Tools   |   Templates
  * and open the template in the editor.
  */
 package dungeonrun.Spells;
@@ -19,7 +19,7 @@ public class Fireball extends Spell{
     public Fireball()
     {
         this.name = "Fireball";
-        this.description = "Shoot a fireball that does decent damage";
+        this.description = "Shoot a fireball that does decent damage   |  ";
         this.levelReq = 1;
         this.manaCost = 10;
         this.code = 10;
@@ -27,11 +27,11 @@ public class Fireball extends Spell{
     }
 
     @Override
-    public void CastSpell(Enemy enemy) 
+    public String CastSpell(Enemy enemy) 
     {
         int damage = this.power + (int)((Math.pow(Player.GetMagicAtk(), 0.5) * 1.2));
-        System.out.println(Player.GetName() + " used " + this.name + " and does " + damage + " damage.");
         enemy.hp -= damage;
+        return ("["+Player.GetName()+"]" + " does: " + damage + " damage   |  ");
     }
 
 }
