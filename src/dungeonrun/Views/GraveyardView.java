@@ -22,29 +22,39 @@ import javax.swing.*;
  */
 public class GraveyardView extends JPanel implements Observer{
 
+    private JPanel titleContainer = new JPanel();
     private JLabel graveyardTitle = new JLabel("GRAVEYARD");
     private JList graveList = new JList();
     private JScrollPane graveContainer = new JScrollPane(graveList);
+    private JPanel botContainer = new JPanel();
     private JButton backButton = new JButton("Back");
     
     public GraveyardView()
     {
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         
-        graveyardTitle.setPreferredSize(new Dimension(650, 100));
+        titleContainer.setPreferredSize(new Dimension(650, 25));
+        titleContainer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        titleContainer.setBackground(Color.DARK_GRAY);
+        
         graveyardTitle.setAlignmentX(CENTER_ALIGNMENT);
-        graveyardTitle.setFont(new Font(graveyardTitle.getName(), Font.BOLD, 28));
-        graveyardTitle.setForeground(Color.magenta);
+        graveyardTitle.setFont(new Font(graveyardTitle.getName(), Font.BOLD, 32));
+        graveyardTitle.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
+        graveyardTitle.setForeground(Color.WHITE);
+        titleContainer.add(graveyardTitle);
         
         graveList.setFont(new Font("Serif", Font.PLAIN, 22));
         graveContainer.setAlignmentX(CENTER_ALIGNMENT);
         
+        botContainer.setPreferredSize(new Dimension(650, 25));
+        botContainer.setBackground(Color.DARK_GRAY);
         backButton.setAlignmentX(CENTER_ALIGNMENT);
         backButton.setMargin(new Insets(5, 5, 5, 5));
+        botContainer.add(backButton);
         
-        add(graveyardTitle);
+        add(titleContainer);
         add(graveContainer);
-        add(backButton);
+        add(botContainer);
     }
     
     private void UpdateGraveyard()

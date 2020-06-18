@@ -5,6 +5,7 @@
  */
 package dungeonrun.Views;
 import dungeonrun.MainContainer;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,7 +21,14 @@ import java.util.Observer;
  */
 public class MainMenuView extends JPanel implements Observer{
 
+     private JPanel topPanel = new JPanel();
+     private JPanel leftPanel = new JPanel();
+     private JPanel centerPanel = new JPanel();
+     private JPanel rightPanel = new JPanel();
+     private JPanel botPanel = new JPanel();
+     
      private JLabel title = new JLabel("DUNGEON RUN");
+     private JLabel subText = new JLabel("A game of luck and... mostly luck");
      private JButton newGameBtn = new JButton("New Game");
      private JButton loadGameBtn = new JButton("Load Game");
      private JButton graveyardBtn = new JButton("Graveyard");
@@ -29,36 +37,20 @@ public class MainMenuView extends JPanel implements Observer{
      
      public MainMenuView()
      {
-         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-         this.setBackground(Color.GREEN);
+         this.setLayout(new BorderLayout());
+         this.setBackground(Color.GREEN);               
          
-         title.setAlignmentX(CENTER_ALIGNMENT);
-         title.setFont(new Font(title.getName(), Font.PLAIN, 36));
-         title.setForeground(Color.ORANGE);
-         title.setPreferredSize(new Dimension(150, 45));
-         title.setBorder(BorderFactory.createEmptyBorder(25, 10, 25, 10));
+         SetupTopPanel();
+         SetupLeftPanel();
+         SetupCenterPanel();
+         SetupRightPanel();
+         SetupBotPanel();
          
-         newGameBtn.setAlignmentX(CENTER_ALIGNMENT);
-         newGameBtn.setMargin(new Insets(10, 20, 10, 20));
-    
-         loadGameBtn.setAlignmentX(CENTER_ALIGNMENT);
-         loadGameBtn.setMargin(new Insets(10, 10, 10, 10));
-         
-         graveyardBtn.setAlignmentX(CENTER_ALIGNMENT);
-         graveyardBtn.setMargin(new Insets(10, 10, 10, 10));
-         
-         exitBtn.setAlignmentX(CENTER_ALIGNMENT);
-         exitBtn.setMargin(new Insets(10, 10, 10, 10));
-         
-         noData.setAlignmentX(CENTER_ALIGNMENT);
-         noData.setPreferredSize(new Dimension(50, 30));
-                  
-         add(title);
-         add(newGameBtn);
-         add(loadGameBtn);
-         add(graveyardBtn);
-         add(exitBtn);
-         add(noData);
+         add(topPanel, BorderLayout.NORTH);
+         add(leftPanel, BorderLayout.WEST);
+         add(centerPanel, BorderLayout.CENTER);
+         add(rightPanel, BorderLayout.EAST);
+         add(botPanel, BorderLayout.SOUTH);       
      }
     
     private ImageIcon createImageIcon(String path, String description) 
@@ -74,7 +66,82 @@ public class MainMenuView extends JPanel implements Observer{
             return null;
         }
     }
-     
+    
+    private void SetupTopPanel()
+    {
+         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.PAGE_AXIS));
+         topPanel.setPreferredSize(new Dimension(650, 100));
+         topPanel.setBackground(Color.GRAY);
+        
+         title.setAlignmentX(CENTER_ALIGNMENT);
+         title.setFont(new Font(title.getName(), Font.PLAIN, 32));
+         title.setForeground(Color.ORANGE);
+         title.setPreferredSize(new Dimension(150, 45));
+         title.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+         
+         subText.setAlignmentX(CENTER_ALIGNMENT);
+         subText.setFont(new Font(subText.getName(), Font.PLAIN, 24));
+         subText.setForeground(Color.WHITE);
+         
+         topPanel.add(title);
+         topPanel.add(subText);
+    }
+    
+    private void SetupLeftPanel()
+    {
+        leftPanel.setPreferredSize(new Dimension(100, 300));
+        leftPanel.setBackground(Color.DARK_GRAY);
+    }
+    
+    private void SetupCenterPanel()
+    {
+         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.PAGE_AXIS));
+         centerPanel.setPreferredSize(new Dimension(450, 300));
+         centerPanel.setBackground(Color.LIGHT_GRAY);
+         centerPanel.setBorder(BorderFactory.createLineBorder(Color.PINK));
+        
+         JPanel topPadding = new JPanel();
+         topPadding.setBackground(Color.LIGHT_GRAY);
+         topPadding.setBorder(BorderFactory.createEmptyBorder(0 ,0 , 20, 0));
+         
+         JPanel botPadding = new JPanel();
+         botPadding.setBackground(Color.LIGHT_GRAY);
+         
+         newGameBtn.setAlignmentX(CENTER_ALIGNMENT);
+         newGameBtn.setMargin(new Insets(10, 20, 10, 20));
+    
+         loadGameBtn.setAlignmentX(CENTER_ALIGNMENT);
+         loadGameBtn.setMargin(new Insets(10, 18, 10, 18));
+         
+         graveyardBtn.setAlignmentX(CENTER_ALIGNMENT);
+         graveyardBtn.setMargin(new Insets(10, 20, 10, 20));
+         
+         exitBtn.setAlignmentX(CENTER_ALIGNMENT);
+         exitBtn.setMargin(new Insets(10, 38, 10, 38));
+         
+         noData.setAlignmentX(CENTER_ALIGNMENT);
+         noData.setPreferredSize(new Dimension(50, 30));
+         
+         centerPanel.add(topPadding);
+         centerPanel.add(newGameBtn);
+         centerPanel.add(loadGameBtn);
+         centerPanel.add(graveyardBtn);
+         centerPanel.add(exitBtn);
+         centerPanel.add(noData);
+         centerPanel.add(botPadding);
+    }
+    
+    private void SetupRightPanel()
+    {
+        rightPanel.setPreferredSize(new Dimension(100, 300));
+        rightPanel.setBackground(Color.DARK_GRAY);
+    }
+    
+    private void SetupBotPanel()
+    {
+        botPanel.setPreferredSize(new Dimension(650, 50));
+        botPanel.setBackground(Color.DARK_GRAY);
+    }
     public void SetController(ActionListener cntrl, ComponentListener cL) 
     {
         newGameBtn.addActionListener(cntrl);

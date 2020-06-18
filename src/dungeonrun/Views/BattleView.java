@@ -105,35 +105,44 @@ public class BattleView extends JPanel implements Observer{
     
     private void SetupVisualPanel()
     {
+        //The top half panel for the Battle View
+        visualPanel.setBackground(Color.GRAY);
         visualPanel.setLayout(new BoxLayout(visualPanel, BoxLayout.PAGE_AXIS));
         visualPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         
+        //Name of Enemy
         enemyName.setBorder(BorderFactory.createEmptyBorder(45, 0, 0, 0));
         enemyName.setFont(new Font(enemyName.getName(), Font.PLAIN, 20));
         enemyName.setForeground(Color.gray);
         enemyName.setAlignmentX(CENTER_ALIGNMENT);
         
+        //Image of Enemy
         enemyImage = new JLabel();
         enemyImage.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         enemyImage.setAlignmentX(CENTER_ALIGNMENT);
         
-        enemyHpText.setFont(new Font(enemyHpText.getName(), Font.PLAIN, 18));
-        enemyHpText.setForeground(Color.red);
+        //Enemy's HP
+        enemyHpText.setFont(new Font(enemyHpText.getName(), Font.PLAIN, 22));
+        enemyHpText.setForeground(Color.RED);
         enemyHpText.setAlignmentX(CENTER_ALIGNMENT);
         
+        //Text during the battle
         battleText.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
         battleText.setFont(new Font(battleText.getName(), Font.BOLD, 16));
         battleText.setAlignmentX(CENTER_ALIGNMENT);
         
+        //Player's HP
         playerHpText.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         playerHpText.setFont(new Font(playerHpText.getName(), Font.PLAIN, 18));
         playerHpText.setForeground(Color.green);
         playerHpText.setAlignmentX(CENTER_ALIGNMENT);
         
+        //Player's MP
         playerMpText.setFont(new Font(playerHpText.getName(), Font.PLAIN, 18));
         playerMpText.setForeground(Color.blue);
         playerMpText.setAlignmentX(CENTER_ALIGNMENT);
         
+        //Add components to panel
         visualPanel.add(enemyName);
         visualPanel.add(enemyImage);
         visualPanel.add(enemyHpText);
@@ -142,6 +151,7 @@ public class BattleView extends JPanel implements Observer{
         visualPanel.add(playerMpText);
     }
     
+    //Setup components that are part of the Action Panel
     private void SetupActionPanel()
     {
         actionPanel.setLayout(new CardLayout());
@@ -152,9 +162,11 @@ public class BattleView extends JPanel implements Observer{
         actionPanel.add(inventoryPanel, "InventoryPanel");
     }
     
+    //Setup components that are part of the Buttons Panel
     private void SetupButtonsPanel()
     {
         buttonsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 90, 30));
+        buttonsPanel.setBackground(Color.ORANGE);
 
         attackButton.setMargin(new Insets(10, 20, 10, 20));
         spellsButton.setMargin(new Insets(10, 20, 10, 20));
@@ -165,12 +177,14 @@ public class BattleView extends JPanel implements Observer{
         buttonsPanel.add(itemsButton);
     }
     
+    //Setup components that are part of the Spells Panel
     private void SetupSpellsPanel()
     {
         spellsPanel.setLayout(new BoxLayout(spellsPanel, BoxLayout.X_AXIS));
         
         spButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 15));
         spButtons.setPreferredSize(new Dimension(20, 100));
+        spButtons.setBackground(Color.CYAN);
         spButtons.add(spBackButton);
         spButtons.add(spCastButton);
         
@@ -180,12 +194,14 @@ public class BattleView extends JPanel implements Observer{
         spellsPanel.add(spellsContainer);
     }
     
+    //Setup components that are part of the Inventory Panel
     private void SetupInventoryPanel()
     {
         inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.X_AXIS));
         
         invButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
         invButtons.setPreferredSize(new Dimension(20, 100));
+        invButtons.setBackground(Color.YELLOW);
         invButtons.add(invBackButton);
         invButtons.add(invUseButton);
         
@@ -195,6 +211,7 @@ public class BattleView extends JPanel implements Observer{
         inventoryPanel.add(itemsContainer);
     }  
     
+    //Update visual information regarding the enemy
     private void UpdateEnemy(Enemy enemy)
     {
         SetEnemyImage(enemy);
@@ -202,17 +219,20 @@ public class BattleView extends JPanel implements Observer{
         enemyHpText.setText("HP: " + enemy.hp);
     }
     
+    //Update visual information regarding the player
     private void UpdatePlayer()
     {
         playerHpText.setText("HP: " + Player.GetCurrentHp() + " / " + Player.GetMaxHp());
         playerMpText.setText("MP: " + Player.GetCurrentMp() + " / " + Player.GetMaxMp());
     }
     
+    //Update the battle text information
     private void UpdateBattleText(String text)
     {
         battleText.setText(text);
     }
     
+    //Update the spells JList
     private void UpdateSpellsPanel()
     {
         ArrayList<String> spells = new ArrayList<String>();
@@ -224,6 +244,7 @@ public class BattleView extends JPanel implements Observer{
         spellsList.setListData(spells.toArray());
     }
     
+    //Upate the Inventory JList
     private void UpdateInventoryPanel()
     {
         ArrayList<String> invItems = new ArrayList<String>();
@@ -235,27 +256,32 @@ public class BattleView extends JPanel implements Observer{
         itemsList.setListData(invItems.toArray());
     }
     
+    //Show a popup, used at the end of the battle
     private void ShowBattleEndPopup(String msg)
     {
         JOptionPane.showMessageDialog(this, msg);
     }
     
+    //Change the panel to be displayed inside of the Action Panel
     private void ChangeActionPanel(String panel)
     {
         CardLayout cl = (CardLayout)(actionPanel.getLayout());
         cl.show(actionPanel, panel);  
     }
     
+    //Get a reference for the Spells JList
     public JList GetSpellsJList()
     {
         return this.spellsList;
     }
     
+    //Get a reference for the Items JList
     public JList GetItemsJList()
     {
         return this.itemsList;
     }
     
+    //Set the controller for this Panel
     public void SetController(ActionListener actL, ListSelectionListener lsL, ComponentListener cL)
     {
         attackButton.addActionListener(actL);
