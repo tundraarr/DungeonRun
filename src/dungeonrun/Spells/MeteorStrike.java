@@ -18,11 +18,11 @@ public class MeteorStrike extends Spell{
     
     public MeteorStrike()
     {
-        this.name = "Meteor Strike";
-        this.description = "Call down meteors to destroy your enemy";
-        this.levelReq = 26;
-        this.manaCost = 50;
-        this.code = 60;
+        super.setName("Meteor Strike");
+        super.setDescription("Call down meteors to destroy your enemy");
+        super.setLevelReq(26);
+        super.setManaCost(50);
+        super.setCode(60);
         this.power = 30;
     }
     
@@ -30,7 +30,7 @@ public class MeteorStrike extends Spell{
     public String CastSpell(Enemy enemy)
     {
         int damage = this.power + (int)((Math.pow(Player.GetMagicAtk(), 2)) * 0.85);
-        enemy.hp -= damage;
+        enemy.setHp(enemy.getHp() - damage);
         return ("["+Player.GetName()+"]" + " does: " + damage + " damage   |  ");
     }
 }

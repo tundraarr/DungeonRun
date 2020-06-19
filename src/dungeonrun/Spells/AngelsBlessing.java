@@ -18,12 +18,12 @@ public class AngelsBlessing extends Spell{
     
     public AngelsBlessing()
     {
-        this.name = "Angel's Blessing";
+        super.setName("Angel's Blessing");
         this.healAmount = 300;
-        this.description = "Heal for + " + this.healAmount;
-        this.levelReq = 30;
-        this.manaCost = 75;
-        this.code = 65;
+        super.setDescription("Heal for + " + this.healAmount);
+        super.setLevelReq(30);
+        super.setManaCost(75);
+        super.setCode(65);
     }
     
     @Override

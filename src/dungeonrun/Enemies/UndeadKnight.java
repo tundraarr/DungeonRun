@@ -15,18 +15,18 @@ public class UndeadKnight extends Enemy{
     
     public UndeadKnight()
     {
-        this.name = "Undead Knight";
-        this.level = 6;
-        this.hp = 27;
-        this.dmg = 20;
-        this.gold = 300;
-        this.minChance = 71;
-        this.maxChance = 85;
+        super.setName("Undead Knight");
+        super.setLevel( 6);
+        super.setHp(27);
+        super.setDmg(20);
+        super.setGold(300);
+        super.setMinChance(71);
+        super.setMaxChance(85);
         
-        if(Player.GetLevel() > this.level)
+        if(Player.GetLevel() > super.getLevel())
         {
-            this.hp += Math.pow(Player.GetLevel() - this.level, 0.75) * 1.6;
-            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.75) * 2; 
+            super.setHp((int)(Math.pow(Player.GetLevel() - super.getLevel(), 0.75) * 1.6));
+            super.setDmg((int)Math.pow(Player.GetLevel() - super.getLevel(), 0.75) * 2); 
         }
     }
 }

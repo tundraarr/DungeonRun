@@ -41,7 +41,7 @@ public class BattleState extends State{
         enemyChoice = ran.nextInt(100);
         for(Enemy e : enemies)
         {
-            if(enemyChoice >= e.minChance && enemyChoice <= e.maxChance)
+            if(enemyChoice >= e.getMinChance() && enemyChoice <= e.getMaxChance())
             {
                 enemy = e;
             }
@@ -82,7 +82,7 @@ public class BattleState extends State{
             pDamage *= 2;
             combatText += ("CRITICAL HIT! ");
         }
-        enemy.hp -= pDamage;
+        enemy.setHp(enemy.getHp() - pDamage);
         
         combatText += ("["+Player.GetName()+"]" + " did: " + pDamage+ " damage   |  ");
         UpdateSelf();
@@ -97,10 +97,10 @@ public class BattleState extends State{
         //If the player has sufficient mp they can cast the spell, otherwise they will be told they don't have enough mp
         try
         {
-            if(Player.GetCurrentMp() >= Player.GetSpells().get(selectedSpell).manaCost)
+            if(Player.GetCurrentMp() >= Player.GetSpells().get(selectedSpell).getManaCost())
             {
                 combatText += Player.GetSpells().get(selectedSpell).CastSpell(enemy);
-                Player.SetCurrentMp(Player.GetCurrentMp() - Player.GetSpells().get(selectedSpell).manaCost);
+                Player.SetCurrentMp(Player.GetCurrentMp() - Player.GetSpells().get(selectedSpell).getManaCost());
                 UpdateSelf();
                 PlayerCombatResult();
             }
@@ -140,13 +140,13 @@ public class BattleState extends State{
     {
         //Enemy attacks the player based on their attack value (minus the player's defense) and display this information to the users
         //The damage taken is randomized between a low and high bound
-        int enemyDmg = (int)Math.floor(enemy.dmg * (1.0f - (Player.GetDef() * 0.02)));
+        int enemyDmg = (int)Math.floor(enemy.getDmg() * (1.0f - (Player.GetDef() * 0.02)));
         int high = (int)Math.ceil(enemyDmg * 1.2);
         int low = (int)Math.ceil(enemyDmg * 0.80);
         enemyDmg = ran.nextInt(high-low) + low;
         
         Player.SetCurrentHp(Player.GetCurrentHp() - enemyDmg);
-        combatText += (" ["+enemy.name+"]" + " does: " + enemyDmg + " damage");
+        combatText += (" ["+enemy.getName()+"]" + " does: " + enemyDmg + " damage");
         UpdateSelf();
         
         //If the player's hp is reduced to 0 or less they are defeated, otherwise return to player's turn
@@ -228,7 +228,7 @@ public class BattleState extends State{
     private boolean CheckEnemyHp()
     {
         boolean enemyDefeated = false;
-        if(enemy.hp <= 0)
+        if(enemy.getHp() <= 0)
         {
             enemyDefeated = true;
             combatText = "Victory";
@@ -240,6 +240,6 @@ public class BattleState extends State{
     //Add the enemy's gold reward to the player
     private void CollectRewards()
     {
-        Player.SetGold(Player.GetGold() + enemy.gold);
+        Player.SetGold(Player.GetGold() + enemy.getGold());
     }
 }

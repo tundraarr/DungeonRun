@@ -18,11 +18,11 @@ public class ArcaneBlast extends Spell{
     
     public ArcaneBlast()
     {
-        this.name = "Arcane Blast";
-        this.description = "Deal a very high amount of damage based on magic power";
-        this.levelReq = 18;
-        this.manaCost = 25;
-        this.code = 40;
+        super.setName("Arcane Blast");
+        super.setDescription("Deal a very high amount of damage based on magic power");
+        super.setLevelReq(18);
+        super.setManaCost(25);
+        super.setCode(40);
         this.power = 5;
     }
     
@@ -30,7 +30,7 @@ public class ArcaneBlast extends Spell{
     public String CastSpell(Enemy enemy) 
     {
         int damage = this.power + (int)((Math.pow(Player.GetMagicAtk(), 2)) * 0.75);
-        enemy.hp -= damage;
+        enemy.setHp(enemy.getHp() - damage);
         return ("["+Player.GetName()+"]" + " does: " + damage + " damage   |  ");
     }
 }

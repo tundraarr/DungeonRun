@@ -15,18 +15,18 @@ public class Skeleton extends Enemy{
     
     public Skeleton()
     {
-        this.name = "Skeleton";
-        this.level = 3;
-        this.hp = 25;
-        this.dmg = 8;
-        this.gold = 150;
-        this.minChance = 25;
-        this.maxChance = 40;
+        super.setName("Skeleton");
+        super.setLevel( 3);
+        super.setHp(25);
+        super.setDmg(8);
+        super.setGold(150);
+        super.setMinChance(25);
+        super.setMaxChance(40);
         
-        if(Player.GetLevel() > this.level)
+        if(Player.GetLevel() > super.getLevel())
         {
-            this.hp += Math.pow(Player.GetLevel() - this.level, 1.5) * 1.2;
-            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.85) * 2; 
+            super.setHp((int)(Math.pow(Player.GetLevel() - super.getLevel(), 1.5) * 1.2));
+            super.setDmg((int)Math.pow(Player.GetLevel() - super.getLevel(), 0.85) * 2); 
         }
     }
 }

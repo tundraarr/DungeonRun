@@ -16,11 +16,11 @@ public class EnhanceDefense extends Spell{
     
     public EnhanceDefense()
     {
-        this.name = "Enhance Defense";
-        this.description = "Permanently increase you defense by 1";
-        this.levelReq = 20;
-        this.manaCost = 1050;
-        this.code = 50;
+        super.setName("Enhance Defense");
+        super.setDescription("Permanently increase you defense by 1");
+        super.setLevelReq(20);
+        super.setManaCost(150);
+        super.setCode(50);
     }
     
     @Override

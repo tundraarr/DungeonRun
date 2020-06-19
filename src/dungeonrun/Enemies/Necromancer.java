@@ -15,18 +15,18 @@ public class Necromancer extends Enemy{
     
     public Necromancer()
     {
-        this.name = "Necromancer";
-        this.level = 8;
-        this.hp = 55;
-        this.dmg = 23;
-        this.gold = 350;
-        this.minChance = 86;
-        this.maxChance = 90;
+        super.setName("Necromancer");
+        super.setLevel( 8);
+        super.setHp(55);
+        super.setDmg(23);
+        super.setGold(350);
+        super.setMinChance(86);
+        super.setMaxChance(90);
         
-        if(Player.GetLevel() > this.level)
+        if(Player.GetLevel() > super.getLevel())
         {
-            this.hp += Math.pow(Player.GetLevel() - this.level, 1.5) * 1.3;
-            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.75) * 2.5; 
+            super.setHp((int)(Math.pow(Player.GetLevel() - super.getLevel(), 1.5) * 1.3));
+            super.setDmg((int)(Math.pow(Player.GetLevel() - super.getLevel(), 0.75) * 2.5)); 
         }
     }
 }

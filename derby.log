@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Fri Jun 19 21:33:43 NZST 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-cbed-4281-000006b1c5b8 
-on database directory C:\Users\Liam\Documents\NetBeansProjects\DungeonRun\DungeonRunDB with class loader sun.misc.Launcher$AppClassLoader@2b193f2d 
+Fri Jun 19 22:33:11 NZST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-cc23-b32f-0000063ba1f0 
+on database directory C:\Users\Liam\Documents\NetBeansProjects\DungeonRun\DungeonRunDB with class loader sun.misc.Launcher$AppClassLoader@29453f44 
 Loaded from file:/C:/Users/Liam/Documents/NetBeansProjects/DungeonRun/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_241-b07

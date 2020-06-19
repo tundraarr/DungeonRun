@@ -15,18 +15,18 @@ public class Goblin extends Enemy{
     
     public Goblin()
     {
-        this.name = "Goblin";
-        this.level = 2;
-        this.hp = 10;
-        this.dmg = 5;
-        this.gold = 75;
-        this.minChance = 0;
-        this.maxChance = 24;
+        super.setName("Goblin");
+        super.setLevel(2);
+        super.setHp(10);
+        super.setDmg(5);
+        super.setGold(75);
+        super.setMinChance(0);
+        super.setMaxChance(24);
         
-        if(Player.GetLevel() > this.level)
+        if(Player.GetLevel() > super.getLevel())
         {
-            this.hp += Math.pow(Player.GetLevel() - this.level, 1.15) * 2;  
-            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.75) * 2; 
+            super.setHp((int)(Math.pow(Player.GetLevel() - super.getLevel(), 1.15) * 2));  
+            super.setDmg((int)Math.pow(Player.GetLevel() - super.getLevel(), 0.75) * 2); 
         }
     }
 }

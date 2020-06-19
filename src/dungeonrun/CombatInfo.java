@@ -25,7 +25,7 @@ public class CombatInfo {
         this.text = text;
         if(this.text.isEmpty())
         {
-            this.text = "In combat with " + this.enemy.name;
+            this.text = "In combat with " + this.enemy.getName();
         }
     }
     

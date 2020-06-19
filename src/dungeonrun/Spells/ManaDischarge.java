@@ -16,18 +16,18 @@ public class ManaDischarge extends Spell{
     
     public ManaDischarge()
     {
-        this.name = "Mana Discharge";
-        this.description = "Spend all of your current mp to deal significant damage based on mana spent";
-        this.levelReq = 33;
-        this.manaCost = Player.GetCurrentMp();
-        this.code = 70;
+        super.setName("Mana Discharge");
+        super.setDescription( "Spend all of your current mp to deal significant damage based on mana spent");
+        super.setLevelReq(33);
+        super.setManaCost(Player.GetCurrentMp());
+        super.setCode(70);
     }
     
     @Override
     public String CastSpell(Enemy enemy)
     {
-        int damage = (int)(Math.ceil(this.manaCost * 4.5));
-        enemy.hp -= damage;
+        int damage = (int)(Math.ceil(this.getManaCost() * 4.5));
+        enemy.setHp(enemy.getHp() - damage);
         return ("You spend all your current mana to do " + damage + " damage   |  ");
     }
 }

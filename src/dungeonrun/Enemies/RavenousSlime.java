@@ -15,18 +15,18 @@ public class RavenousSlime extends Enemy{
     
     public RavenousSlime()
     {
-        this.name = "Ravenous Slime";
-        this.level = 5;
-        this.hp = 25;
-        this.dmg = 8;
-        this.gold = 175;
-        this.minChance = 41;
-        this.maxChance = 55;
+        super.setName("Ravenous Slime");
+        super.setLevel( 5);
+        super.setHp(25);
+        super.setDmg(8);
+        super.setGold(175);
+        super.setMinChance(41);
+        super.setMaxChance(55);
         
-        if(Player.GetLevel() > this.level)
+        if(Player.GetLevel() > super.getLevel())
         {
-            this.hp += Math.pow(Player.GetLevel() - this.level, 1.6) * 1.4;
-            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.75) * 1; 
+            super.setHp((int)(Math.pow(Player.GetLevel() - super.getLevel(), 1.6) * 1.4));
+            super.setDmg((int)Math.pow(Player.GetLevel() - super.getLevel(), 0.75) * 1); 
         }
     }
 }

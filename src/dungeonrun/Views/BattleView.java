@@ -101,7 +101,7 @@ public class BattleView extends JPanel implements Observer{
     //Setting the image for an icon
     private void SetEnemyImage(Enemy enemy)
     {
-        enemyIcon = createImageIcon("../Images/" +enemy.name+ ".png", "Enemy Image");
+        enemyIcon = createImageIcon("../Images/" +enemy.getName()+ ".png", "Enemy Image");
         enemyImage.setIcon(enemyIcon);
     }
     
@@ -218,8 +218,8 @@ public class BattleView extends JPanel implements Observer{
     private void UpdateEnemy(Enemy enemy)
     {
         SetEnemyImage(enemy);
-        enemyName.setText(enemy.name);
-        enemyHpText.setText("HP: " + enemy.hp);
+        enemyName.setText(enemy.getName());
+        enemyHpText.setText("HP: " + enemy.getHp());
     }
     
     //Update visual information regarding the player
@@ -241,7 +241,7 @@ public class BattleView extends JPanel implements Observer{
         ArrayList<String> spells = new ArrayList<String>();
         for(Spell sp : Player.GetSpells())
         {
-            spells.add(sp.name + " | " + sp.manaCost + " | " + sp.description);
+            spells.add(sp.getName() + " | " + sp.getManaCost() + " | " + sp.getDescription());
         }
         
         spellsList.setListData(spells.toArray());
@@ -317,7 +317,7 @@ public class BattleView extends JPanel implements Observer{
             //Display victory popup
             if(info.getTextInfo().compareTo("Victory") == 0)
             {
-                ShowBattleEndPopup("Level Up! You have become stronger. \nYou have received " + info.GetEnemyInfo().gold + " gold");
+                ShowBattleEndPopup("Level Up! You have become stronger. \nYou have received " + info.GetEnemyInfo().getGold() + " gold");
             }
             //Display defeat popup
             else if(info.getTextInfo().compareTo("Defeat") == 0)

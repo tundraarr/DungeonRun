@@ -16,11 +16,11 @@ public class EnhanceMagic extends Spell{
     
     public EnhanceMagic()
     {
-        this.name = "Enhance Magic";
-        this.description = "Permanently increase your magic attack by 1";
-        this.levelReq = 19;
-        this.manaCost = 85;
-        this.code = 45;
+        super.setName("Enhance Magic");
+        super.setDescription("Permanently increase your magic attack by 1");
+        super.setLevelReq(19);
+        super.setManaCost(85);
+        super.setCode(45);
     }
     
     @Override

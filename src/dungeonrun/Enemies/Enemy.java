@@ -13,12 +13,68 @@ package dungeonrun.Enemies;
 //Defines an enemy
 //An enemy consists of a name, level, hp, dmg, gold, and min/max chance of appearing
 public class Enemy {
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getDmg() {
+        return dmg;
+    }
+
+    public void setDmg(int dmg) {
+        this.dmg = dmg;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public int getMinChance() {
+        return minChance;
+    }
+
+    public void setMinChance(int minChance) {
+        this.minChance = minChance;
+    }
+
+    public int getMaxChance() {
+        return maxChance;
+    }
+
+    public void setMaxChance(int maxChance) {
+        this.maxChance = maxChance;
+    }
     
-    public String name;
-    public int level;
-    public int hp;
-    public int dmg;
-    public int gold;
-    public int minChance;
-    public int maxChance;
+    private String name;
+    private int level;
+    private int hp;
+    private int dmg;
+    private int gold;
+    private int minChance;
+    private int maxChance;
 }

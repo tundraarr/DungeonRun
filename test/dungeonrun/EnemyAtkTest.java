@@ -49,8 +49,8 @@ public class EnemyAtkTest {
         System.out.println("Enemy attacking player");
         BattleState instance = new BattleState();
         
-        int expRemainingHpHi = (100 - (int)(instance.SpawnEnemy().dmg * 0.8));
-        int expRemainingHpLo = (100 - (int)(instance.SpawnEnemy().dmg * 1.2));
+        int expRemainingHpHi = (100 - (int)(instance.SpawnEnemy().getDmg() * 0.8));
+        int expRemainingHpLo = (100 - (int)(instance.SpawnEnemy().getDmg() * 1.2));
         
         instance.Attack();
         int resultHp = Player.GetCurrentHp();

@@ -18,11 +18,11 @@ public class FrostMissle extends Spell{
     
     public FrostMissle()
     {
-        this.name = "Frost Missle";
-        this.description = "Fire a frozen icicle at the enemy that does high damage";
-        this.levelReq = 10;
-        this.manaCost = 20;
-        this.code = 25;
+        super.setName("Frost Missle");
+        super.setDescription("Fire a frozen icicle at the enemy that does high damage");
+        super.setLevelReq(10);
+        super.setManaCost(20);
+        super.setCode(25);
         this.power = 20;
     }
     
@@ -30,7 +30,7 @@ public class FrostMissle extends Spell{
     public String CastSpell(Enemy enemy) 
     {
         int damage = this.power + (int)((Math.pow(Player.GetMagicAtk(), 0.85)) * 1.75);
-        enemy.hp -= damage;
+        enemy.setHp(enemy.getHp() - damage);
         return ("["+Player.GetName()+"]" + " does: " + damage + " damage   |  ");
     }
 }

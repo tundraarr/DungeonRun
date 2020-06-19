@@ -15,18 +15,18 @@ public class TheDarkness extends Enemy{
     
     public TheDarkness()
     {
-        this.name = "The Darkness";
-        this.level = 15;
-        this.hp = 150;
-        this.dmg = 30;
-        this.gold = 550;
-        this.minChance = 91;
-        this.maxChance = 100;
+        super.setName("The Darkness");
+        super.setLevel( 15);
+        super.setHp(150);
+        super.setDmg(30);
+        super.setGold(550);
+        super.setMinChance(91);
+        super.setMaxChance(100);
         
-        if(Player.GetLevel() > this.level)
+        if(Player.GetLevel() > super.getLevel())
         {
-            this.hp += Math.pow(Player.GetLevel() - this.level, 2) * 1.3;
-            this.dmg += Math.pow(Player.GetLevel() - this.level, 1.1) * 1.3; 
+            super.setHp((int)(Math.pow(Player.GetLevel() - super.getLevel(), 2) * 1.3));
+            super.setDmg((int)(Math.pow(Player.GetLevel() - super.getLevel(), 1.1) * 1.3)); 
         }
     }
 }

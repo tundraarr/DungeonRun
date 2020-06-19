@@ -18,11 +18,11 @@ public class Fireball extends Spell{
     
     public Fireball()
     {
-        this.name = "Fireball";
-        this.description = "Shoot a fireball that does decent damage   |  ";
-        this.levelReq = 1;
-        this.manaCost = 10;
-        this.code = 10;
+        super.setName("Fireball");
+        super.setDescription("Shoot a fireball that does decent damage   |  ");
+        super.setLevelReq(1);
+        super.setManaCost(10);
+        super.setCode(10);
         this.power = 7;
     }
 
@@ -30,7 +30,7 @@ public class Fireball extends Spell{
     public String CastSpell(Enemy enemy) 
     {
         int damage = this.power + (int)((Math.pow(Player.GetMagicAtk(), 0.5) * 1.2));
-        enemy.hp -= damage;
+        enemy.setHp(enemy.getHp() - damage);
         return ("["+Player.GetName()+"]" + " does: " + damage + " damage   |  ");
     }
 

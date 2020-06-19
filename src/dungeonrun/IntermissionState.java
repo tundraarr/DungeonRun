@@ -23,7 +23,7 @@ public class IntermissionState extends State{
     {
         for(Spell s : spellList.GetAllSpells())
         {
-            if(Player.GetLevel() >= s.levelReq)
+            if(Player.GetLevel() >= s.getLevelReq())
             {
                 if(!Player.GetSpells().contains(s))
                 {

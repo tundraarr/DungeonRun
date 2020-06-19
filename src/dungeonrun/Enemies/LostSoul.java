@@ -15,18 +15,18 @@ public class LostSoul extends Enemy{
     
     public LostSoul()
     {
-        this.name = "Lost Soul";
-        this.level = 8;
-        this.hp = 40;
-        this.dmg = 15;
-        this.gold = 250;
-        this.minChance = 56;
-        this.maxChance = 70;
+        super.setName("Lost Soul");
+        super.setLevel(8);
+        super.setHp(40);
+        super.setDmg(15);
+        super.setGold(250);
+        super.setMinChance(56);
+        super.setMaxChance(70);
         
-        if(Player.GetLevel() > this.level)
+        if(Player.GetLevel() > super.getLevel())
         {
-            this.hp += Math.pow(Player.GetLevel() - this.level, 1.1) * 2; 
-            this.dmg += Math.pow(Player.GetLevel() - this.level, 0.95) * 2; 
+            super.setHp((int)Math.pow(Player.GetLevel() - super.getLevel(), 1.1) * 2); 
+            super.setDmg((int)Math.pow(Player.GetLevel() - super.getLevel(), 0.95) * 2); 
         }
     }
 }

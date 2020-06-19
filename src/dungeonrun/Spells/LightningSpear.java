@@ -18,11 +18,11 @@ public class LightningSpear extends Spell{
     
     public LightningSpear()
     {
-        this.name = "Lightning Spear";
-        this.description = "Strike with lightning to deal damage that scales well with  magic attack";
-        this.levelReq = 4;
-        this.manaCost = 12;
-        this.code = 15;
+        super.setName("Lightning Spear");
+        super.setDescription("Strike with lightning to deal damage that scales well with  magic attack");
+        super.setLevelReq(4);
+        super.setManaCost(12);
+        super.setCode(15);
         this.power = 5;
     }
     
@@ -30,7 +30,7 @@ public class LightningSpear extends Spell{
     public String CastSpell(Enemy enemy) 
     {
         int damage = this.power + (int)((Math.pow(Player.GetMagicAtk(), 1.65)) * 0.75);
-        enemy.hp -= damage;
+        enemy.setHp(enemy.getHp() - damage);
         return ("["+Player.GetName()+"]" + " does: " + damage + " damage   |  ");
     }
 }

@@ -18,11 +18,11 @@ public class LifeDrain extends Spell{
     
     public LifeDrain()
     {
-        this.name = "Life Drain";
-        this.description = "Deal damage and restore hp equal to damage dealt";
-        this.levelReq = 23;
-        this.manaCost = 25;
-        this.code = 55;
+        super.setName("Life Drain");
+        super.setDescription("Deal damage and restore hp equal to damage dealt");
+        super.setLevelReq(23);
+        super.setManaCost(25);
+        super.setCode(55);
         this.drainPower = 15;
     }
     
@@ -30,7 +30,7 @@ public class LifeDrain extends Spell{
     public String CastSpell(Enemy enemy)
     {
         int damage = this.drainPower + (int)((Math.pow(Player.GetMagicAtk(), 0.75)) * 0.75);
-        enemy.hp -= damage;
+        enemy.setHp(enemy.getHp() - damage);
         if((Player.GetCurrentHp() + damage) > Player.GetMaxHp())
         {
             Player.SetCurrentHp(Player.GetMaxHp());

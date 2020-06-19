@@ -18,12 +18,12 @@ public class Heal extends Spell{
     
     public Heal()
     {
-        this.name = "Heal";
+        super.setName("Heal");
         this.healAmount = 40;
-        this.description = "Heal for " + this.healAmount;
-        this.levelReq = 6;
-        this.manaCost = 15;
-        this.code = 20;
+        super.setDescription("Heal for " + this.healAmount);
+        super.setLevelReq(6);
+        super.setManaCost(15);
+        super.setCode(20);
     }
     
     @Override
