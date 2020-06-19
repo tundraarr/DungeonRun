@@ -33,7 +33,8 @@ public class BattleState extends State{
       
     //Spawn the enemy based on the enemy's probability of appearing
     //If the number generated is between the enemy's min & max chance, instantiate that enemy
-    public void SpawnEnemy()
+    //Returns enemy for testing purposes
+    public Enemy SpawnEnemy()
     {
         Enemy[] enemies = new Enemy[]{new Goblin(), new Skeleton(), new LostSoul(), new RavenousSlime(), new UndeadKnight(), new Necromancer(), new TheDarkness()};
 
@@ -45,6 +46,8 @@ public class BattleState extends State{
                 enemy = e;
             }
         }
+        
+        return enemy;
     }   
     
     //Update the BattleView
@@ -71,7 +74,7 @@ public class BattleState extends State{
     
     //Player attacks the enemy and deals damage to them based on their attack stat
     //Player attacks can also crit (deal double damage), with chance of occurring based on their luck stat
-    public void Attack()
+    public int Attack()
     {      
         int pDamage = 3 + (int)Math.ceil(Math.pow(Player.GetAtk(), 1.35) * 0.65);
         if(ran.nextInt(100) <= (Player.GetLuck() * 2))
@@ -84,6 +87,7 @@ public class BattleState extends State{
         combatText += ("["+Player.GetName()+"]" + " did: " + pDamage+ " damage   |  ");
         UpdateSelf();
         PlayerCombatResult();
+        return pDamage;
     }
     
     
